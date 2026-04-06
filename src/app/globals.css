@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Isamanru';
+  src: url('/fonts/Isamanru-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+  --font-segym: 'Isamanru', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #1f2937;
+  background: #ffffff;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 커스텀 스크롤바 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* 히어로 상단 여백 제거 (헤더 아래 검은 간격 방지) */
+.hero-section {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* 타이포 통일: 대제목 / 소제목, 서브 / 본문 / 캡션 */
+.section-title {
+  @apply text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900;
+}
+.section-subtitle {
+  @apply text-base md:text-lg text-gray-600;
+}
+.section-body {
+  @apply text-base md:text-lg text-gray-600 leading-relaxed;
+}
+.section-caption {
+  @apply text-sm text-gray-500;
+}
+.card-title {
+  @apply text-lg md:text-xl font-semibold text-gray-900;
+}
+
+/* 2줄 대제목 행간 (일반적인 행간) */
+.section-title-2line {
+  line-height: 1.65;
+}
+
+/* 가로 스크롤바 숨기기 */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+/* 회전초밥형 무한 가로 슬라이드 */
+@keyframes scroll-track {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-scroll-track {
+  animation: scroll-track 40s linear infinite;
+}
+
+/*
+ * 한글 줄바꿈: 어절 우선(keep-all), 필요 시 break-word.
+ * 섹션, 카드, 모달, 푸터 등 공통 적용으로 홑글자/조사 단독 행 방지.
+ */
+.ko-modal-copy,
+.section-body,
+.section-subtitle,
+.section-caption,
+.card-title,
+.section-title {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+  hyphens: none;
+}

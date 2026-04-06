@@ -1,0 +1,77 @@
+.hero {
+  padding-top: 100px; /* Header 높이 고려 */
+  padding-bottom: var(--spacing-xl);
+  background: linear-gradient(135deg, var(--color-white) 0%, var(--color-light-gray) 100%);
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.heroContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  align-items: center;
+}
+
+.heroText {
+  max-width: 600px;
+}
+
+.heroTitle {
+  font-size: var(--font-size-5xl);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.brandName {
+  display: block;
+  color: var(--color-primary);
+  margin-top: var(--spacing-xs);
+}
+
+.heroSubtitle {
+  font-size: var(--font-size-xl);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.6;
+}
+
+.heroButtons {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.heroImage {
+  position: relative;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 500px;
+  background: linear-gradient(135deg, var(--color-gray) 0%, var(--color-light-gray) 100%);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  font-size: var(--font-size-lg);
+}
+
+@media (max-width: 968px) {
+  .heroContent {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .heroText {
+    max-width: 100%;
+  }
+  
+  .heroButtons {
+    justify-content: center;
+  }
+}

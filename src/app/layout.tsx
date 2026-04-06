@@ -14,10 +14,40 @@ function getSiteUrl(): string {
   return 'http://localhost:3000'
 }
 
+const siteTitle = '세짐 - AI 스마트 운동로봇 SEGYM'
+const siteDescription = 'AI 스마트 운동로봇 SEGYM, 세짐으로 운동의 모든 순간을 바꾸세요.'
+/** 카카오 등 링크 미리보기(OG)용 — public/images/segym_new.png */
+const ogImagePath = '/images/segym_new.png'
+
+const siteOrigin = getSiteUrl()
+/** 카카오·페북 크롤러는 절대 URL을 권장. siteOrigin은 실제로 이미지가 열리는 호스트와 같아야 함 */
+const ogImageAbsoluteUrl = `${siteOrigin}${ogImagePath}`
+
 export const metadata: Metadata = {
-  metadataBase: new URL(getSiteUrl()),
-  title: '세짐 - AI 스마트 운동로봇 SEGYM',
-  description: 'AI 스마트 운동로봇 SEGYM, 세짐으로 운동의 모든 순간을 바꾸세요.',
+  metadataBase: new URL(siteOrigin),
+  title: siteTitle,
+  description: siteDescription,
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    type: 'website',
+    locale: 'ko_KR',
+    url: siteOrigin,
+    images: [
+      {
+        url: ogImageAbsoluteUrl,
+        width: 1200,
+        height: 630,
+        alt: '세짐 SEGYM 스미스 로봇',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteTitle,
+    description: siteDescription,
+    images: [ogImageAbsoluteUrl],
+  },
 }
 
 export default function RootLayout({

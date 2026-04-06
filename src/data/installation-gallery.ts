@@ -148,8 +148,8 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
   {
     id: '15',
     src: '/images/installations/install-15.jpg',
-    title: '부천 우디핏',
-    alt: '세짐 설치 사례 — 부천 우디핏',
+    title: '의왕 우디핏',
+    alt: '세짐 설치 사례 — 의왕 우디핏',
     categoryId: 'health',
   },
   {

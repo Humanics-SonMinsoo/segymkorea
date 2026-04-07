@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { MetaPixel } from '@/components/analytics/MetaPixel'
 import { Providers } from './providers'
 
 /** OG/메타 절대 URL용. Vercel에서는 NEXT_PUBLIC_SITE_URL(예: https://segymkorea.com) 설정 권장 */
@@ -58,6 +59,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="antialiased">
+        <MetaPixel />
         <Providers>{children}</Providers>
       </body>
     </html>

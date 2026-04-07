@@ -2,8 +2,10 @@ import { promises as fs } from 'fs'
 import path from 'path'
 import { randomUUID } from 'crypto'
 import type { BrochureRequest } from '@/types/brochure-request'
+import { getUpstashRedis, redisGetJson, redisSetJson } from '@/lib/upstash-json'
 
 const DATA_PATH = path.join(process.cwd(), 'data', 'brochure-requests.json')
+const REDIS_KEY = 'segym:brochure-requests:v1'
 
 async function ensureDataFile(): Promise<void> {
   const dir = path.dirname(DATA_PATH)
@@ -15,10 +17,10 @@ async function ensureDataFile(): Promise<void> {
   }
 }
 
-export async function readBrochureRequests(): Promise<BrochureRequest[]> {
-  await ensureDataFile()
-  const raw = await fs.readFile(DATA_PATH, 'utf-8')
+async function readFromFile(): Promise<BrochureRequest[]> {
   try {
+    await ensureDataFile()
+    const raw = await fs.readFile(DATA_PATH, 'utf-8')
     const parsed = JSON.parse(raw) as unknown
     return Array.isArray(parsed) ? (parsed as BrochureRequest[]) : []
   } catch {
@@ -26,9 +28,27 @@ export async function readBrochureRequests(): Promise<BrochureRequest[]> {
   }
 }
 
-export async function writeBrochureRequests(rows: BrochureRequest[]): Promise<void> {
+async function writeToFile(rows: BrochureRequest[]): Promise<void> {
   await ensureDataFile()
   await fs.writeFile(DATA_PATH, JSON.stringify(rows, null, 2), 'utf-8')
+}
+
+export async function readBrochureRequests(): Promise<BrochureRequest[]> {
+  const redis = getUpstashRedis()
+  if (redis) {
+    const data = await redisGetJson<unknown>(redis, REDIS_KEY, [])
+    return Array.isArray(data) ? (data as BrochureRequest[]) : []
+  }
+  return readFromFile()
+}
+
+export async function writeBrochureRequests(rows: BrochureRequest[]): Promise<void> {
+  const redis = getUpstashRedis()
+  if (redis) {
+    await redisSetJson(redis, REDIS_KEY, rows)
+    return
+  }
+  await writeToFile(rows)
 }
 
 export type NewBrochureRequestInput = {

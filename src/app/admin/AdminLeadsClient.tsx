@@ -93,16 +93,20 @@ export default function AdminLeadsClient() {
         router.push('/admin/login')
         return
       }
+      const data = await res.json().catch(() => ({}))
       if (!res.ok) {
-        setError('저장에 실패했습니다.')
+        const msg =
+          typeof data.error === 'string' && data.error.trim()
+            ? data.error
+            : `저장에 실패했습니다. (${res.status})`
+        setError(msg)
         return
       }
-      const data = await res.json()
       if (data.lead) {
         setLeads((prev) => prev.map((l) => (l.id === id ? data.lead : l)))
       }
     } catch {
-      setError('저장에 실패했습니다.')
+      setError('저장에 실패했습니다. (네트워크 오류)')
     } finally {
       setSavingId(null)
     }

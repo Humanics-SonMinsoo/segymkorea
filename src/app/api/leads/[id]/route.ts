@@ -49,10 +49,21 @@ export async function PATCH(
     }
     const updated = await updateLead(id, patch)
     if (!updated) {
-      return NextResponse.json({ error: 'Not found' }, { status: 404 })
+      return NextResponse.json(
+        { error: '해당 리드를 찾을 수 없습니다. 새로고침 후 다시 시도해 주세요.' },
+        { status: 404 },
+      )
     }
     return NextResponse.json({ lead: updated })
-  } catch {
-    return NextResponse.json({ error: '업데이트 실패' }, { status: 500 })
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e)
+    console.error('[api/leads PATCH]', msg, e)
+    return NextResponse.json(
+      {
+        error:
+          '리드 저장에 실패했습니다. Upstash Redis 연결·Vercel 환경 변수·Redeploy를 확인하거나, 잠시 후 다시 시도해 주세요.',
+      },
+      { status: 500 },
+    )
   }
 }

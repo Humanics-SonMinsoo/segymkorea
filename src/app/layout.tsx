@@ -5,14 +5,32 @@ import { Providers } from './providers'
 
 /** OG/메타 절대 URL용. Vercel에서는 NEXT_PUBLIC_SITE_URL(예: https://segymkorea.com) 설정 권장 */
 function getSiteUrl(): string {
-  const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim()
+  let explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim()
   if (explicit) {
-    return explicit.replace(/\/$/, '')
+    explicit = explicit.replace(/\/$/, '')
+    // "segymkorea.com" 처럼 프로토콜 없으면 new URL() 실패 → 레이아웃 전체가 터짐
+    if (explicit && !/^https?:\/\//i.test(explicit)) {
+      explicit = `https://${explicit.replace(/^\/+/, '')}`
+    }
+    return explicit
   }
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL.replace(/\/$/, '')}`
   }
   return 'http://localhost:3000'
+}
+
+function safeMetadataBase(): URL {
+  const origin = getSiteUrl()
+  try {
+    return new URL(origin)
+  } catch {
+    const fallback =
+      process.env.VERCEL_URL != null
+        ? `https://${String(process.env.VERCEL_URL).replace(/\/$/, '')}`
+        : 'http://localhost:3000'
+    return new URL(fallback)
+  }
 }
 
 const siteTitle = '세짐 - AI 스마트 운동로봇 SEGYM'
@@ -25,7 +43,7 @@ const siteOrigin = getSiteUrl()
 const ogImageAbsoluteUrl = `${siteOrigin}${ogImagePath}`
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteOrigin),
+  metadataBase: safeMetadataBase(),
   title: siteTitle,
   description: siteDescription,
   openGraph: {

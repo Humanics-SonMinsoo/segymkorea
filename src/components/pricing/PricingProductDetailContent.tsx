@@ -1,6 +1,8 @@
 'use client'
 
+import { useEffect } from 'react'
 import Link from 'next/link'
+import { trackMetaStandard } from '@/lib/meta-pixel'
 import type { PricingProduct } from '@/data/pricing-products'
 import { OpenInquiryButton } from '@/components/inquiry/OpenInquiryButton'
 import { OpenBrochureButton } from '@/components/brochure/OpenBrochureButton'
@@ -11,6 +13,14 @@ type Props = {
 
 export function PricingProductDetailContent({ product }: Props) {
   const isSmith = product.id === 'smith'
+
+  useEffect(() => {
+    trackMetaStandard('ViewContent', {
+      content_ids: product.id,
+      content_type: 'pricing',
+      content_name: product.name,
+    })
+  }, [product.id, product.name])
 
   return (
     <div className="space-y-10 sm:space-y-12">

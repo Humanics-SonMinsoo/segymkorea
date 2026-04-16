@@ -1,5 +1,6 @@
 'use client'
 
+import { trackMetaCustom } from '@/lib/meta-pixel'
 import { useInquiryModal } from './InquiryModalContext'
 import type { ButtonHTMLAttributes } from 'react'
 
@@ -14,7 +15,10 @@ export function OpenInquiryButton({ onClick, type = 'button', ...rest }: Props) 
       {...rest}
       onClick={(e) => {
         onClick?.(e)
-        if (!e.defaultPrevented) openInquiryModal()
+        if (!e.defaultPrevented) {
+          trackMetaCustom('OpenInquiryModal', { placement: 'cta' })
+          openInquiryModal()
+        }
       }}
     />
   )

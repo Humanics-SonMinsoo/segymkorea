@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { MetaProductViewBeacon } from '@/components/analytics/MetaProductViewBeacon'
 import { SiteSubPage } from '@/components/layout/SiteSubPage'
 import { ProductSmithIntroContent } from '@/components/product/ProductSmithIntroContent'
 import { PRODUCT_GALLERY_ITEMS, getProductGalleryItemBySlug } from '@/data/product-gallery'
@@ -36,6 +37,7 @@ export default function ProductDetailPage({ params }: PageProps) {
       title={`${item.name}`}
       backLink={{ href: '/product', label: '제품소개 목록' }}
     >
+      <MetaProductViewBeacon />
       <ProductSmithIntroContent />
     </SiteSubPage>
   )

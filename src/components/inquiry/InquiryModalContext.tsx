@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from 'react'
 import Link from 'next/link'
+import { trackMetaStandard } from '@/lib/meta-pixel'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
 
 type InquiryModalContextValue = {
@@ -80,6 +81,10 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
         return
       }
       setSubmitted(true)
+      trackMetaStandard('Lead', {
+        content_name: '도입 문의',
+        content_category: 'segym_inquiry',
+      })
     } catch {
       setError('네트워크 오류가 발생했습니다.')
     } finally {

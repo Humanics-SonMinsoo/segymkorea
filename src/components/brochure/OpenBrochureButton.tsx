@@ -1,5 +1,6 @@
 'use client'
 
+import { trackMetaCustom } from '@/lib/meta-pixel'
 import { useBrochureModal } from './BrochureModalContext'
 import type { ButtonHTMLAttributes } from 'react'
 
@@ -14,7 +15,10 @@ export function OpenBrochureButton({ onClick, type = 'button', ...rest }: Props)
       {...rest}
       onClick={(e) => {
         onClick?.(e)
-        if (!e.defaultPrevented) openBrochureModal()
+        if (!e.defaultPrevented) {
+          trackMetaCustom('OpenBrochureModal', { placement: 'cta' })
+          openBrochureModal()
+        }
       }}
     />
   )

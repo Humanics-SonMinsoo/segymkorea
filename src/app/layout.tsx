@@ -42,10 +42,21 @@ const siteOrigin = getSiteUrl()
 /** 카카오·페북 크롤러는 절대 URL을 권장. siteOrigin은 실제로 이미지가 열리는 호스트와 같아야 함 */
 const ogImageAbsoluteUrl = `${siteOrigin}${ogImagePath}`
 
+/**
+ * 네이버 서치어드바이저 — 메타 `content` 값.
+ * Vercel에 `NEXT_PUBLIC_NAVER_SITE_VERIFICATION` 이 있으면 그걸 우선(교체 시 유용).
+ */
+const naverSiteVerification =
+  process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION?.trim() ||
+  '0317053086827c712462cc69590af1a362b9654b'
+
 export const metadata: Metadata = {
   metadataBase: safeMetadataBase(),
   title: siteTitle,
   description: siteDescription,
+  verification: {
+    other: { 'naver-site-verification': naverSiteVerification },
+  },
   openGraph: {
     title: siteTitle,
     description: siteDescription,

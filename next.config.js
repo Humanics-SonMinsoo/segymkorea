@@ -23,6 +23,20 @@ const nextConfig = {
       { source: '/pricing/cycle', destination: '/pricing', permanent: false },
     ]
   },
+  /**
+   * 네이버 소유 확인 HTML — public 정적 파일보다 먼저 매칭되도록 beforeFiles.
+   * (배포 후에도 404 나는 환경에서 동일 URL로 200 응답 보장)
+   */
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/naver603a069df921dcb5566c6df25e62567d.html',
+          destination: '/api/naver-site-verification',
+        },
+      ],
+    }
+  },
 }
 
 module.exports = nextConfig

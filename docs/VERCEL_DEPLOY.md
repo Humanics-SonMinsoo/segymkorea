@@ -25,6 +25,8 @@
 | `ADMIN_SESSION_SECRET` | 세션용 긴 임의 문자열 (32자 이상 권장) |
 | `NEXT_PUBLIC_SITE_URL` | **`https://segymkorea.com`** (끝에 슬래시 없이) |
 | `NEXT_PUBLIC_KAKAO_CHANNEL_URL` | (선택) 카카오 채널 채팅 URL |
+| `NEXT_PUBLIC_META_PIXEL_ID` | (선택) Meta 픽셀 ID |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | (선택) Google Analytics 4 측정 ID (`G-…`) |
 | `UPSTASH_REDIS_REST_URL` | **(운영 필수)** Upstash Redis REST URL |
 | `UPSTASH_REDIS_REST_TOKEN` | **(운영 필수)** Upstash Redis REST TOKEN |
 | `NEXT_PUBLIC_NAVER_SITE_VERIFICATION` | (선택) 네이버 서치어드바이저 HTML 태그의 `content` 값만 |

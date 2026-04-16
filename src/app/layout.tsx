@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import { MetaPixel } from '@/components/analytics/MetaPixel'
 import { Providers } from './providers'
 
@@ -88,6 +89,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="antialiased">
+        <GoogleAnalytics />
         <MetaPixel />
         <Providers>{children}</Providers>
       </body>

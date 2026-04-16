@@ -17,12 +17,18 @@ ${NAVER_VERIFICATION_BODY}
 </html>
 `
 
+const headers = {
+  'Content-Type': 'text/html; charset=utf-8',
+  'Cache-Control': 'no-store, max-age=0, must-revalidate',
+} as const
+
+export async function HEAD() {
+  return new NextResponse(null, { status: 200, headers })
+}
+
 export async function GET() {
   return new NextResponse(HTML, {
     status: 200,
-    headers: {
-      'Content-Type': 'text/html; charset=utf-8',
-      'Cache-Control': 'public, max-age=0, must-revalidate',
-    },
+    headers,
   })
 }

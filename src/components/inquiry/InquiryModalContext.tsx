@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from 'react'
 import Link from 'next/link'
+import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
 
@@ -81,6 +82,10 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
         return
       }
       setSubmitted(true)
+      trackGa4GenerateLead({
+        form_id: 'segym_inquiry',
+        form_name: '도입 문의',
+      })
       trackMetaStandard('Lead', {
         content_name: '도입 문의',
         content_category: 'segym_inquiry',

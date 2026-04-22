@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from 'react'
 import Link from 'next/link'
+import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
 
@@ -77,6 +78,10 @@ function BrochureModalDialog({ onClose }: { onClose: () => void }) {
         return
       }
       setSubmitted(true)
+      trackGa4GenerateLead({
+        form_id: 'segym_brochure',
+        form_name: '소개서 받기',
+      })
       trackMetaStandard('Lead', {
         content_name: '소개서 받기',
         content_category: 'segym_brochure',

@@ -2,12 +2,26 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
-  INSTALLATION_CATEGORIES,
+  INSTALLATION_FEATURED_IDS,
   INSTALLATION_GALLERY,
+  INSTALLATION_CATEGORIES,
+  installationRegionSortIndex,
   type InstallationCategoryId,
   type InstallationPhoto,
 } from '@/data/installation-gallery'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
+
+/** 같은 지역끼리 묶이도록 정렬. 지역 안 순서는 `INSTALLATION_GALLERY` 배열 순서 유지 */
+const GALLERY_ORDER_INDEX = new Map(INSTALLATION_GALLERY.map((p, i) => [p.id, i]))
+
+function sortPhotosByRegion(photos: InstallationPhoto[]): InstallationPhoto[] {
+  return [...photos].sort((a, b) => {
+    const ra = installationRegionSortIndex(a.regionKey || '기타')
+    const rb = installationRegionSortIndex(b.regionKey || '기타')
+    if (ra !== rb) return ra - rb
+    return (GALLERY_ORDER_INDEX.get(a.id) ?? 0) - (GALLERY_ORDER_INDEX.get(b.id) ?? 0)
+  })
+}
 
 function Lightbox({ photo, onClose }: { photo: InstallationPhoto; onClose: () => void }) {
   const entered = useModalEnterAnimation()
@@ -78,14 +92,73 @@ function categoryChipClass(active: boolean) {
   return `${base} border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50`
 }
 
+const gridClass =
+  'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-6 sm:gap-7 lg:gap-9 list-none p-0 m-0'
+
+function PhotoCard({
+  photo,
+  onOpen,
+}: {
+  photo: InstallationPhoto
+  onOpen: (p: InstallationPhoto) => void
+}) {
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={() => onOpen(photo)}
+        className="group w-full text-left rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm transition hover:border-primary/30 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      >
+        <div className="aspect-[4/3] sm:aspect-[4/3] bg-gray-100 overflow-hidden">
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            loading="lazy"
+          />
+        </div>
+        <p className="px-4 py-3.5 sm:px-5 sm:py-4 text-sm sm:text-base font-medium text-gray-800 ko-modal-copy line-clamp-2 border-t border-gray-50">
+          {photo.title}
+        </p>
+      </button>
+    </li>
+  )
+}
+
 export function InstallationGallery() {
   const [active, setActive] = useState<InstallationPhoto | null>(null)
   const [category, setCategory] = useState<InstallationCategoryId>('all')
   const close = useCallback(() => setActive(null), [])
 
-  const filtered = useMemo(() => {
-    if (category === 'all') return INSTALLATION_GALLERY
-    return INSTALLATION_GALLERY.filter((p) => p.categoryId === category)
+  const { featuredRow, mainRow, isEmpty } = useMemo(() => {
+    const featuredIdSet = new Set<string>(INSTALLATION_FEATURED_IDS)
+
+    const filtered =
+      category === 'all'
+        ? INSTALLATION_GALLERY
+        : INSTALLATION_GALLERY.filter((p) => p.categoryId === category)
+
+    if (filtered.length === 0) {
+      return { featuredRow: [] as InstallationPhoto[], mainRow: [] as InstallationPhoto[], isEmpty: true }
+    }
+
+    if (category === 'all') {
+      const featuredRow = INSTALLATION_FEATURED_IDS.map((id) => INSTALLATION_GALLERY.find((p) => p.id === id)).filter(
+        (p): p is InstallationPhoto => p != null,
+      )
+      const rest = filtered.filter((p) => !featuredIdSet.has(p.id))
+      return {
+        featuredRow,
+        mainRow: sortPhotosByRegion(rest),
+        isEmpty: false,
+      }
+    }
+
+    return {
+      featuredRow: [],
+      mainRow: sortPhotosByRegion(filtered),
+      isEmpty: false,
+    }
   }, [category])
 
   return (
@@ -118,34 +191,35 @@ export function InstallationGallery() {
         ))}
       </div>
 
-      {filtered.length === 0 ? (
+      {isEmpty ? (
         <p className="text-gray-600 ko-modal-copy text-sm sm:text-base py-8 text-center">
           해당 카테고리에 등록된 사례가 없습니다.
         </p>
       ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-6 sm:gap-7 lg:gap-9 list-none p-0 m-0">
-          {filtered.map((photo) => (
-            <li key={photo.id}>
-              <button
-                type="button"
-                onClick={() => setActive(photo)}
-                className="group w-full text-left rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm transition hover:border-primary/30 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        <>
+          {featuredRow.length > 0 ? (
+            <section className="mb-8 sm:mb-10" aria-labelledby="install-featured-heading">
+              <h2
+                id="install-featured-heading"
+                className="text-lg sm:text-xl font-bold text-gray-900 ko-modal-copy mb-4 sm:mb-6"
               >
-                <div className="aspect-[4/3] sm:aspect-[4/3] bg-gray-100 overflow-hidden">
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                    loading="lazy"
-                  />
-                </div>
-                <p className="px-4 py-3.5 sm:px-5 sm:py-4 text-sm sm:text-base font-medium text-gray-800 ko-modal-copy line-clamp-2 border-t border-gray-50">
-                  {photo.title}
-                </p>
-              </button>
-            </li>
-          ))}
-        </ul>
+                대표 사례
+              </h2>
+              <p className="sr-only">올라잇짐, 프렌드짐, 진천 국가대표 선수촌 순으로 고정 노출됩니다.</p>
+              <ul className={gridClass}>
+                {featuredRow.map((photo) => (
+                  <PhotoCard key={photo.id} photo={photo} onOpen={setActive} />
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          <ul className={gridClass}>
+            {mainRow.map((photo) => (
+              <PhotoCard key={photo.id} photo={photo} onOpen={setActive} />
+            ))}
+          </ul>
+        </>
       )}
       {active ? <Lightbox photo={active} onClose={close} /> : null}
     </>

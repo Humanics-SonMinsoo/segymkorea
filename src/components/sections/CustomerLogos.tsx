@@ -8,13 +8,13 @@ export default function CustomerLogos() {
   
   const customers = [
     {
-      name: '수원 올라잇짐',
+      name: '수원 영통구 올라잇짐',
       description: '프리미엄 트레이닝 경험 제공',
       icon: '🏋️',
       image: '/images/customers/allright.png', // 이미지 경로 (선택사항)
     },
     {
-      name: '진천국가대표선수촌',
+      name: '충북 진천 국가대표 선수촌',
       description: '국가대표 선수들의 훈련 지원',
       icon: '🏅',
       image: '/images/customers/jincheon.png', // 이미지 경로 (선택사항)
@@ -26,7 +26,7 @@ export default function CustomerLogos() {
       image: '/images/customers/kspo.png', // 이미지 경로 (선택사항)
     },
     {
-      name: 'SSG랜더스',
+      name: '인천 연수구 SSG 랜더스',
       description: '프로야구단 선수 트레이닝',
       icon: '⚾',
       image: '/images/customers/ssg.png', // 이미지 경로 (선택사항)

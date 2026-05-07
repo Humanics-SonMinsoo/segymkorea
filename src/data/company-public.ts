@@ -7,7 +7,8 @@ export const COMPANY_PUBLIC = {
   ceo: '최정수',
   bizNo: '839-87-02862',
   addressMain: '경상북도 경산시 대학로 280, 영남대학교 창업보육센터 205호',
-  addressOffice: '경기도 광명시 일직로 43, GIDC B동 2412호',
+  addressOffice:
+    '경기도 광명시 일직로 99번길 15 (일직동 505-5) 1층 101호',
   phone: '02-897-5250',
   email: 'humanics@humanics.kr',
 } as const

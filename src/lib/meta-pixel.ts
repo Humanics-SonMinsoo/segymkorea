@@ -34,7 +34,7 @@ export function trackMetaStandard(
     if (p) window.fbq!('track', event, p)
     else window.fbq!('track', event)
   } catch {
-    /* 픽셀 차단·광고차단 등 */
+    /* 픽셀 차단, 광고차단 등 */
   }
 }
 

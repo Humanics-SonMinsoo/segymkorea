@@ -1,5 +1,5 @@
 /**
- * Vercel/복사 시 따옴표·앞뒤 공백·BOM·CR이 섞이는 경우 제거
+ * Vercel/복사 시 따옴표, 앞뒤 공백, BOM, CR이 섞이는 경우 제거
  */
 export function normalizeEnvValue(s: string | undefined): string {
   let t = (s ?? '')

@@ -13,7 +13,7 @@ function isAdmin(): boolean {
 }
 
 /**
- * Redis URL·토큰이 있으면 어디서든 Redis 사용.
+ * Redis URL과 토큰이 있으면 어디서든 Redis 사용.
  * Vercel인데 Redis 없으면 파일 쓰기 불가 → 거부.
  */
 function persistenceReady(): boolean {
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error:
-          '저장에 실패했습니다. Upstash REST API의 읽기·쓰기용 TOKEN(Read-Only 토큰이 아닌지) 확인, Vercel 환경 변수(따옴표 없이)·Git 연동 시 최신 코드 push 후 Redeploy를 해 주세요.',
+          '저장에 실패했습니다. Upstash REST API의 읽기, 쓰기용 TOKEN(Read-Only 토큰이 아닌지) 확인, Vercel 환경 변수(따옴표 없이), Git 연동 시 최신 코드 push 후 Redeploy를 해 주세요.',
         ...(debug ? { debug: msg } : {}),
       },
       { status: 500 },

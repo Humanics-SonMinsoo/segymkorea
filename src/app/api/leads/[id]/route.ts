@@ -61,7 +61,7 @@ export async function PATCH(
     return NextResponse.json(
       {
         error:
-          '리드 저장에 실패했습니다. Upstash Redis 연결·Vercel 환경 변수·Redeploy를 확인하거나, 잠시 후 다시 시도해 주세요.',
+          '리드 저장에 실패했습니다. Upstash Redis 연결, Vercel 환경 변수, Redeploy를 확인하거나, 잠시 후 다시 시도해 주세요.',
       },
       { status: 500 },
     )

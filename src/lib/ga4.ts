@@ -45,13 +45,13 @@ export function trackGa4Event(
     if (p) window.gtag!('event', name, p)
     else window.gtag!('event', name)
   } catch {
-    /* 광고 차단·CMP 등 */
+    /* 광고 차단, CMP 등 */
   }
 }
 
 /**
  * 리드/문의 전환용 권장 이벤트.
- * Google Ads 전환 가져오기·GA4 전환 이벤트로 `generate_lead` 를 쓸 때 활용 가능.
+ * Google Ads 전환 가져오기와 GA4 전환 이벤트로 `generate_lead` 를 쓸 때 활용 가능.
  */
 export function trackGa4GenerateLead(params: {
   form_id: string

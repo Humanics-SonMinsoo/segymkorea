@@ -40,7 +40,7 @@ const siteDescription = 'AI 스마트 운동로봇 SEGYM, 세짐으로 운동의
 const ogImagePath = '/images/segym_new.png'
 
 const siteOrigin = getSiteUrl()
-/** 카카오·페북 크롤러는 절대 URL을 권장. siteOrigin은 실제로 이미지가 열리는 호스트와 같아야 함 */
+/** 카카오, 페북 크롤러는 절대 URL을 권장. siteOrigin은 실제로 이미지가 열리는 호스트와 같아야 함 */
 const ogImageAbsoluteUrl = `${siteOrigin}${ogImagePath}`
 
 /**

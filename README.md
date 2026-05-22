@@ -51,7 +51,7 @@ Next가 내부 `/_error` 번들을 못 찾을 때입니다. **`npm run dev:fix`*
 
 | 명령 | 설명 |
 |------|------|
-| `npm run dev` | **Webpack** 개발 서버 (포트 3000, **기본·안정**) |
+| `npm run dev` | **Webpack** 개발 서버 (포트 3000, **기본, 안정**) |
 | `npm run dev:turbo` | Turbopack dev (빠르지만 환경에 따라 불안정할 수 있음) |
 | `npm run dev:webpack` | `dev`와 동일 |
 | `npm run dev:clean` | clean 후 Webpack dev |

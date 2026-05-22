@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { COOKIE_NAME, verifyAdminSession } from '@/lib/admin-auth'
 
-/** 어드민은 브라우저에서만 마운트 — RSC/SSR 경로에서의 예외·청크 이슈 완화 */
+/** 어드민은 브라우저에서만 마운트 — RSC/SSR 경로에서의 예외, 청크 이슈 완화 */
 const AdminLeadsClient = nextDynamic(() => import('./AdminLeadsClient'), {
   ssr: false,
   loading: () => (

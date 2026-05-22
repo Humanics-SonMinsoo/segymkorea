@@ -71,7 +71,7 @@ export type InstallationPhoto = {
 export const INSTALLATION_GALLERY: InstallationPhoto[] = [
   {
     id: '22',
-    src: '/images/installations/install-22.jpg',
+    src: '/images/installations/install-23.jpg',
     title: '경기 의정부 올인짐 본점',
     alt: '세짐 설치 사례 — 경기 의정부 올인짐 본점',
     categoryId: 'health',
@@ -79,7 +79,7 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
   },
   {
     id: '23',
-    src: '/images/installations/install-23.jpg',
+    src: '/images/installations/install-22.jpg',
     title: '서울 강남구 퓨어짐',
     alt: '세짐 설치 사례 — 서울 강남구 퓨어짐',
     categoryId: 'health',

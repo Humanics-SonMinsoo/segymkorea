@@ -27,10 +27,10 @@
 
 - 헬퍼: `src/lib/meta-pixel.ts`
 - 픽셀 로드: `src/components/analytics/MetaPixel.tsx`
-- 전환·모달: `InquiryModalContext`, `BrochureModalContext`, `OpenInquiryButton`, `OpenBrochureButton`, `PricingProductDetailContent`, `MetaProductViewBeacon`
+- 전환, 모달: `InquiryModalContext`, `BrochureModalContext`, `OpenInquiryButton`, `OpenBrochureButton`, `PricingProductDetailContent`, `MetaProductViewBeacon`
 
 ## 광고 세팅 팁
 
 1. 이벤트 관리자 → **데이터 소스** → 해당 픽셀 → **테스트 이벤트** 로 실시간 수신 확인  
 2. 캠페인 전환 목표: **리드** 또는 **맞춤 전환**에서 `Lead` / 커스텀 이벤트 선택  
-3. (선택) 서버에서도내려면 **Conversions API** 를 추가하면 중복·누락이 줄어듭니다.
+3. (선택) 서버에서도내려면 **Conversions API** 를 추가하면 중복, 누락이 줄어듭니다.

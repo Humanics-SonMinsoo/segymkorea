@@ -5,6 +5,7 @@ import {
   INSTALLATION_FEATURED_IDS,
   INSTALLATION_GALLERY,
   INSTALLATION_CATEGORIES,
+  INSTALLATION_NEW_IDS,
   installationRegionSortIndex,
   type InstallationCategoryId,
   type InstallationPhoto,
@@ -98,17 +99,24 @@ const gridClass =
 function PhotoCard({
   photo,
   onOpen,
+  isNew,
 }: {
   photo: InstallationPhoto
   onOpen: (p: InstallationPhoto) => void
+  isNew?: boolean
 }) {
   return (
     <li>
       <button
         type="button"
         onClick={() => onOpen(photo)}
-        className="group w-full text-left rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm transition hover:border-primary/30 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        className="group relative w-full text-left rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm transition hover:border-primary/30 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
+        {isNew ? (
+          <span className="absolute left-3 top-3 z-10 rounded-md bg-primary px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-white shadow-sm">
+            NEW
+          </span>
+        ) : null}
         <div className="aspect-[4/3] sm:aspect-[4/3] bg-gray-100 overflow-hidden">
           <img
             src={photo.src}
@@ -130,8 +138,8 @@ export function InstallationGallery() {
   const [category, setCategory] = useState<InstallationCategoryId>('all')
   const close = useCallback(() => setActive(null), [])
 
-  const { featuredRow, mainRow, isEmpty } = useMemo(() => {
-    const featuredIdSet = new Set<string>(INSTALLATION_FEATURED_IDS)
+  const { newRow, featuredRow, mainRow, isEmpty } = useMemo(() => {
+    const newIdSet = new Set<string>(INSTALLATION_NEW_IDS)
 
     const filtered =
       category === 'all'
@@ -139,24 +147,40 @@ export function InstallationGallery() {
         : INSTALLATION_GALLERY.filter((p) => p.categoryId === category)
 
     if (filtered.length === 0) {
-      return { featuredRow: [] as InstallationPhoto[], mainRow: [] as InstallationPhoto[], isEmpty: true }
+      return {
+        newRow: [] as InstallationPhoto[],
+        featuredRow: [] as InstallationPhoto[],
+        mainRow: [] as InstallationPhoto[],
+        isEmpty: true,
+      }
     }
+
+    const newRow = INSTALLATION_NEW_IDS.map((id) => INSTALLATION_GALLERY.find((p) => p.id === id)).filter(
+      (p): p is InstallationPhoto => p != null && filtered.some((f) => f.id === p.id),
+    )
+
+    const isPinnedOrNew = (id: string) =>
+      (INSTALLATION_NEW_IDS as readonly string[]).includes(id) ||
+      (INSTALLATION_FEATURED_IDS as readonly string[]).includes(id)
 
     if (category === 'all') {
       const featuredRow = INSTALLATION_FEATURED_IDS.map((id) => INSTALLATION_GALLERY.find((p) => p.id === id)).filter(
         (p): p is InstallationPhoto => p != null,
       )
-      const rest = filtered.filter((p) => !featuredIdSet.has(p.id))
+      const rest = filtered.filter((p) => !isPinnedOrNew(p.id))
       return {
+        newRow,
         featuredRow,
         mainRow: sortPhotosByRegion(rest),
         isEmpty: false,
       }
     }
 
+    const rest = filtered.filter((p) => !newIdSet.has(p.id))
     return {
+      newRow,
       featuredRow: [],
-      mainRow: sortPhotosByRegion(filtered),
+      mainRow: sortPhotosByRegion(rest),
       isEmpty: false,
     }
   }, [category])
@@ -197,6 +221,23 @@ export function InstallationGallery() {
         </p>
       ) : (
         <>
+          {newRow.length > 0 ? (
+            <section className="mb-8 sm:mb-10" aria-labelledby="install-new-heading">
+              <h2
+                id="install-new-heading"
+                className="text-lg sm:text-xl font-bold text-gray-900 ko-modal-copy mb-1 sm:mb-2"
+              >
+                NEW 센터
+              </h2>
+              <p className="text-sm text-gray-600 ko-modal-copy mb-4 sm:mb-6">새롭게 세짐을 도입한 센터입니다.</p>
+              <ul className={gridClass}>
+                {newRow.map((photo) => (
+                  <PhotoCard key={photo.id} photo={photo} onOpen={setActive} isNew />
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
           {featuredRow.length > 0 ? (
             <section className="mb-8 sm:mb-10" aria-labelledby="install-featured-heading">
               <h2

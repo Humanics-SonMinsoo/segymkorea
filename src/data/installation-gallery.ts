@@ -2,8 +2,11 @@
  * 설치사례 갤러리 — 제목은 `title`, 분류는 `categoryId`, 지역 묶음은 `regionKey`만 맞추면 됩니다.
  * (이미지 파일: public/images/installations/install-01.jpg …)
  *
- * 헬스·PT 등: 표기를 「시·도 + 구(또는 시/군) + 센터명」 정도로 맞춥니다. 동·읍 이름은 길어지지 않게 넣지 않습니다.
+ * 헬스, PT 등: 표기를 「시, 도 + 구(또는 시/군) + 센터명」 정도로 맞춥니다. 동, 읍 이름은 길어지지 않게 넣지 않습니다.
  */
+
+/** 최신 도입 센터 — 갤러리 최상단 `NEW 센터` (전체·해당 카테고리 탭) */
+export const INSTALLATION_NEW_IDS = ['22', '23', '24'] as const
 
 /** 갤러리 맨 위 고정 노출 순서 (올라잇짐 → 프렌드짐 → 진천 국가대표 선수촌) — `전체` 탭에서만 사용 */
 export const INSTALLATION_FEATURED_IDS = ['18', '10', '19'] as const
@@ -66,6 +69,30 @@ export type InstallationPhoto = {
 }
 
 export const INSTALLATION_GALLERY: InstallationPhoto[] = [
+  {
+    id: '22',
+    src: '/images/installations/install-22.jpg',
+    title: '경기 의정부 올인짐 본점',
+    alt: '세짐 설치 사례 — 경기 의정부 올인짐 본점',
+    categoryId: 'health',
+    regionKey: '경기',
+  },
+  {
+    id: '23',
+    src: '/images/installations/install-23.jpg',
+    title: '서울 강남구 퓨어짐',
+    alt: '세짐 설치 사례 — 서울 강남구 퓨어짐',
+    categoryId: 'health',
+    regionKey: '서울',
+  },
+  {
+    id: '24',
+    src: '/images/installations/install-24.jpg',
+    title: '강원 원주 호크아이짐',
+    alt: '세짐 설치 사례 — 강원 원주 호크아이짐',
+    categoryId: 'health',
+    regionKey: '강원',
+  },
   {
     id: '20',
     src: '/images/installations/install-20.jpg',

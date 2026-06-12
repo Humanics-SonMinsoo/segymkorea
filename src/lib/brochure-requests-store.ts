@@ -65,8 +65,25 @@ export async function addBrochureRequest(input: NewBrochureRequestInput): Promis
     email: input.email.trim(),
     centerName: input.centerName.trim(),
     phone: input.phone.trim(),
+    assignee: '',
+    delivered: false,
   }
   rows.unshift(row)
   await writeBrochureRequests(rows)
   return row
+}
+
+export type BrochureRequestPatch = Partial<Pick<BrochureRequest, 'assignee' | 'delivered'>>
+
+export async function updateBrochureRequest(
+  id: string,
+  patch: BrochureRequestPatch,
+): Promise<BrochureRequest | null> {
+  const rows = await readBrochureRequests()
+  const idx = rows.findIndex((r) => r.id === id)
+  if (idx === -1) return null
+  const updated: BrochureRequest = { ...rows[idx], ...patch }
+  rows[idx] = updated
+  await writeBrochureRequests(rows)
+  return updated
 }

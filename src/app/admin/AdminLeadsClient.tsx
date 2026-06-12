@@ -77,7 +77,8 @@ export default function AdminLeadsClient() {
     const total = brochures.length
     const todayKST = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })
     const todayCount = brochures.filter((b) => dateKeyKST(b.createdAt) === todayKST).length
-    return { total, todayCount }
+    const undelivered = brochures.filter((b) => !b.delivered).length
+    return { total, todayCount, undelivered }
   }, [brochures])
 
   const patchLead = async (id: string, body: { assignee?: LeadAssignee; quality?: LeadQuality }) => {
@@ -104,6 +105,38 @@ export default function AdminLeadsClient() {
       }
       if (data.lead) {
         setLeads((prev) => prev.map((l) => (l.id === id ? data.lead : l)))
+      }
+    } catch {
+      setError('저장에 실패했습니다. (네트워크 오류)')
+    } finally {
+      setSavingId(null)
+    }
+  }
+
+  const patchBrochure = async (id: string, body: { assignee?: LeadAssignee; delivered?: boolean }) => {
+    setSavingId(id)
+    try {
+      const res = await fetch(`/api/brochure-requests/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(body),
+      })
+      if (res.status === 401) {
+        router.push('/admin/login')
+        return
+      }
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        const msg =
+          typeof data.error === 'string' && data.error.trim()
+            ? data.error
+            : `저장에 실패했습니다. (${res.status})`
+        setError(msg)
+        return
+      }
+      if (data.request) {
+        setBrochures((prev) => prev.map((b) => (b.id === id ? data.request : b)))
       }
     } catch {
       setError('저장에 실패했습니다. (네트워크 오류)')
@@ -311,7 +344,7 @@ export default function AdminLeadsClient() {
           </>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50">
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">총 소개서 요청</p>
                 <p className="text-3xl font-bold text-slate-900 mt-1 tabular-nums">{brochureStats.total}</p>
@@ -319,6 +352,10 @@ export default function AdminLeadsClient() {
               <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50 ring-1 ring-primary/10">
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">오늘 접수 (KST)</p>
                 <p className="text-3xl font-bold text-primary mt-1 tabular-nums">{brochureStats.todayCount}</p>
+              </div>
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">전달 대기</p>
+                <p className="text-3xl font-bold text-amber-600 mt-1 tabular-nums">{brochureStats.undelivered}</p>
               </div>
             </div>
 
@@ -331,12 +368,14 @@ export default function AdminLeadsClient() {
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">이메일</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">센터명</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">연락처</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">리드 관리자</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap text-center">소개서 전달</th>
                     </tr>
                   </thead>
                   <tbody>
                     {brochures.length === 0 ? (
                       <tr>
-                        <td colSpan={4} className="px-4 py-12 text-center text-gray-500">
+                        <td colSpan={6} className="px-4 py-12 text-center text-gray-500">
                           아직 소개서 요청이 없습니다.
                         </td>
                       </tr>
@@ -356,6 +395,38 @@ export default function AdminLeadsClient() {
                           </td>
                           <td className="px-3 py-3 text-gray-900 font-medium">{row.centerName}</td>
                           <td className="px-3 py-3 text-gray-800 whitespace-nowrap">{row.phone}</td>
+                          <td className="px-3 py-3">
+                            <select
+                              className="w-full min-w-[120px] rounded-lg border border-gray-300 px-2 py-1.5 text-gray-900 bg-white"
+                              value={row.assignee ?? ''}
+                              disabled={savingId === row.id}
+                              onChange={(e) => {
+                                const v = e.target.value as LeadAssignee
+                                patchBrochure(row.id, { assignee: v })
+                              }}
+                            >
+                              <option value="">미지정</option>
+                              {LEAD_ASSIGNEES.map((a) => (
+                                <option key={a} value={a}>
+                                  {a}
+                                </option>
+                              ))}
+                            </select>
+                          </td>
+                          <td className="px-3 py-3 text-center">
+                            <label className="inline-flex items-center justify-center gap-1.5 cursor-pointer select-none">
+                              <input
+                                type="checkbox"
+                                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer"
+                                checked={row.delivered ?? false}
+                                disabled={savingId === row.id}
+                                onChange={(e) => patchBrochure(row.id, { delivered: e.target.checked })}
+                              />
+                              <span className={`text-xs font-medium ${row.delivered ? 'text-green-600' : 'text-gray-400'}`}>
+                                {row.delivered ? '전달 완료' : '대기'}
+                              </span>
+                            </label>
+                          </td>
                         </tr>
                       ))
                     )}

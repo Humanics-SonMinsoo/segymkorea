@@ -42,13 +42,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <span
-                  className="text-gray-600 opacity-50 cursor-default select-none pointer-events-none"
-                  title="준비 중입니다"
-                  aria-disabled="true"
-                >
+                <Link href="/blog" className="hover:text-gray-300 underline-offset-2 hover:underline">
                   블로그
-                </span>
+                </Link>
               </li>
               <li>
                 <span

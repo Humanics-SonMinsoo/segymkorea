@@ -10,18 +10,31 @@ type NavItem = {
   label: string
   /** true면 링크 없이 준비 중 스타일만 표시 */
   comingSoon?: boolean
+  /** true면 NEW 배지 표시 (최근 오픈 메뉴) */
+  isNew?: boolean
 }
 
 const navItems: NavItem[] = [
   { href: '/product', label: '제품소개' },
   { href: '/pricing', label: '가격안내' },
   { href: '/installations', label: '설치사례' },
-  { href: '/blog', label: '블로그', comingSoon: true },
+  { href: '/blog', label: '블로그', isNew: true },
   { href: '/guide', label: '사용 가이드', comingSoon: true },
 ]
 
 const navComingSoonClass =
   'text-gray-400 opacity-55 cursor-not-allowed select-none pointer-events-none text-sm font-medium'
+
+function NewBadge() {
+  return (
+    <span
+      className="ml-1 inline-flex items-center rounded-full bg-red-500 px-1.5 py-px text-[9px] font-bold uppercase leading-tight tracking-wide text-white align-text-top"
+      aria-label="새로 오픈"
+    >
+      N
+    </span>
+  )
+}
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -60,6 +73,7 @@ export default function Header() {
                   className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
                 >
                   {item.label}
+                  {item.isNew ? <NewBadge /> : null}
                 </Link>
               ),
             )}
@@ -116,6 +130,7 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
+                  {item.isNew ? <NewBadge /> : null}
                 </Link>
               ),
             )}

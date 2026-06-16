@@ -1,11 +1,30 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 import { randomUUID } from 'crypto'
-import type { Lead, LeadAssignee, LeadQuality } from '@/types/lead'
+import type { Lead, LeadAssignee, LeadInquiryType, LeadQuality } from '@/types/lead'
 import { getUpstashRedis, redisGetJson, redisSetJson } from '@/lib/upstash-json'
 
 const DATA_PATH = path.join(process.cwd(), 'data', 'leads.json')
 const REDIS_KEY = 'segym:leads:v1'
+
+function normalizeLead(row: Partial<Lead>): Lead {
+  const inquiryType: LeadInquiryType = row.inquiryType === 'demo' ? 'demo' : 'general'
+  return {
+    id: String(row.id ?? ''),
+    createdAt: String(row.createdAt ?? ''),
+    inquiryType,
+    centerName: typeof row.centerName === 'string' ? row.centerName : '',
+    name: typeof row.name === 'string' ? row.name : '',
+    phone: typeof row.phone === 'string' ? row.phone : '',
+    availableTime: typeof row.availableTime === 'string' ? row.availableTime : '',
+    additionalNote: typeof row.additionalNote === 'string' ? row.additionalNote : '',
+    demoCenter: typeof row.demoCenter === 'string' ? row.demoCenter : undefined,
+    demoDate: typeof row.demoDate === 'string' ? row.demoDate : undefined,
+    demoTimeSlot: typeof row.demoTimeSlot === 'string' ? row.demoTimeSlot : undefined,
+    assignee: row.assignee === '홍창용' || row.assignee === '윤경준' ? row.assignee : '',
+    quality: row.quality === '유효리드' || row.quality === '무효리드' ? row.quality : '',
+  }
+}
 
 async function ensureDataFile(): Promise<void> {
   const dir = path.dirname(DATA_PATH)
@@ -23,10 +42,7 @@ async function readLeadsFromFile(): Promise<Lead[]> {
     const raw = await fs.readFile(DATA_PATH, 'utf-8')
     const parsed = JSON.parse(raw) as unknown
     if (!Array.isArray(parsed)) return []
-    return (parsed as Partial<Lead>[]).map((row) => ({
-      ...row,
-      additionalNote: typeof row.additionalNote === 'string' ? row.additionalNote : '',
-    })) as Lead[]
+    return (parsed as Partial<Lead>[]).map((row) => normalizeLead(row))
   } catch {
     return []
   }
@@ -42,10 +58,7 @@ export async function readLeads(): Promise<Lead[]> {
   if (redis) {
     const data = await redisGetJson<unknown>(redis, REDIS_KEY, [])
     if (!Array.isArray(data)) return []
-    return (data as Partial<Lead>[]).map((row) => ({
-      ...row,
-      additionalNote: typeof row.additionalNote === 'string' ? row.additionalNote : '',
-    })) as Lead[]
+    return (data as Partial<Lead>[]).map((row) => normalizeLead(row))
   }
   return readLeadsFromFile()
 }
@@ -60,26 +73,37 @@ export async function writeLeads(leads: Lead[]): Promise<void> {
 }
 
 export type NewLeadInput = {
+  inquiryType?: LeadInquiryType
   centerName: string
   name: string
   phone: string
-  availableTime: string
+  availableTime?: string
   additionalNote?: string
+  demoCenter?: string
+  demoDate?: string
+  demoTimeSlot?: string
 }
 
 export async function addLead(input: NewLeadInput): Promise<Lead> {
   const leads = await readLeads()
   const note = (input.additionalNote ?? '').trim().slice(0, 2000)
+  const inquiryType: LeadInquiryType = input.inquiryType === 'demo' ? 'demo' : 'general'
   const lead: Lead = {
     id: randomUUID(),
     createdAt: new Date().toISOString(),
+    inquiryType,
     centerName: input.centerName.trim(),
     name: input.name.trim(),
     phone: input.phone.trim(),
-    availableTime: input.availableTime.trim(),
+    availableTime: (input.availableTime ?? '').trim(),
     additionalNote: note,
     assignee: '',
     quality: '',
+  }
+  if (inquiryType === 'demo') {
+    lead.demoCenter = (input.demoCenter ?? '').trim()
+    lead.demoDate = (input.demoDate ?? '').trim()
+    lead.demoTimeSlot = (input.demoTimeSlot ?? '').trim()
   }
   leads.unshift(lead)
   await writeLeads(leads)

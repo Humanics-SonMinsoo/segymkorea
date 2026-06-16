@@ -3,6 +3,8 @@ import { cookies } from 'next/headers'
 import { addLead, readLeads } from '@/lib/leads-store'
 import { COOKIE_NAME, verifyAdminSession } from '@/lib/admin-auth'
 import { hasUpstashCredentials, isVercelDeployment } from '@/lib/upstash-env'
+import { getDemoCenterById } from '@/data/demo-centers'
+import type { LeadInquiryType } from '@/types/lead'
 
 /** 서버리스에서 fetch/Redis 클라이언트 안정화 (Edge 미사용) */
 export const runtime = 'nodejs'
@@ -20,6 +22,10 @@ function persistenceReady(): boolean {
   if (hasUpstashCredentials()) return true
   if (isVercelDeployment()) return false
   return true
+}
+
+function parseInquiryType(value: unknown): LeadInquiryType {
+  return value === 'demo' ? 'demo' : 'general'
 }
 
 export async function GET() {
@@ -42,25 +48,67 @@ export async function POST(request: Request) {
   }
   try {
     const body = await request.json()
-    const { centerName, name, phone, availableTime, additionalNote } = body as Record<
-      string,
-      unknown
-    >
-    if (
-      typeof centerName !== 'string' ||
-      typeof name !== 'string' ||
-      typeof phone !== 'string' ||
-      typeof availableTime !== 'string'
-    ) {
+    const {
+      inquiryType: inquiryTypeRaw,
+      centerName,
+      name,
+      phone,
+      availableTime,
+      additionalNote,
+      demoCenterId,
+      demoDate,
+      demoTimeSlot,
+    } = body as Record<string, unknown>
+
+    const inquiryType = parseInquiryType(inquiryTypeRaw)
+
+    if (typeof name !== 'string' || typeof phone !== 'string') {
       return NextResponse.json({ error: '잘못된 요청입니다.' }, { status: 400 })
     }
     if (additionalNote !== undefined && typeof additionalNote !== 'string') {
       return NextResponse.json({ error: '잘못된 요청입니다.' }, { status: 400 })
     }
-    if (!centerName.trim() || !name.trim() || !phone.trim() || !availableTime.trim()) {
+    if (!name.trim() || !phone.trim()) {
+      return NextResponse.json({ error: '필수 항목을 입력해 주세요.' }, { status: 400 })
+    }
+
+    if (inquiryType === 'demo') {
+      if (typeof demoCenterId !== 'string' || typeof demoDate !== 'string' || typeof demoTimeSlot !== 'string') {
+        return NextResponse.json({ error: '잘못된 요청입니다.' }, { status: 400 })
+      }
+      const center = getDemoCenterById(demoCenterId.trim())
+      if (!center) {
+        return NextResponse.json({ error: '시연 센터를 선택해 주세요.' }, { status: 400 })
+      }
+      if (!demoDate.trim() || !demoTimeSlot.trim()) {
+        return NextResponse.json({ error: '시연 희망 날짜와 시간대를 입력해 주세요.' }, { status: 400 })
+      }
+      const visitorCenter = typeof centerName === 'string' ? centerName.trim() : ''
+      const lead = await addLead({
+        inquiryType: 'demo',
+        centerName: visitorCenter,
+        name,
+        phone,
+        availableTime: '',
+        additionalNote: typeof additionalNote === 'string' ? additionalNote : '',
+        demoCenter: center.name,
+        demoDate: demoDate.trim(),
+        demoTimeSlot: demoTimeSlot.trim(),
+      })
+      return NextResponse.json({ ok: true, id: lead.id })
+    }
+
+    if (
+      typeof centerName !== 'string' ||
+      typeof availableTime !== 'string'
+    ) {
+      return NextResponse.json({ error: '잘못된 요청입니다.' }, { status: 400 })
+    }
+    if (!centerName.trim() || !availableTime.trim()) {
       return NextResponse.json({ error: '필수 항목을 입력해 주세요.' }, { status: 400 })
     }
     const lead = await addLead({
+      inquiryType: 'general',
       centerName,
       name,
       phone,

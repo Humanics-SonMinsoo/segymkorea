@@ -25,6 +25,31 @@ function dateKeyKST(iso: string): string {
   return new Date(iso).toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })
 }
 
+function leadTypeLabel(lead: Lead): string {
+  return lead.inquiryType === 'demo' ? '시연 신청' : '도입 문의'
+}
+
+function leadCenterCell(lead: Lead): string {
+  if (lead.inquiryType === 'demo') {
+    const parts = [lead.demoCenter ? `시연: ${lead.demoCenter}` : '시연 센터 미기록']
+    if (lead.centerName.trim()) parts.push(`운영: ${lead.centerName}`)
+    return parts.join('\n')
+  }
+  return lead.centerName
+}
+
+function leadScheduleCell(lead: Lead): string {
+  if (lead.inquiryType === 'demo') {
+    const date = lead.demoDate?.trim()
+    const time = lead.demoTimeSlot?.trim()
+    if (date && time) return `${date}\n${time}`
+    if (date) return date
+    if (time) return time
+    return '—'
+  }
+  return lead.availableTime || '—'
+}
+
 export default function AdminLeadsClient() {
   const router = useRouter()
   const [tab, setTab] = useState<'leads' | 'brochure'>('leads')
@@ -267,10 +292,11 @@ export default function AdminLeadsClient() {
                   <thead>
                     <tr className="bg-slate-50 text-left text-slate-600 border-b border-slate-200">
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">접수일시 (KST)</th>
-                      <th className="px-3 py-3 font-semibold whitespace-nowrap">센터명</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">유형</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">센터</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">성함</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">연락처</th>
-                      <th className="px-3 py-3 font-semibold min-w-[140px]">상담 가능 시간</th>
+                      <th className="px-3 py-3 font-semibold min-w-[140px]">일정 / 상담 시간</th>
                       <th className="px-3 py-3 font-semibold min-w-[160px]">추가 문의</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">리드 담당자</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">리드 품질</th>
@@ -279,7 +305,7 @@ export default function AdminLeadsClient() {
                   <tbody>
                     {leads.length === 0 ? (
                       <tr>
-                        <td colSpan={8} className="px-4 py-12 text-center text-gray-500">
+                        <td colSpan={9} className="px-4 py-12 text-center text-gray-500">
                           아직 접수된 리드가 없습니다.
                         </td>
                       </tr>
@@ -289,11 +315,24 @@ export default function AdminLeadsClient() {
                           <td className="px-3 py-3 text-gray-800 whitespace-nowrap">
                             {formatDateTimeKST(lead.createdAt)}
                           </td>
-                          <td className="px-3 py-3 text-gray-900 font-medium">{lead.centerName}</td>
+                          <td className="px-3 py-3 whitespace-nowrap">
+                            <span
+                              className={`inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
+                                lead.inquiryType === 'demo'
+                                  ? 'bg-violet-100 text-violet-800'
+                                  : 'bg-slate-100 text-slate-700'
+                              }`}
+                            >
+                              {leadTypeLabel(lead)}
+                            </span>
+                          </td>
+                          <td className="px-3 py-3 text-gray-900 font-medium whitespace-pre-wrap max-w-[180px]">
+                            {leadCenterCell(lead)}
+                          </td>
                           <td className="px-3 py-3 text-gray-800">{lead.name}</td>
                           <td className="px-3 py-3 text-gray-800 whitespace-nowrap">{lead.phone}</td>
                           <td className="px-3 py-3 text-gray-700 whitespace-pre-wrap max-w-xs">
-                            {lead.availableTime}
+                            {leadScheduleCell(lead)}
                           </td>
                           <td className="px-3 py-3 text-gray-600 whitespace-pre-wrap max-w-[220px] text-xs">
                             {lead.additionalNote ? lead.additionalNote : '—'}

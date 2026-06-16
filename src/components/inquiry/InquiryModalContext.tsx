@@ -62,7 +62,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
 
   const modalTitle =
     modalStep === 'choose'
-      ? '문의 · 시연'
+      ? '도입 상담 신청하기'
       : inquiryType === 'demo'
         ? '시연 신청'
         : '도입 상담 신청'

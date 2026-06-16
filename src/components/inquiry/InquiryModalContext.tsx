@@ -287,7 +287,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
                 onClick={() => pickInquiryType('general')}
                 className="w-full rounded-2xl border-2 border-primary bg-primary px-5 py-4 sm:py-5 text-center text-white shadow-brand hover:bg-primary-dark transition-colors"
               >
-                <span className="block font-bold text-base sm:text-lg ko-modal-copy">도입 문의하기</span>
+                <span className="block font-bold text-base sm:text-lg ko-modal-copy">도입 상담 신청</span>
                 <span className="block mt-1 text-xs sm:text-sm font-normal text-white/85 ko-modal-copy">
                   담당자가 연락드려 도입을 안내해 드립니다
                 </span>

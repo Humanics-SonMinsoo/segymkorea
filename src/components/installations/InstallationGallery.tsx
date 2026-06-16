@@ -26,10 +26,24 @@ function sortPhotosByRegion(photos: InstallationPhoto[]): InstallationPhoto[] {
 
 function Lightbox({ photo, onClose }: { photo: InstallationPhoto; onClose: () => void }) {
   const entered = useModalEnterAnimation()
+  const images = photo.gallery?.length ? photo.gallery : [photo.src]
+  const [index, setIndex] = useState(0)
+  const hasMultiple = images.length > 1
+  const currentSrc = images[index] ?? photo.src
+
+  const goPrev = useCallback(() => {
+    setIndex((i) => (i <= 0 ? images.length - 1 : i - 1))
+  }, [images.length])
+
+  const goNext = useCallback(() => {
+    setIndex((i) => (i >= images.length - 1 ? 0 : i + 1))
+  }, [images.length])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
+      if (hasMultiple && e.key === 'ArrowLeft') goPrev()
+      if (hasMultiple && e.key === 'ArrowRight') goNext()
     }
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
@@ -37,7 +51,7 @@ function Lightbox({ photo, onClose }: { photo: InstallationPhoto; onClose: () =>
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
     }
-  }, [onClose])
+  }, [onClose, hasMultiple, goPrev, goNext])
 
   return (
     <div
@@ -60,7 +74,14 @@ function Lightbox({ photo, onClose }: { photo: InstallationPhoto; onClose: () =>
         }`}
       >
         <div className="flex items-center justify-between gap-3 border-b border-gray-100 px-4 py-3 sm:px-6">
-          <h2 className="text-base sm:text-xl font-bold text-gray-900 ko-modal-copy min-w-0 pr-2">{photo.title}</h2>
+          <div className="min-w-0">
+            <h2 className="text-base sm:text-xl font-bold text-gray-900 ko-modal-copy pr-2">{photo.title}</h2>
+            {hasMultiple ? (
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
+                {index + 1} / {images.length}
+              </p>
+            ) : null}
+          </div>
           <button
             type="button"
             onClick={onClose}
@@ -72,12 +93,43 @@ function Lightbox({ photo, onClose }: { photo: InstallationPhoto; onClose: () =>
             </svg>
           </button>
         </div>
-        <div className="max-h-[calc(92vh-3.75rem)] overflow-y-auto bg-black/5">
+        <div className="relative max-h-[calc(92vh-3.75rem)] overflow-y-auto bg-black/5">
           <img
-            src={photo.src}
+            key={currentSrc}
+            src={currentSrc}
             alt={photo.alt}
             className="w-full h-auto object-contain max-h-[min(85vh,1200px)] mx-auto block"
           />
+          {hasMultiple ? (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  goPrev()
+                }}
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white/95 text-gray-800 shadow-lg border border-gray-200 hover:bg-white transition-colors"
+                aria-label="이전 사진"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  goNext()
+                }}
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white/95 text-gray-800 shadow-lg border border-gray-200 hover:bg-white transition-colors"
+                aria-label="다음 사진"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </>
+          ) : null}
         </div>
       </div>
     </div>
@@ -127,6 +179,9 @@ function PhotoCard({
         </div>
         <p className="px-4 py-3.5 sm:px-5 sm:py-4 text-sm sm:text-base font-medium text-gray-800 ko-modal-copy line-clamp-2 border-t border-gray-50">
           {photo.title}
+          {photo.gallery && photo.gallery.length > 1 ? (
+            <span className="ml-1.5 text-xs font-normal text-gray-400">· 사진 {photo.gallery.length}장</span>
+          ) : null}
         </p>
       </button>
     </li>
@@ -262,7 +317,7 @@ export function InstallationGallery() {
           </ul>
         </>
       )}
-      {active ? <Lightbox photo={active} onClose={close} /> : null}
+      {active ? <Lightbox key={active.id} photo={active} onClose={close} /> : null}
     </>
   )
 }

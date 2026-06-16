@@ -30,6 +30,7 @@ export const INSTALLATION_REGION_SECTION_ORDER = [
   '경북',
   '경남',
   '제주',
+  '행사',
   '기타',
 ] as const
 
@@ -45,6 +46,7 @@ export const INSTALLATION_CATEGORY_IDS = [
   'health',
   'pt',
   'crossfit',
+  'event',
 ] as const
 
 export type InstallationCategoryId = (typeof INSTALLATION_CATEGORY_IDS)[number]
@@ -56,6 +58,7 @@ export const INSTALLATION_CATEGORIES: { id: Exclude<InstallationCategoryId, 'all
   { id: 'health', label: '헬스 / 피트니스' },
   { id: 'pt', label: 'PT, 필라테스' },
   { id: 'crossfit', label: '크로스핏' },
+  { id: 'event', label: '행사·전시' },
 ]
 
 export type InstallationPhoto = {
@@ -66,9 +69,36 @@ export type InstallationPhoto = {
   categoryId: Exclude<InstallationCategoryId, 'all'>
   /** 지역별 섹션 제목(서울, 경기, …) — 같은 값끼리 한 블록으로 묶음 */
   regionKey: string
+  /** 행사 등 여러 장 — 있으면 라이트박스에서 앨범으로 탐색 */
+  gallery?: string[]
+}
+
+const SPOEX_GALLERY_NUMS = [31, 1, 3, 4, 5, 18, 23, 27, 30, 33, 40, 47, 52, 56, 57] as const
+const MYPROTEIN_GALLERY_NUMS = [5, 1, 2, 3, 4, 6, 7, 8, 9, 10] as const
+
+function eventImagePath(event: 'spoex' | 'myprotein', num: number): string {
+  return `/images/installations/events/${event}/${event}-${num}.jpg`
 }
 
 export const INSTALLATION_GALLERY: InstallationPhoto[] = [
+  {
+    id: '25',
+    src: eventImagePath('spoex', 31),
+    title: '스포엑스(SPOEX) 전시',
+    alt: '세짐 행사 현장 — 스포엑스(SPOEX) 전시 부스',
+    categoryId: 'event',
+    regionKey: '행사',
+    gallery: SPOEX_GALLERY_NUMS.map((n) => eventImagePath('spoex', n)),
+  },
+  {
+    id: '26',
+    src: eventImagePath('myprotein', 5),
+    title: '마이프로틴 팝업 행사',
+    alt: '세짐 행사 현장 — 마이프로틴 팝업 체험',
+    categoryId: 'event',
+    regionKey: '행사',
+    gallery: MYPROTEIN_GALLERY_NUMS.map((n) => eventImagePath('myprotein', n)),
+  },
   {
     id: '22',
     src: '/images/installations/install-23.jpg',

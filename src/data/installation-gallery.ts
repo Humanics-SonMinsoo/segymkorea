@@ -91,7 +91,7 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
     categoryId: 'event',
     regionKey: '행사',
     gallery: SPOEX_GALLERY_NUMS.map((n) => eventImagePath('spoex', n)),
-    thumbnailObjectPosition: '50% 62%',
+    thumbnailObjectPosition: '50% top',
   },
   {
     id: '26',

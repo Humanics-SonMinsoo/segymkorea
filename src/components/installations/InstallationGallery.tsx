@@ -174,15 +174,16 @@ function PhotoCard({
             src={photo.src}
             alt={photo.alt}
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            style={photo.thumbnailObjectPosition ? { objectPosition: photo.thumbnailObjectPosition } : undefined}
             loading="lazy"
           />
         </div>
-        <p className="px-4 py-3.5 sm:px-5 sm:py-4 text-sm sm:text-base font-medium text-gray-800 ko-modal-copy line-clamp-2 border-t border-gray-50">
-          {photo.title}
+        <div className="px-4 py-3.5 sm:px-5 sm:py-4 border-t border-gray-50">
+          <p className="text-sm sm:text-base font-medium text-gray-800 ko-modal-copy">{photo.title}</p>
           {photo.gallery && photo.gallery.length > 1 ? (
-            <span className="ml-1.5 text-xs font-normal text-gray-400">· 사진 {photo.gallery.length}장</span>
+            <p className="mt-0.5 text-xs sm:text-sm font-normal text-gray-400 ko-modal-copy">사진 {photo.gallery.length}장</p>
           ) : null}
-        </p>
+        </div>
       </button>
     </li>
   )

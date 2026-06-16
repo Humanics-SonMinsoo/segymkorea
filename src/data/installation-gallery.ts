@@ -71,6 +71,8 @@ export type InstallationPhoto = {
   regionKey: string
   /** 행사 등 여러 장 — 있으면 라이트박스에서 앨범으로 탐색 */
   gallery?: string[]
+  /** 카드 썸네일 crop 기준 (예: 얼굴이 잘리면 `50% 25%`) */
+  thumbnailObjectPosition?: string
 }
 
 const SPOEX_GALLERY_NUMS = [31, 1, 3, 4, 5, 18, 23, 27, 30, 33, 40, 47, 52, 56, 57] as const
@@ -89,6 +91,7 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
     categoryId: 'event',
     regionKey: '행사',
     gallery: SPOEX_GALLERY_NUMS.map((n) => eventImagePath('spoex', n)),
+    thumbnailObjectPosition: '50% 62%',
   },
   {
     id: '26',

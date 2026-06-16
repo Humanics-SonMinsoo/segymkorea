@@ -316,7 +316,7 @@ export function InstallationGallery() {
                 최근 행사
               </h2>
               <p className="text-sm text-gray-600 ko-modal-copy mb-4 sm:mb-6">
-                세짐이 참여한 최근 행사·전시 현장입니다.
+                세짐이 참여한 최근 행사 전시 현장입니다.
               </p>
               <ul className={gridClass}>
                 {newEventRow.map((photo) => (

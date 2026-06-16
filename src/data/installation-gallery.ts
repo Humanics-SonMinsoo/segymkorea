@@ -61,7 +61,7 @@ export const INSTALLATION_CATEGORIES: { id: Exclude<InstallationCategoryId, 'all
   { id: 'health', label: '헬스 / 피트니스' },
   { id: 'pt', label: 'PT, 필라테스' },
   { id: 'crossfit', label: '크로스핏' },
-  { id: 'event', label: '행사·전시' },
+  { id: 'event', label: '행사 전시' },
 ]
 
 export type InstallationPhoto = {

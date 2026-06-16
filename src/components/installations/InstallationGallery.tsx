@@ -5,6 +5,7 @@ import {
   INSTALLATION_FEATURED_IDS,
   INSTALLATION_GALLERY,
   INSTALLATION_CATEGORIES,
+  INSTALLATION_NEW_EVENT_IDS,
   INSTALLATION_NEW_IDS,
   installationRegionSortIndex,
   type InstallationCategoryId,
@@ -194,8 +195,9 @@ export function InstallationGallery() {
   const [category, setCategory] = useState<InstallationCategoryId>('all')
   const close = useCallback(() => setActive(null), [])
 
-  const { newRow, featuredRow, mainRow, isEmpty } = useMemo(() => {
+  const { newRow, newEventRow, featuredRow, mainRow, isEmpty } = useMemo(() => {
     const newIdSet = new Set<string>(INSTALLATION_NEW_IDS)
+    const newEventIdSet = new Set<string>(INSTALLATION_NEW_EVENT_IDS)
 
     const filtered =
       category === 'all'
@@ -205,6 +207,7 @@ export function InstallationGallery() {
     if (filtered.length === 0) {
       return {
         newRow: [] as InstallationPhoto[],
+        newEventRow: [] as InstallationPhoto[],
         featuredRow: [] as InstallationPhoto[],
         mainRow: [] as InstallationPhoto[],
         isEmpty: true,
@@ -215,8 +218,16 @@ export function InstallationGallery() {
       (p): p is InstallationPhoto => p != null && filtered.some((f) => f.id === p.id),
     )
 
+    const showNewEvents = category === 'all' || category === 'event'
+    const newEventRow = showNewEvents
+      ? INSTALLATION_NEW_EVENT_IDS.map((id) => INSTALLATION_GALLERY.find((p) => p.id === id)).filter(
+          (p): p is InstallationPhoto => p != null && filtered.some((f) => f.id === p.id),
+        )
+      : []
+
     const isPinnedOrNew = (id: string) =>
       (INSTALLATION_NEW_IDS as readonly string[]).includes(id) ||
+      (INSTALLATION_NEW_EVENT_IDS as readonly string[]).includes(id) ||
       (INSTALLATION_FEATURED_IDS as readonly string[]).includes(id)
 
     if (category === 'all') {
@@ -226,15 +237,17 @@ export function InstallationGallery() {
       const rest = filtered.filter((p) => !isPinnedOrNew(p.id))
       return {
         newRow,
+        newEventRow,
         featuredRow,
         mainRow: sortPhotosByRegion(rest),
         isEmpty: false,
       }
     }
 
-    const rest = filtered.filter((p) => !newIdSet.has(p.id))
+    const rest = filtered.filter((p) => !newIdSet.has(p.id) && !newEventIdSet.has(p.id))
     return {
       newRow,
+      newEventRow,
       featuredRow: [],
       mainRow: sortPhotosByRegion(rest),
       isEmpty: false,
@@ -288,6 +301,25 @@ export function InstallationGallery() {
               <p className="text-sm text-gray-600 ko-modal-copy mb-4 sm:mb-6">새롭게 세짐을 도입한 센터입니다.</p>
               <ul className={gridClass}>
                 {newRow.map((photo) => (
+                  <PhotoCard key={photo.id} photo={photo} onOpen={setActive} isNew />
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {newEventRow.length > 0 ? (
+            <section className="mb-8 sm:mb-10" aria-labelledby="install-new-event-heading">
+              <h2
+                id="install-new-event-heading"
+                className="text-lg sm:text-xl font-bold text-gray-900 ko-modal-copy mb-1 sm:mb-2"
+              >
+                최근 행사
+              </h2>
+              <p className="text-sm text-gray-600 ko-modal-copy mb-4 sm:mb-6">
+                세짐이 참여한 최근 행사·전시 현장입니다.
+              </p>
+              <ul className={gridClass}>
+                {newEventRow.map((photo) => (
                   <PhotoCard key={photo.id} photo={photo} onOpen={setActive} isNew />
                 ))}
               </ul>

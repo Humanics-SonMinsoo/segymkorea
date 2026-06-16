@@ -64,8 +64,8 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
     modalStep === 'choose'
       ? '문의 · 시연'
       : inquiryType === 'demo'
-        ? '세짐 시연 신청하기'
-        : '세짐 도입 문의하기'
+        ? '시연 신청'
+        : '도입 상담 신청'
 
   const introCopy =
     inquiryType === 'general'
@@ -285,16 +285,22 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
               <button
                 type="button"
                 onClick={() => pickInquiryType('general')}
-                className="w-full rounded-2xl border-2 border-primary bg-primary px-5 py-4 sm:py-5 text-center text-white font-bold text-base sm:text-lg shadow-brand hover:bg-primary-dark transition-colors ko-modal-copy"
+                className="w-full rounded-2xl border-2 border-primary bg-primary px-5 py-4 sm:py-5 text-center text-white shadow-brand hover:bg-primary-dark transition-colors"
               >
-                세짐 도입 문의하기
+                <span className="block font-bold text-base sm:text-lg ko-modal-copy">도입 상담 신청</span>
+                <span className="block mt-1 text-xs sm:text-sm font-normal text-white/85 ko-modal-copy">
+                  담당자가 연락드려 도입을 안내해 드립니다
+                </span>
               </button>
               <button
                 type="button"
                 onClick={() => pickInquiryType('demo')}
-                className="w-full rounded-2xl border-2 border-primary/30 bg-white px-5 py-4 sm:py-5 text-center text-primary font-bold text-base sm:text-lg hover:border-primary hover:bg-primary-muted/40 transition-colors ko-modal-copy"
+                className="w-full rounded-2xl border-2 border-primary/30 bg-white px-5 py-4 sm:py-5 text-center text-primary hover:border-primary hover:bg-primary-muted/40 transition-colors"
               >
-                세짐 시연 신청하기
+                <span className="block font-bold text-base sm:text-lg ko-modal-copy">시연 신청</span>
+                <span className="block mt-1 text-xs sm:text-sm font-normal text-gray-500 ko-modal-copy">
+                  시연 센터에서 세짐을 직접 체험해 보세요
+                </span>
               </button>
             </div>
           </div>

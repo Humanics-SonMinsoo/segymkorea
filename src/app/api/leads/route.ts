@@ -3,8 +3,8 @@ import { cookies } from 'next/headers'
 import { addLead, readLeads } from '@/lib/leads-store'
 import { COOKIE_NAME, verifyAdminSession } from '@/lib/admin-auth'
 import { hasUpstashCredentials, isVercelDeployment } from '@/lib/upstash-env'
-import { getDemoCenterById } from '@/data/demo-centers'
-import type { LeadInquiryType } from '@/types/lead'
+import { getDemoCenterById, isDemoCenterSelectable } from '@/data/demo-centers'
+import type { DemoScheduleEntry, LeadInquiryType } from '@/types/lead'
 
 /** 서버리스에서 fetch/Redis 클라이언트 안정화 (Edge 미사용) */
 export const runtime = 'nodejs'
@@ -56,8 +56,7 @@ export async function POST(request: Request) {
       availableTime,
       additionalNote,
       demoCenterId,
-      demoDate,
-      demoTimeSlot,
+      demoSchedules: demoSchedulesRaw,
     } = body as Record<string, unknown>
 
     const inquiryType = parseInquiryType(inquiryTypeRaw)
@@ -73,15 +72,26 @@ export async function POST(request: Request) {
     }
 
     if (inquiryType === 'demo') {
-      if (typeof demoCenterId !== 'string' || typeof demoDate !== 'string' || typeof demoTimeSlot !== 'string') {
+      if (typeof demoCenterId !== 'string') {
         return NextResponse.json({ error: '잘못된 요청입니다.' }, { status: 400 })
       }
       const center = getDemoCenterById(demoCenterId.trim())
-      if (!center) {
+      if (!center || !isDemoCenterSelectable(center)) {
         return NextResponse.json({ error: '시연 센터를 선택해 주세요.' }, { status: 400 })
       }
-      if (!demoDate.trim() || !demoTimeSlot.trim()) {
-        return NextResponse.json({ error: '시연 희망 날짜와 시간대를 입력해 주세요.' }, { status: 400 })
+      if (!Array.isArray(demoSchedulesRaw) || demoSchedulesRaw.length === 0) {
+        return NextResponse.json({ error: '시연 희망 일정을 입력해 주세요.' }, { status: 400 })
+      }
+      const demoSchedules: DemoScheduleEntry[] = []
+      for (const item of demoSchedulesRaw) {
+        if (!item || typeof item !== 'object') continue
+        const { date, timeSlot } = item as Record<string, unknown>
+        if (typeof date !== 'string' || typeof timeSlot !== 'string') continue
+        if (!date.trim() || !timeSlot.trim()) continue
+        demoSchedules.push({ date: date.trim(), timeSlot: timeSlot.trim() })
+      }
+      if (demoSchedules.length === 0) {
+        return NextResponse.json({ error: '시연 희망 일정을 입력해 주세요.' }, { status: 400 })
       }
       const visitorCenter = typeof centerName === 'string' ? centerName.trim() : ''
       const lead = await addLead({
@@ -92,8 +102,7 @@ export async function POST(request: Request) {
         availableTime: '',
         additionalNote: typeof additionalNote === 'string' ? additionalNote : '',
         demoCenter: center.name,
-        demoDate: demoDate.trim(),
-        demoTimeSlot: demoTimeSlot.trim(),
+        demoSchedules,
       })
       return NextResponse.json({ ok: true, id: lead.id })
     }

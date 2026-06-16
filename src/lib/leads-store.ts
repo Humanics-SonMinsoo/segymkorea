@@ -1,14 +1,29 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 import { randomUUID } from 'crypto'
-import type { Lead, LeadAssignee, LeadInquiryType, LeadQuality } from '@/types/lead'
+import type { DemoScheduleEntry, Lead, LeadAssignee, LeadInquiryType, LeadQuality } from '@/types/lead'
 import { getUpstashRedis, redisGetJson, redisSetJson } from '@/lib/upstash-json'
 
 const DATA_PATH = path.join(process.cwd(), 'data', 'leads.json')
 const REDIS_KEY = 'segym:leads:v1'
 
+function normalizeDemoSchedules(row: Partial<Lead>): DemoScheduleEntry[] | undefined {
+  if (Array.isArray(row.demoSchedules) && row.demoSchedules.length > 0) {
+    const parsed = row.demoSchedules
+      .filter((s): s is DemoScheduleEntry => !!s && typeof s.date === 'string' && typeof s.timeSlot === 'string')
+      .map((s) => ({ date: s.date.trim(), timeSlot: s.timeSlot.trim() }))
+      .filter((s) => s.date && s.timeSlot)
+    if (parsed.length > 0) return parsed
+  }
+  if (typeof row.demoDate === 'string' && typeof row.demoTimeSlot === 'string' && row.demoDate.trim() && row.demoTimeSlot.trim()) {
+    return [{ date: row.demoDate.trim(), timeSlot: row.demoTimeSlot.trim() }]
+  }
+  return undefined
+}
+
 function normalizeLead(row: Partial<Lead>): Lead {
   const inquiryType: LeadInquiryType = row.inquiryType === 'demo' ? 'demo' : 'general'
+  const demoSchedules = normalizeDemoSchedules(row)
   return {
     id: String(row.id ?? ''),
     createdAt: String(row.createdAt ?? ''),
@@ -19,8 +34,9 @@ function normalizeLead(row: Partial<Lead>): Lead {
     availableTime: typeof row.availableTime === 'string' ? row.availableTime : '',
     additionalNote: typeof row.additionalNote === 'string' ? row.additionalNote : '',
     demoCenter: typeof row.demoCenter === 'string' ? row.demoCenter : undefined,
-    demoDate: typeof row.demoDate === 'string' ? row.demoDate : undefined,
-    demoTimeSlot: typeof row.demoTimeSlot === 'string' ? row.demoTimeSlot : undefined,
+    demoDate: demoSchedules?.[0]?.date ?? (typeof row.demoDate === 'string' ? row.demoDate : undefined),
+    demoTimeSlot: demoSchedules?.[0]?.timeSlot ?? (typeof row.demoTimeSlot === 'string' ? row.demoTimeSlot : undefined),
+    demoSchedules,
     assignee: row.assignee === '홍창용' || row.assignee === '윤경준' ? row.assignee : '',
     quality: row.quality === '유효리드' || row.quality === '무효리드' ? row.quality : '',
   }
@@ -82,6 +98,7 @@ export type NewLeadInput = {
   demoCenter?: string
   demoDate?: string
   demoTimeSlot?: string
+  demoSchedules?: DemoScheduleEntry[]
 }
 
 export async function addLead(input: NewLeadInput): Promise<Lead> {
@@ -101,9 +118,11 @@ export async function addLead(input: NewLeadInput): Promise<Lead> {
     quality: '',
   }
   if (inquiryType === 'demo') {
+    const schedules = (input.demoSchedules ?? []).filter((s) => s.date.trim() && s.timeSlot.trim())
     lead.demoCenter = (input.demoCenter ?? '').trim()
-    lead.demoDate = (input.demoDate ?? '').trim()
-    lead.demoTimeSlot = (input.demoTimeSlot ?? '').trim()
+    lead.demoSchedules = schedules
+    lead.demoDate = schedules[0]?.date
+    lead.demoTimeSlot = schedules[0]?.timeSlot
   }
   leads.unshift(lead)
   await writeLeads(leads)

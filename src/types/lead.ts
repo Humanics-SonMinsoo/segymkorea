@@ -4,6 +4,11 @@ export type LeadQuality = '유효리드' | '무효리드' | ''
 
 export type LeadInquiryType = 'general' | 'demo'
 
+export type DemoScheduleEntry = {
+  date: string
+  timeSlot: string
+}
+
 export type Lead = {
   id: string
   createdAt: string
@@ -20,8 +25,10 @@ export type Lead = {
   demoCenter?: string
   /** 시연 신청: 희망 날짜 (YYYY-MM-DD) */
   demoDate?: string
-  /** 시연 신청: 희망 시간대 */
+  /** 시연 신청: 희망 시간대 (첫 번째 스케줄 — 하위 호환) */
   demoTimeSlot?: string
+  /** 시연 신청: 희망 일정 (복수) */
+  demoSchedules?: DemoScheduleEntry[]
   assignee: LeadAssignee
   quality: LeadQuality
 }

@@ -10,16 +10,22 @@ import {
   type ReactNode,
 } from 'react'
 import Link from 'next/link'
-import { DEMO_CENTERS } from '@/data/demo-centers'
+import { DEMO_CENTERS, DEMO_TIME_SLOTS, isDemoCenterSelectable } from '@/data/demo-centers'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
-import type { LeadInquiryType } from '@/types/lead'
+import type { DemoScheduleEntry, LeadInquiryType } from '@/types/lead'
 
 type InquiryModalContextValue = {
   openInquiryModal: () => void
   closeInquiryModal: () => void
 }
+
+type ModalStep = 'choose' | 'form'
+
+const MAX_DEMO_SCHEDULES = 5
+
+const EMPTY_SCHEDULE = (): DemoScheduleEntry => ({ date: '', timeSlot: '' })
 
 const InquiryModalContext = createContext<InquiryModalContextValue | null>(null)
 
@@ -35,16 +41,8 @@ function todayDateInputValue(): string {
   return new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })
 }
 
-function inquiryTabClass(active: boolean) {
-  const base =
-    'flex-1 rounded-lg px-3 py-2.5 text-sm sm:text-[15px] font-semibold transition-colors ko-modal-copy'
-  if (active) {
-    return `${base} bg-primary text-white shadow-sm`
-  }
-  return `${base} text-gray-600 hover:bg-gray-100`
-}
-
 function InquiryModalDialog({ onClose }: { onClose: () => void }) {
+  const [modalStep, setModalStep] = useState<ModalStep>('choose')
   const [inquiryType, setInquiryType] = useState<LeadInquiryType>('general')
   const [centerName, setCenterName] = useState('')
   const [name, setName] = useState('')
@@ -52,8 +50,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
   const [availableTime, setAvailableTime] = useState('')
   const [additionalNote, setAdditionalNote] = useState('')
   const [demoCenterId, setDemoCenterId] = useState('')
-  const [demoDate, setDemoDate] = useState('')
-  const [demoTimeSlot, setDemoTimeSlot] = useState('')
+  const [demoSchedules, setDemoSchedules] = useState<DemoScheduleEntry[]>([EMPTY_SCHEDULE()])
   const [visitorCenterName, setVisitorCenterName] = useState('')
   const [privacyAgreed, setPrivacyAgreed] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -62,7 +59,18 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
   const entered = useModalEnterAnimation()
 
   const minDemoDate = useMemo(() => todayDateInputValue(), [])
-  const selectedDemoCenter = DEMO_CENTERS.find((c) => c.id === demoCenterId)
+
+  const modalTitle =
+    modalStep === 'choose'
+      ? '문의 · 시연'
+      : inquiryType === 'demo'
+        ? '세짐 시연 신청하기'
+        : '세짐 도입 문의하기'
+
+  const introCopy =
+    inquiryType === 'general'
+      ? '아래 정보를 남겨 주시면, 세짐 영업 담당자가 확인 후 빠르게 연락드립니다.'
+      : '시연 센터를 선택하고 희망 일정을 남겨 주시면, 담당자가 확인 후 연락드립니다.'
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -77,6 +85,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
   }, [onClose])
 
   const resetForm = () => {
+    setModalStep('choose')
     setInquiryType('general')
     setCenterName('')
     setName('')
@@ -84,8 +93,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
     setAvailableTime('')
     setAdditionalNote('')
     setDemoCenterId('')
-    setDemoDate('')
-    setDemoTimeSlot('')
+    setDemoSchedules([EMPTY_SCHEDULE()])
     setVisitorCenterName('')
     setPrivacyAgreed(false)
     setError(null)
@@ -95,6 +103,29 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
   const handleClose = () => {
     resetForm()
     onClose()
+  }
+
+  const goToChoose = () => {
+    setModalStep('choose')
+    setError(null)
+  }
+
+  const pickInquiryType = (type: LeadInquiryType) => {
+    setInquiryType(type)
+    setModalStep('form')
+    setError(null)
+  }
+
+  const updateSchedule = (index: number, patch: Partial<DemoScheduleEntry>) => {
+    setDemoSchedules((prev) => prev.map((row, i) => (i === index ? { ...row, ...patch } : row)))
+  }
+
+  const addScheduleRow = () => {
+    setDemoSchedules((prev) => (prev.length >= MAX_DEMO_SCHEDULES ? prev : [...prev, EMPTY_SCHEDULE()]))
+  }
+
+  const removeScheduleRow = (index: number) => {
+    setDemoSchedules((prev) => (prev.length <= 1 ? prev : prev.filter((_, i) => i !== index)))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -120,8 +151,16 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
         setError('시연 센터를 선택해 주세요.')
         return
       }
-      if (!demoDate.trim() || !demoTimeSlot.trim()) {
+      const filledSchedules = demoSchedules.filter((s) => s.date.trim() && s.timeSlot.trim())
+      if (filledSchedules.length === 0) {
         setError('시연 희망 날짜와 시간대를 입력해 주세요.')
+        return
+      }
+      const hasPartial = demoSchedules.some(
+        (s) => (s.date.trim() && !s.timeSlot.trim()) || (!s.date.trim() && s.timeSlot.trim()),
+      )
+      if (hasPartial) {
+        setError('입력 중인 일정의 날짜와 시간대를 모두 선택해 주세요.')
         return
       }
     }
@@ -144,8 +183,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
               name: name.trim(),
               phone: phone.trim(),
               demoCenterId,
-              demoDate: demoDate.trim(),
-              demoTimeSlot: demoTimeSlot.trim(),
+              demoSchedules: demoSchedules.filter((s) => s.date.trim() && s.timeSlot.trim()),
               additionalNote: additionalNote.trim(),
             }
 
@@ -174,11 +212,6 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
     }
   }
 
-  const introCopy =
-    inquiryType === 'general'
-      ? '아래 정보를 남겨 주시면, 세짐 영업 담당자가 확인 후 빠르게 연락드립니다.'
-      : '시연 가능 센터를 선택하고 희망 일정을 남겨 주시면, 담당자가 확인 후 연락드립니다.'
-
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
@@ -199,9 +232,21 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
           entered ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.97] translate-y-3'
         }`}
       >
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-gray-100 bg-white px-5 py-3.5 sm:py-4 rounded-t-2xl">
-          <h2 id="inquiry-modal-title" className="text-lg sm:text-xl font-bold text-gray-900 min-w-0 pr-2">
-            도입 문의
+        <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-gray-100 bg-white px-5 py-3.5 sm:py-4 rounded-t-2xl">
+          {modalStep === 'form' && !submitted ? (
+            <button
+              type="button"
+              onClick={goToChoose}
+              className="shrink-0 rounded-lg p-2 -ml-1 text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+              aria-label="이전으로"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          ) : null}
+          <h2 id="inquiry-modal-title" className="text-lg sm:text-xl font-bold text-gray-900 min-w-0 flex-1 pr-2">
+            {modalTitle}
           </h2>
           <button
             type="button"
@@ -214,42 +259,6 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
             </svg>
           </button>
         </div>
-
-        {!submitted && (
-          <>
-            <div className="px-5 pt-4 pb-3 border-b border-gray-100 bg-white">
-              <div className="flex gap-2 p-1 rounded-xl bg-gray-100" role="tablist" aria-label="문의 유형">
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={inquiryType === 'general'}
-                  className={inquiryTabClass(inquiryType === 'general')}
-                  onClick={() => {
-                    setInquiryType('general')
-                    setError(null)
-                  }}
-                >
-                  도입 문의
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={inquiryType === 'demo'}
-                  className={inquiryTabClass(inquiryType === 'demo')}
-                  onClick={() => {
-                    setInquiryType('demo')
-                    setError(null)
-                  }}
-                >
-                  시연 신청
-                </button>
-              </div>
-            </div>
-            <div className="px-5 py-3.5 sm:py-4 bg-gray-50/90 border-b border-gray-100">
-              <p className="ko-modal-copy text-sm sm:text-[15px] text-gray-600 leading-[1.65]">{introCopy}</p>
-            </div>
-          </>
-        )}
 
         {submitted ? (
           <div className="px-5 py-10 text-center">
@@ -267,216 +276,298 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
               확인
             </button>
           </div>
+        ) : modalStep === 'choose' ? (
+          <div className="px-5 py-8 sm:py-10">
+            <p className="ko-modal-copy text-sm sm:text-[15px] text-gray-600 text-center leading-[1.65] mb-8">
+              원하시는 항목을 선택해 주세요.
+            </p>
+            <div className="flex flex-col gap-3 sm:gap-4 max-w-sm mx-auto">
+              <button
+                type="button"
+                onClick={() => pickInquiryType('general')}
+                className="w-full rounded-2xl border-2 border-primary bg-primary px-5 py-4 sm:py-5 text-center text-white font-bold text-base sm:text-lg shadow-brand hover:bg-primary-dark transition-colors ko-modal-copy"
+              >
+                세짐 도입 문의하기
+              </button>
+              <button
+                type="button"
+                onClick={() => pickInquiryType('demo')}
+                className="w-full rounded-2xl border-2 border-primary/30 bg-white px-5 py-4 sm:py-5 text-center text-primary font-bold text-base sm:text-lg hover:border-primary hover:bg-primary-muted/40 transition-colors ko-modal-copy"
+              >
+                세짐 시연 신청하기
+              </button>
+            </div>
+          </div>
         ) : (
-          <form onSubmit={handleSubmit} className="px-5 py-5 sm:py-6 space-y-4">
-            {inquiryType === 'demo' ? (
-              <>
-                <div>
-                  <p className="block text-sm font-medium text-gray-700 mb-2">
-                    시연 센터 선택 <span className="text-red-500">*</span>
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {DEMO_CENTERS.map((center) => {
-                      const selected = demoCenterId === center.id
-                      return (
-                        <button
-                          key={center.id}
-                          type="button"
-                          onClick={() => setDemoCenterId(center.id)}
-                          className={`rounded-xl border px-3 py-3 text-left transition-colors ${
-                            selected
-                              ? 'border-primary bg-primary-muted ring-2 ring-primary/20'
-                              : 'border-gray-200 bg-white hover:border-primary/40 hover:bg-gray-50'
-                          }`}
-                          aria-pressed={selected}
-                        >
-                          <span className="block text-sm font-semibold text-gray-900 ko-modal-copy">{center.name}</span>
-                          {center.comingSoon ? (
-                            <span className="mt-1 inline-block rounded-md bg-amber-100 px-1.5 py-0.5 text-[11px] font-semibold text-amber-800">
-                              {center.comingSoonLabel ?? '오픈 예정'}
-                            </span>
-                          ) : null}
-                        </button>
-                      )
-                    })}
-                  </div>
-                  {selectedDemoCenter?.comingSoon ? (
-                    <p className="mt-2 text-xs text-amber-700 ko-modal-copy">
-                      선택하신 센터는 {selectedDemoCenter.comingSoonLabel ?? '오픈 예정'}입니다. 일정 조율 후 연락드립니다.
+          <>
+            <div className="px-5 py-3.5 sm:py-4 bg-gray-50/90 border-b border-gray-100">
+              <p className="ko-modal-copy text-sm sm:text-[15px] text-gray-600 leading-[1.65]">{introCopy}</p>
+            </div>
+            <form onSubmit={handleSubmit} className="px-5 py-5 sm:py-6 space-y-4">
+              {inquiryType === 'demo' ? (
+                <>
+                  <div>
+                    <p className="block text-sm font-medium text-gray-700 mb-2">
+                      시연 센터 선택 <span className="text-red-500">*</span>
                     </p>
-                  ) : null}
-                </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {DEMO_CENTERS.map((center) => {
+                        const selectable = isDemoCenterSelectable(center)
+                        const selected = demoCenterId === center.id
+                        return (
+                          <button
+                            key={center.id}
+                            type="button"
+                            disabled={!selectable}
+                            onClick={() => selectable && setDemoCenterId(center.id)}
+                            className={`relative rounded-xl border px-3 py-3 text-left transition-colors ${
+                              !selectable
+                                ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
+                                : selected
+                                  ? 'border-primary bg-primary-muted ring-2 ring-primary/20'
+                                  : center.featured
+                                    ? 'border-primary/40 bg-white hover:border-primary hover:bg-primary-muted/30'
+                                    : 'border-gray-200 bg-white hover:border-primary/40 hover:bg-gray-50'
+                            }`}
+                            aria-pressed={selected}
+                            aria-disabled={!selectable}
+                          >
+                            {center.featured ? (
+                              <span className="absolute right-2 top-2 rounded-md bg-red-500 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                                HOT
+                              </span>
+                            ) : null}
+                            <span className="block text-sm font-semibold text-gray-900 ko-modal-copy pr-10">
+                              {center.name}
+                              {center.location ? (
+                                <span className="font-normal text-gray-400 text-xs sm:text-[13px]">
+                                  {' '}
+                                  - {center.location}
+                                </span>
+                              ) : null}
+                            </span>
+                            {center.comingSoon ? (
+                              <span className="mt-1.5 inline-block rounded-md bg-amber-100 px-1.5 py-0.5 text-[11px] font-semibold text-amber-800">
+                                {center.comingSoonLabel ?? '오픈 예정'}
+                              </span>
+                            ) : null}
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="demo-visitor-center" className="block text-sm font-medium text-gray-700 mb-1">
+                      운영 센터명 <span className="text-gray-400 font-normal">(선택)</span>
+                    </label>
+                    <input
+                      id="demo-visitor-center"
+                      type="text"
+                      value={visitorCenterName}
+                      onChange={(e) => setVisitorCenterName(e.target.value)}
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
+                      placeholder="운영 중인 센터가 있다면 입력"
+                      autoComplete="organization"
+                    />
+                  </div>
+                </>
+              ) : (
                 <div>
-                  <label htmlFor="demo-visitor-center" className="block text-sm font-medium text-gray-700 mb-1">
-                    운영 센터명 <span className="text-gray-400 font-normal">(선택)</span>
+                  <label htmlFor="inquiry-center" className="block text-sm font-medium text-gray-700 mb-1">
+                    센터명 <span className="text-red-500">*</span>
                   </label>
                   <input
-                    id="demo-visitor-center"
+                    id="inquiry-center"
                     type="text"
-                    value={visitorCenterName}
-                    onChange={(e) => setVisitorCenterName(e.target.value)}
+                    value={centerName}
+                    onChange={(e) => setCenterName(e.target.value)}
                     className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
-                    placeholder="운영 중인 센터가 있다면 입력"
+                    placeholder="헬스장 또는 센터 이름"
                     autoComplete="organization"
                   />
                 </div>
-              </>
-            ) : (
+              )}
+
               <div>
-                <label htmlFor="inquiry-center" className="block text-sm font-medium text-gray-700 mb-1">
-                  센터명 <span className="text-red-500">*</span>
+                <label htmlFor="inquiry-name" className="block text-sm font-medium text-gray-700 mb-1">
+                  성함 <span className="text-red-500">*</span>
                 </label>
                 <input
-                  id="inquiry-center"
+                  id="inquiry-name"
                   type="text"
-                  value={centerName}
-                  onChange={(e) => setCenterName(e.target.value)}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
-                  placeholder="헬스장 또는 센터 이름"
-                  autoComplete="organization"
+                  placeholder="담당자 성함"
+                  autoComplete="name"
                 />
               </div>
-            )}
-
-            <div>
-              <label htmlFor="inquiry-name" className="block text-sm font-medium text-gray-700 mb-1">
-                성함 <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="inquiry-name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
-                placeholder="담당자 성함"
-                autoComplete="name"
-              />
-            </div>
-            <div>
-              <label htmlFor="inquiry-phone" className="block text-sm font-medium text-gray-700 mb-1">
-                연락처 <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="inquiry-phone"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
-                placeholder="010-0000-0000"
-                autoComplete="tel"
-              />
-            </div>
-
-            {inquiryType === 'general' ? (
               <div>
-                <label htmlFor="inquiry-time" className="block text-sm font-medium text-gray-700 mb-1">
-                  상담 가능한 시간 <span className="text-red-500">*</span>
+                <label htmlFor="inquiry-phone" className="block text-sm font-medium text-gray-700 mb-1">
+                  연락처 <span className="text-red-500">*</span>
                 </label>
-                <textarea
-                  id="inquiry-time"
-                  value={availableTime}
-                  onChange={(e) => setAvailableTime(e.target.value)}
-                  rows={3}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow resize-y min-h-[88px]"
-                  placeholder="예: 평일 14:00~18:00, 주말 10:00~12:00"
+                <input
+                  id="inquiry-phone"
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
+                  placeholder="010-0000-0000"
+                  autoComplete="tel"
                 />
               </div>
-            ) : (
-              <>
+
+              {inquiryType === 'general' ? (
                 <div>
-                  <label htmlFor="demo-date" className="block text-sm font-medium text-gray-700 mb-1">
-                    시연 희망 날짜 <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="demo-date"
-                    type="date"
-                    value={demoDate}
-                    min={minDemoDate}
-                    onChange={(e) => setDemoDate(e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="demo-time" className="block text-sm font-medium text-gray-700 mb-1">
-                    시연 희망 시간대 <span className="text-red-500">*</span>
+                  <label htmlFor="inquiry-time" className="block text-sm font-medium text-gray-700 mb-1">
+                    상담 가능한 시간 <span className="text-red-500">*</span>
                   </label>
                   <textarea
-                    id="demo-time"
-                    value={demoTimeSlot}
-                    onChange={(e) => setDemoTimeSlot(e.target.value)}
-                    rows={2}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow resize-y min-h-[72px]"
-                    placeholder="예: 14:00~16:00"
+                    id="inquiry-time"
+                    value={availableTime}
+                    onChange={(e) => setAvailableTime(e.target.value)}
+                    rows={3}
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow resize-y min-h-[88px]"
+                    placeholder="예: 평일 14:00~18:00, 주말 10:00~12:00"
                   />
                 </div>
-              </>
-            )}
+              ) : (
+                <div className="space-y-3">
+                  <p className="text-sm font-medium text-gray-700">
+                    시연 희망 일정 <span className="text-red-500">*</span>
+                  </p>
+                  {demoSchedules.map((schedule, index) => (
+                    <div
+                      key={index}
+                      className="rounded-xl border border-gray-200 bg-gray-50/50 p-3 space-y-2"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-xs font-semibold text-gray-500">일정 {index + 1}</span>
+                        {demoSchedules.length > 1 ? (
+                          <button
+                            type="button"
+                            onClick={() => removeScheduleRow(index)}
+                            className="text-xs text-gray-500 hover:text-red-600 font-medium"
+                          >
+                            삭제
+                          </button>
+                        ) : null}
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                          <label htmlFor={`demo-date-${index}`} className="sr-only">
+                            시연 희망 날짜
+                          </label>
+                          <input
+                            id={`demo-date-${index}`}
+                            type="date"
+                            value={schedule.date}
+                            min={minDemoDate}
+                            onChange={(e) => updateSchedule(index, { date: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor={`demo-time-${index}`} className="sr-only">
+                            시연 희망 시간대
+                          </label>
+                          <select
+                            id={`demo-time-${index}`}
+                            value={schedule.timeSlot}
+                            onChange={(e) => updateSchedule(index, { timeSlot: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
+                          >
+                            <option value="">시간대 선택</option>
+                            {DEMO_TIME_SLOTS.map((slot) => (
+                              <option key={slot} value={slot}>
+                                {slot}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {demoSchedules.length < MAX_DEMO_SCHEDULES ? (
+                    <button
+                      type="button"
+                      onClick={addScheduleRow}
+                      className="w-full rounded-lg border-2 border-dashed border-gray-300 py-2.5 text-sm font-semibold text-gray-600 hover:border-primary/50 hover:text-primary hover:bg-primary-muted/20 transition-colors"
+                    >
+                      + 스케줄 추가하기
+                    </button>
+                  ) : (
+                    <p className="text-xs text-gray-400 text-center">최대 {MAX_DEMO_SCHEDULES}개까지 추가할 수 있습니다.</p>
+                  )}
+                </div>
+              )}
 
-            <div>
-              <label htmlFor="inquiry-note" className="block text-sm font-medium text-gray-700 mb-1">
-                {inquiryType === 'demo' ? '궁금한 점' : '추가 문의사항'}{' '}
-                <span className="text-gray-400 font-normal">(선택)</span>
-              </label>
-              <textarea
-                id="inquiry-note"
-                value={additionalNote}
-                onChange={(e) => setAdditionalNote(e.target.value)}
-                rows={3}
-                maxLength={2000}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow resize-y min-h-[80px]"
-                placeholder={
-                  inquiryType === 'demo'
-                    ? '예: 시연 시 확인하고 싶은 운동, 센터 규모, 도입 검토 단계 등'
-                    : '예: 도입 희망 시기, 센터 규모, 문의하고 싶은 제품 등'
-                }
-              />
-            </div>
+              <div>
+                <label htmlFor="inquiry-note" className="block text-sm font-medium text-gray-700 mb-1">
+                  {inquiryType === 'demo' ? '궁금한 점' : '추가 문의사항'}{' '}
+                  <span className="text-gray-400 font-normal">(선택)</span>
+                </label>
+                <textarea
+                  id="inquiry-note"
+                  value={additionalNote}
+                  onChange={(e) => setAdditionalNote(e.target.value)}
+                  rows={3}
+                  maxLength={2000}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow resize-y min-h-[80px]"
+                  placeholder={
+                    inquiryType === 'demo'
+                      ? '예: 시연 시 확인하고 싶은 운동, 센터 규모, 도입 검토 단계 등'
+                      : '예: 도입 희망 시기, 센터 규모, 문의하고 싶은 제품 등'
+                  }
+                />
+              </div>
 
-            <div className="flex items-start gap-3 pt-1 min-w-0">
-              <input
-                id="inquiry-privacy"
-                type="checkbox"
-                checked={privacyAgreed}
-                onChange={(e) => setPrivacyAgreed(e.target.checked)}
-                className="mt-1 h-4 w-4 shrink-0 rounded border-gray-300 text-primary focus:ring-primary"
-              />
-              <label
-                htmlFor="inquiry-privacy"
-                className="ko-modal-copy min-w-0 text-sm sm:text-[15px] text-gray-700 leading-relaxed"
-              >
-                <Link
-                  href="/privacy"
-                  className="text-primary font-medium underline underline-offset-2 hover:text-primary-dark"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div className="flex items-start gap-3 pt-1 min-w-0">
+                <input
+                  id="inquiry-privacy"
+                  type="checkbox"
+                  checked={privacyAgreed}
+                  onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                  className="mt-1 h-4 w-4 shrink-0 rounded border-gray-300 text-primary focus:ring-primary"
+                />
+                <label
+                  htmlFor="inquiry-privacy"
+                  className="ko-modal-copy min-w-0 text-sm sm:text-[15px] text-gray-700 leading-relaxed"
                 >
-                  개인정보처리방침
-                </Link>
-                에 동의합니다. <span className="text-red-500">*</span>
-              </label>
-            </div>
-            {error && (
-              <p className="text-sm text-red-600" role="alert">
-                {error}
-              </p>
-            )}
-            <div className="flex gap-3 pt-2">
-              <button
-                type="button"
-                onClick={handleClose}
-                className="flex-1 py-3 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:bg-gray-50 transition-colors"
-              >
-                취소
-              </button>
-              <button
-                type="submit"
-                disabled={submitting}
-                className="flex-1 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-primary-dark transition-colors disabled:opacity-60"
-              >
-                {submitting ? '전송 중…' : inquiryType === 'demo' ? '시연 신청하기' : '신청하기'}
-              </button>
-            </div>
-          </form>
+                  <Link
+                    href="/privacy"
+                    className="text-primary font-medium underline underline-offset-2 hover:text-primary-dark"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    개인정보처리방침
+                  </Link>
+                  에 동의합니다. <span className="text-red-500">*</span>
+                </label>
+              </div>
+              {error && (
+                <p className="text-sm text-red-600" role="alert">
+                  {error}
+                </p>
+              )}
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={goToChoose}
+                  className="flex-1 py-3 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:bg-gray-50 transition-colors"
+                >
+                  이전
+                </button>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="flex-1 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-primary-dark transition-colors disabled:opacity-60"
+                >
+                  {submitting ? '전송 중…' : inquiryType === 'demo' ? '시연 신청하기' : '신청하기'}
+                </button>
+              </div>
+            </form>
+          </>
         )}
       </div>
     </div>

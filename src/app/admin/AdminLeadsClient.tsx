@@ -40,11 +40,14 @@ function leadCenterCell(lead: Lead): string {
 
 function leadScheduleCell(lead: Lead): string {
   if (lead.inquiryType === 'demo') {
-    const date = lead.demoDate?.trim()
-    const time = lead.demoTimeSlot?.trim()
-    if (date && time) return `${date}\n${time}`
-    if (date) return date
-    if (time) return time
+    const schedules = lead.demoSchedules?.length
+      ? lead.demoSchedules
+      : lead.demoDate && lead.demoTimeSlot
+        ? [{ date: lead.demoDate, timeSlot: lead.demoTimeSlot }]
+        : []
+    if (schedules.length > 0) {
+      return schedules.map((s) => `${s.date}  ${s.timeSlot}`).join('\n')
+    }
     return '—'
   }
   return lead.availableTime || '—'

@@ -212,8 +212,8 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
   {
     id: '5',
     src: '/images/installations/install-05.jpg',
-    title: '경기 화성 병점구 팀에이치짐',
-    alt: '세짐 설치 사례 — 경기 화성 병점구 팀에이치짐',
+    title: '경기 화성 향남 올어바웃피트니스',
+    alt: '세짐 설치 사례 — 경기 화성 향남 올어바웃피트니스',
     categoryId: 'health',
     regionKey: '경기',
   },

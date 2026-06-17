@@ -45,7 +45,7 @@ export function InquirySuccessPanel({ snapshot, onClose }: Props) {
   const shareSummary = useCallback(async () => {
     setShareError(null)
     const title =
-      snapshot.inquiryType === 'demo' ? '세짐 시연 신청 내역' : '세짐 도입 상담 신청 내역'
+      snapshot.inquiryType === 'demo' ? '세짐 현장 시연 신청 내역' : '세짐 도입 상담 신청 내역'
     if (typeof navigator.share === 'function') {
       try {
         await navigator.share({ title, text: summaryText })
@@ -69,7 +69,7 @@ export function InquirySuccessPanel({ snapshot, onClose }: Props) {
 
       <div className="rounded-xl border border-gray-200 bg-gray-50/80 p-4 sm:p-5 space-y-3 mb-5 text-left max-h-[min(50vh,360px)] overflow-y-auto">
         <p className="text-xs font-bold uppercase tracking-wide text-primary">
-          {snapshot.inquiryType === 'demo' ? '시연 신청 내역' : '도입 상담 신청 내역'}
+          {snapshot.inquiryType === 'demo' ? '세짐 현장 시연 신청 내역' : '도입 상담 신청 내역'}
         </p>
         {snapshot.inquiryType === 'demo' ? (
           <>

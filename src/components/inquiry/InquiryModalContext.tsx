@@ -67,7 +67,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
     modalStep === 'choose'
       ? '도입 문의하기'
       : inquiryType === 'demo'
-        ? '시연 신청'
+        ? '세짐 현장 시연 신청'
         : '도입 문의하기'
 
   const introCopy =
@@ -214,7 +214,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
       })
       setSubmissionSnapshot(snapshot)
       setSubmitted(true)
-      const formName = inquiryType === 'demo' ? '시연 신청' : '도입 문의'
+      const formName = inquiryType === 'demo' ? '세짐 현장 시연 신청' : '도입 문의'
       const formId = inquiryType === 'demo' ? 'segym_demo' : 'segym_inquiry'
       trackGa4GenerateLead({ form_id: formId, form_name: formName })
       trackMetaStandard('Lead', {
@@ -299,7 +299,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
                 onClick={() => pickInquiryType('demo')}
                 className="w-full rounded-2xl border-2 border-primary/30 bg-white px-5 py-4 sm:py-5 text-center text-primary hover:border-primary hover:bg-primary-muted/40 transition-colors"
               >
-                <span className="block font-bold text-base sm:text-lg ko-modal-copy">시연 신청</span>
+                <span className="block font-bold text-base sm:text-lg ko-modal-copy">현장 시연 신청</span>
                 <span className="block mt-1 text-xs sm:text-sm font-normal text-gray-500 ko-modal-copy">
                   시연 센터에서 세짐을 직접 체험해 보세요
                 </span>
@@ -571,7 +571,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
                   disabled={submitting}
                   className="flex-1 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-primary-dark transition-colors disabled:opacity-60"
                 >
-                  {submitting ? '전송 중…' : inquiryType === 'demo' ? '시연 신청하기' : '신청하기'}
+                  {submitting ? '전송 중…' : inquiryType === 'demo' ? '현장 시연 신청하기' : '신청하기'}
                 </button>
               </div>
             </form>

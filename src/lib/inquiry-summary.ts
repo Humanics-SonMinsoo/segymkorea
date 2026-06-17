@@ -55,7 +55,7 @@ export function buildInquirySummaryText(snapshot: InquirySubmissionSnapshot): st
   const lines: string[] = ['[세짐 SEGYM 신청 내역]', '']
 
   if (snapshot.inquiryType === 'demo') {
-    lines.push('■ 시연 신청', '')
+    lines.push('■ 세짐 현장 시연 신청', '')
     lines.push(`시연 센터: ${snapshot.demoCenterName}`)
     if (snapshot.demoCenterAddress) {
       lines.push(`주소: ${snapshot.demoCenterAddress}`)

@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import type { Lead, LeadAssignee, LeadQuality } from '@/types/lead'
+import type { Lead, LeadAssignee, LeadInquiryType, LeadQuality } from '@/types/lead'
 import { LEAD_ASSIGNEES, LEAD_QUALITIES } from '@/types/lead'
 import type { BrochureRequest } from '@/types/brochure-request'
+import { DEMO_CENTERS, getDemoCenterById } from '@/data/demo-centers'
 
 function formatDateTimeKST(iso: string): string {
   const d = new Date(iso)
@@ -29,9 +30,17 @@ function leadTypeLabel(lead: Lead): string {
   return lead.inquiryType === 'demo' ? '시연 신청' : '도입 문의'
 }
 
+function demoCenterAddress(lead: Lead): string | undefined {
+  if (lead.demoCenterId) return getDemoCenterById(lead.demoCenterId)?.address
+  if (lead.demoCenter) return DEMO_CENTERS.find((c) => c.name === lead.demoCenter)?.address
+  return undefined
+}
+
 function leadCenterCell(lead: Lead): string {
   if (lead.inquiryType === 'demo') {
     const parts = [lead.demoCenter ? `시연: ${lead.demoCenter}` : '시연 센터 미기록']
+    const address = demoCenterAddress(lead)
+    if (address) parts.push(`주소: ${address}`)
     if (lead.centerName.trim()) parts.push(`운영: ${lead.centerName}`)
     return parts.join('\n')
   }
@@ -56,6 +65,7 @@ function leadScheduleCell(lead: Lead): string {
 export default function AdminLeadsClient() {
   const router = useRouter()
   const [tab, setTab] = useState<'leads' | 'brochure'>('leads')
+  const [leadFilter, setLeadFilter] = useState<'all' | LeadInquiryType>('all')
   const [leads, setLeads] = useState<Lead[]>([])
   const [brochures, setBrochures] = useState<BrochureRequest[]>([])
   const [loading, setLoading] = useState(true)
@@ -95,11 +105,17 @@ export default function AdminLeadsClient() {
 
   const stats = useMemo(() => {
     const total = leads.length
+    const demoTotal = leads.filter((l) => l.inquiryType === 'demo').length
     const todayKST = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })
     const todayCount = leads.filter((l) => dateKeyKST(l.createdAt) === todayKST).length
     const unassigned = leads.filter((l) => !l.assignee).length
-    return { total, todayCount, unassigned }
+    return { total, demoTotal, todayCount, unassigned }
   }, [leads])
+
+  const filteredLeads = useMemo(() => {
+    if (leadFilter === 'all') return leads
+    return leads.filter((l) => l.inquiryType === leadFilter)
+  }, [leads, leadFilter])
 
   const brochureStats = useMemo(() => {
     const total = brochures.length
@@ -232,7 +248,7 @@ export default function AdminLeadsClient() {
               </div>
               <p className="text-xs text-white/70 mt-2 max-w-xl">
                 {tab === 'leads'
-                  ? '담당자와 리드 품질을 기록할 수 있습니다.'
+                  ? '도입 문의·시연 신청 리드입니다. 담당자와 유효/무효를 기록할 수 있습니다.'
                   : '이메일로 소개서(PDF) 발송 전에 아래 목록을 확인하세요.'}
               </p>
             </div>
@@ -274,10 +290,14 @@ export default function AdminLeadsClient() {
 
         {tab === 'leads' ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
               <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50">
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">총 리드 수</p>
                 <p className="text-3xl font-bold text-slate-900 mt-1 tabular-nums">{stats.total}</p>
+              </div>
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50 ring-1 ring-violet-200/60">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">시연 신청</p>
+                <p className="text-3xl font-bold text-violet-700 mt-1 tabular-nums">{stats.demoTotal}</p>
               </div>
               <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50 ring-1 ring-primary/10">
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">오늘 접수 (KST)</p>
@@ -287,6 +307,29 @@ export default function AdminLeadsClient() {
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">담당자 미지정</p>
                 <p className="text-3xl font-bold text-amber-600 mt-1 tabular-nums">{stats.unassigned}</p>
               </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2 mb-4">
+              {(
+                [
+                  ['all', '전체'],
+                  ['general', '도입 문의'],
+                  ['demo', '시연 신청'],
+                ] as const
+              ).map(([id, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setLeadFilter(id)}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
+                    leadFilter === id
+                      ? 'border-primary bg-primary text-white'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
             <div className="rounded-2xl border border-slate-200/80 bg-white shadow-sm shadow-slate-200/40 overflow-hidden">
@@ -306,14 +349,14 @@ export default function AdminLeadsClient() {
                     </tr>
                   </thead>
                   <tbody>
-                    {leads.length === 0 ? (
+                    {filteredLeads.length === 0 ? (
                       <tr>
                         <td colSpan={9} className="px-4 py-12 text-center text-gray-500">
-                          아직 접수된 리드가 없습니다.
+                          {leads.length === 0 ? '아직 접수된 리드가 없습니다.' : '해당 유형의 리드가 없습니다.'}
                         </td>
                       </tr>
                     ) : (
-                      leads.map((lead) => (
+                      filteredLeads.map((lead) => (
                         <tr key={lead.id} className="border-b border-slate-100 hover:bg-primary-muted/50 align-top transition-colors">
                           <td className="px-3 py-3 text-gray-800 whitespace-nowrap">
                             {formatDateTimeKST(lead.createdAt)}

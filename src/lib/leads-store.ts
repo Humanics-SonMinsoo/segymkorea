@@ -33,6 +33,7 @@ function normalizeLead(row: Partial<Lead>): Lead {
     phone: typeof row.phone === 'string' ? row.phone : '',
     availableTime: typeof row.availableTime === 'string' ? row.availableTime : '',
     additionalNote: typeof row.additionalNote === 'string' ? row.additionalNote : '',
+    demoCenterId: typeof row.demoCenterId === 'string' ? row.demoCenterId : undefined,
     demoCenter: typeof row.demoCenter === 'string' ? row.demoCenter : undefined,
     demoDate: demoSchedules?.[0]?.date ?? (typeof row.demoDate === 'string' ? row.demoDate : undefined),
     demoTimeSlot: demoSchedules?.[0]?.timeSlot ?? (typeof row.demoTimeSlot === 'string' ? row.demoTimeSlot : undefined),
@@ -96,6 +97,7 @@ export type NewLeadInput = {
   availableTime?: string
   additionalNote?: string
   demoCenter?: string
+  demoCenterId?: string
   demoDate?: string
   demoTimeSlot?: string
   demoSchedules?: DemoScheduleEntry[]
@@ -120,6 +122,7 @@ export async function addLead(input: NewLeadInput): Promise<Lead> {
   if (inquiryType === 'demo') {
     const schedules = (input.demoSchedules ?? []).filter((s) => s.date.trim() && s.timeSlot.trim())
     lead.demoCenter = (input.demoCenter ?? '').trim()
+    lead.demoCenterId = (input.demoCenterId ?? '').trim() || undefined
     lead.demoSchedules = schedules
     lead.demoDate = schedules[0]?.date
     lead.demoTimeSlot = schedules[0]?.timeSlot

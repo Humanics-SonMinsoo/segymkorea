@@ -124,8 +124,8 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
   {
     id: '24',
     src: '/images/installations/install-24.jpg',
-    title: '강원 원주 호크아이짐',
-    alt: '세짐 설치 사례 — 강원 원주 호크아이짐',
+    title: '강원 원주 호크아이짐 2호점',
+    alt: '세짐 설치 사례 — 강원 원주 호크아이짐 2호점',
     categoryId: 'health',
     regionKey: '강원',
   },
@@ -172,8 +172,8 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
   {
     id: '9',
     src: '/images/installations/install-09.jpg',
-    title: '경기 화성 팀에이치짐',
-    alt: '세짐 설치 사례 — 경기 화성 팀에이치짐',
+    title: '경기 화성 병점구 팀에이치짐',
+    alt: '세짐 설치 사례 — 경기 화성 병점구 팀에이치짐',
     categoryId: 'health',
     regionKey: '경기',
   },
@@ -212,8 +212,8 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
   {
     id: '5',
     src: '/images/installations/install-05.jpg',
-    title: '경기 화성 향남 올어바웃피트니스',
-    alt: '세짐 설치 사례 — 경기 화성 향남 올어바웃피트니스',
+    title: '경기 화성 병점구 팀에이치짐',
+    alt: '세짐 설치 사례 — 경기 화성 병점구 팀에이치짐',
     categoryId: 'health',
     regionKey: '경기',
   },

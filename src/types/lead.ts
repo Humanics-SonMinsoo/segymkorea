@@ -21,6 +21,8 @@ export type Lead = {
   availableTime: string
   /** 선택 입력: 추가 문의, 요청 사항 */
   additionalNote: string
+  /** 시연 신청: 선택한 시연 센터 id */
+  demoCenterId?: string
   /** 시연 신청: 선택한 시연 센터명 */
   demoCenter?: string
   /** 시연 신청: 희망 날짜 (YYYY-MM-DD) */

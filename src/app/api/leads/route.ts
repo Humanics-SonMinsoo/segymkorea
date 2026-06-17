@@ -102,6 +102,7 @@ export async function POST(request: Request) {
         availableTime: '',
         additionalNote: typeof additionalNote === 'string' ? additionalNote : '',
         demoCenter: center.name,
+        demoCenterId: center.id,
         demoSchedules,
       })
       return NextResponse.json({ ok: true, id: lead.id })

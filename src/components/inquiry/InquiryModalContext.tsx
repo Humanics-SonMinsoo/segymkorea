@@ -11,6 +11,8 @@ import {
 } from 'react'
 import Link from 'next/link'
 import { DEMO_CENTERS, DEMO_TIME_SLOTS, isDemoCenterSelectable } from '@/data/demo-centers'
+import { buildInquirySubmissionSnapshot, type InquirySubmissionSnapshot } from '@/lib/inquiry-summary'
+import { InquirySuccessPanel } from '@/components/inquiry/InquirySuccessPanel'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
@@ -55,6 +57,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
   const [privacyAgreed, setPrivacyAgreed] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState(false)
+  const [submissionSnapshot, setSubmissionSnapshot] = useState<InquirySubmissionSnapshot | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const entered = useModalEnterAnimation()
 
@@ -98,6 +101,7 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
     setPrivacyAgreed(false)
     setError(null)
     setSubmitted(false)
+    setSubmissionSnapshot(null)
   }
 
   const handleClose = () => {
@@ -197,6 +201,18 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
         setError(typeof data.error === 'string' ? data.error : '접수에 실패했습니다. 잠시 후 다시 시도해 주세요.')
         return
       }
+      const snapshot = buildInquirySubmissionSnapshot({
+        inquiryType,
+        centerName: inquiryType === 'general' ? centerName : '',
+        name,
+        phone,
+        availableTime,
+        additionalNote,
+        demoCenterId,
+        demoSchedules,
+        visitorCenterName,
+      })
+      setSubmissionSnapshot(snapshot)
       setSubmitted(true)
       const formName = inquiryType === 'demo' ? '시연 신청' : '도입 문의'
       const formId = inquiryType === 'demo' ? 'segym_demo' : 'segym_inquiry'
@@ -260,22 +276,8 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
           </button>
         </div>
 
-        {submitted ? (
-          <div className="px-5 py-10 text-center">
-            <p className="text-lg font-semibold text-gray-900 mb-2">신청이 접수되었습니다</p>
-            <p className="ko-modal-copy text-sm sm:text-[15px] text-gray-600 mb-6 leading-[1.65] max-w-md mx-auto">
-              {inquiryType === 'demo'
-                ? '시연 일정 확인 후 빠른 시일 내에 연락드리겠습니다.'
-                : '빠른 시일 내에 연락드리겠습니다.'}
-            </p>
-            <button
-              type="button"
-              onClick={handleClose}
-              className="px-6 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-primary-dark transition-colors"
-            >
-              확인
-            </button>
-          </div>
+        {submitted && submissionSnapshot ? (
+          <InquirySuccessPanel snapshot={submissionSnapshot} onClose={handleClose} />
         ) : modalStep === 'choose' ? (
           <div className="px-5 py-8 sm:py-10">
             <p className="ko-modal-copy text-sm sm:text-[15px] text-gray-600 text-center leading-[1.65] mb-8">

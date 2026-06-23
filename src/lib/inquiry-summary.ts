@@ -1,5 +1,6 @@
 import type { DemoScheduleEntry, LeadInquiryType } from '@/types/lead'
 import { getDemoCenterById, type DemoCenter } from '@/data/demo-centers'
+import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 
 export type InquirySubmissionSnapshot = {
   inquiryType: LeadInquiryType
@@ -55,8 +56,8 @@ export function buildInquirySummaryText(snapshot: InquirySubmissionSnapshot): st
   const lines: string[] = ['[세짐 SEGYM 신청 내역]', '']
 
   if (snapshot.inquiryType === 'demo') {
-    lines.push('■ 세짐 현장 시연 신청', '')
-    lines.push(`시연 센터: ${snapshot.demoCenterName}`)
+    lines.push(`■ ${DEMO_EXPERIENCE_COPY.summaryTitle}`, '')
+    lines.push(`${DEMO_EXPERIENCE_COPY.centerFieldLabel}: ${snapshot.demoCenterName}`)
     if (snapshot.demoCenterAddress) {
       lines.push(`주소: ${snapshot.demoCenterAddress}`)
     }

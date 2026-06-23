@@ -7,6 +7,7 @@ import type { Lead, LeadAssignee, LeadInquiryType, LeadQuality } from '@/types/l
 import { LEAD_ASSIGNEES, LEAD_QUALITIES } from '@/types/lead'
 import type { BrochureRequest } from '@/types/brochure-request'
 import { DEMO_CENTERS, getDemoCenterById } from '@/data/demo-centers'
+import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 
 function formatDateTimeKST(iso: string): string {
   const d = new Date(iso)
@@ -27,7 +28,7 @@ function dateKeyKST(iso: string): string {
 }
 
 function leadTypeLabel(lead: Lead): string {
-  return lead.inquiryType === 'demo' ? '현장 시연 신청' : '도입 문의'
+  return lead.inquiryType === 'demo' ? DEMO_EXPERIENCE_COPY.adminLabel : '도입 문의'
 }
 
 function demoCenterAddress(lead: Lead): string | undefined {
@@ -38,7 +39,7 @@ function demoCenterAddress(lead: Lead): string | undefined {
 
 function leadCenterCell(lead: Lead): string {
   if (lead.inquiryType === 'demo') {
-    const parts = [lead.demoCenter ? `시연: ${lead.demoCenter}` : '시연 센터 미기록']
+    const parts = [lead.demoCenter ? `체험: ${lead.demoCenter}` : '체험 센터 미기록']
     const address = demoCenterAddress(lead)
     if (address) parts.push(`주소: ${address}`)
     if (lead.centerName.trim()) parts.push(`운영: ${lead.centerName}`)
@@ -248,7 +249,7 @@ export default function AdminLeadsClient() {
               </div>
               <p className="text-xs text-white/70 mt-2 max-w-xl">
                 {tab === 'leads'
-                  ? '도입 문의·현장 시연 신청 리드입니다. 담당자와 유효/무효를 기록할 수 있습니다.'
+                  ? `도입 문의·${DEMO_EXPERIENCE_COPY.adminLabel} 리드입니다. 담당자와 유효/무효를 기록할 수 있습니다.`
                   : '이메일로 소개서(PDF) 발송 전에 아래 목록을 확인하세요.'}
               </p>
             </div>
@@ -296,7 +297,7 @@ export default function AdminLeadsClient() {
                 <p className="text-3xl font-bold text-slate-900 mt-1 tabular-nums">{stats.total}</p>
               </div>
               <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50 ring-1 ring-violet-200/60">
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">현장 시연 신청</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{DEMO_EXPERIENCE_COPY.adminLabel}</p>
                 <p className="text-3xl font-bold text-violet-700 mt-1 tabular-nums">{stats.demoTotal}</p>
               </div>
               <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50 ring-1 ring-primary/10">
@@ -314,7 +315,7 @@ export default function AdminLeadsClient() {
                 [
                   ['all', '전체'],
                   ['general', '도입 문의'],
-                  ['demo', '현장 시연 신청'],
+                  ['demo', DEMO_EXPERIENCE_COPY.adminLabel],
                 ] as const
               ).map(([id, label]) => (
                 <button

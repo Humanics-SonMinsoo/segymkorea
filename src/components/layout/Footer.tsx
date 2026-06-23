@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { COMPANY_PUBLIC } from '@/data/company-public'
+import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { FooterAdminLinks } from './FooterAdminLinks'
 import { ScrollToTopButton } from './ScrollToTopButton'
 
@@ -48,7 +49,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/experience" className="hover:text-gray-300 underline-offset-2 hover:underline">
-                  세짐 체험신청
+                  {DEMO_EXPERIENCE_COPY.navLabel}
                 </Link>
               </li>
               <li>

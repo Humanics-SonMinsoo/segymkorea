@@ -3,7 +3,9 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { DEMO_TIME_SLOTS, getDemoCenterById } from '@/data/demo-centers'
+import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { DemoCenterPicker } from '@/components/experience/DemoCenterPicker'
+import { DemoExperienceGuide } from '@/components/experience/DemoExperienceGuide'
 import { InquirySuccessPanel } from '@/components/inquiry/InquirySuccessPanel'
 import { buildInquirySubmissionSnapshot, type InquirySubmissionSnapshot } from '@/lib/inquiry-summary'
 import { trackGa4GenerateLead } from '@/lib/ga4'
@@ -49,7 +51,7 @@ export function DemoExperienceContent() {
     setError(null)
 
     if (!demoCenterId) {
-      setError('시연 센터를 선택해 주세요.')
+      setError('체험 센터를 선택해 주세요.')
       return
     }
     if (!name.trim() || !phone.trim()) {
@@ -58,7 +60,7 @@ export function DemoExperienceContent() {
     }
     const filledSchedules = demoSchedules.filter((s) => s.date.trim() && s.timeSlot.trim())
     if (filledSchedules.length === 0) {
-      setError('시연 희망 날짜와 시간대를 입력해 주세요.')
+      setError('체험 희망 날짜와 시간대를 입력해 주세요.')
       return
     }
     if (!privacyAgreed) {
@@ -98,9 +100,9 @@ export function DemoExperienceContent() {
         visitorCenterName,
       })
       setSubmissionSnapshot(snapshot)
-      trackGa4GenerateLead({ form_id: 'segym_demo', form_name: '세짐 현장 시연 신청' })
+      trackGa4GenerateLead({ form_id: 'segym_demo', form_name: DEMO_EXPERIENCE_COPY.analyticsFormName })
       trackMetaStandard('Lead', {
-        content_name: '세짐 현장 시연 신청',
+        content_name: DEMO_EXPERIENCE_COPY.analyticsFormName,
         content_category: 'segym_demo',
       })
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -133,10 +135,14 @@ export function DemoExperienceContent() {
 
   return (
     <div className="space-y-10">
+      <DemoExperienceGuide variant="page" />
+
       <section>
-        <h2 className="text-lg sm:text-xl font-bold text-gray-900 ko-modal-copy mb-2">시연 센터 선택</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 ko-modal-copy mb-2">
+          {DEMO_EXPERIENCE_COPY.centerSectionTitle}
+        </h2>
         <p className="text-sm text-gray-600 ko-modal-copy mb-5 leading-relaxed">
-          세짐이 설치된 센터에서 직접 체험해 보실 수 있습니다. 원하시는 센터를 선택해 주세요.
+          {DEMO_EXPERIENCE_COPY.centerSectionHint}
         </p>
         <DemoCenterPicker selectedId={demoCenterId} onSelect={setDemoCenterId} variant="page" />
         {selectedCenter?.comingSoon ? (
@@ -149,7 +155,7 @@ export function DemoExperienceContent() {
       <section className="rounded-2xl border border-gray-200 bg-gray-50/50 p-5 sm:p-8">
         <h2 className="text-lg sm:text-xl font-bold text-gray-900 ko-modal-copy mb-2">신청 정보 입력</h2>
         <p className="text-sm text-gray-600 ko-modal-copy mb-6 leading-relaxed">
-          희망 일정과 연락처를 남겨 주시면 담당자가 확인 후 연락드립니다.
+          {DEMO_EXPERIENCE_COPY.formIntro}
         </p>
         <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
           <div>
@@ -196,7 +202,7 @@ export function DemoExperienceContent() {
 
           <div className="space-y-3">
             <p className="text-sm font-medium text-gray-700">
-              시연 희망 일정 <span className="text-red-500">*</span>
+              {DEMO_EXPERIENCE_COPY.scheduleLabel} <span className="text-red-500">*</span>
             </p>
             {demoSchedules.map((schedule, index) => (
               <div key={index} className="rounded-xl border border-gray-200 bg-white p-3 space-y-2">
@@ -257,7 +263,7 @@ export function DemoExperienceContent() {
               rows={3}
               maxLength={2000}
               className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-y min-h-[80px]"
-              placeholder="예: 시연 시 확인하고 싶은 운동, 센터 규모, 도입 검토 단계 등"
+              placeholder="예: 체험 시 확인하고 싶은 운동, 센터 규모, 도입 검토 단계 등"
             />
           </div>
 
@@ -288,7 +294,7 @@ export function DemoExperienceContent() {
             disabled={submitting}
             className="w-full sm:w-auto min-w-[200px] py-3.5 px-8 rounded-xl bg-primary text-white font-semibold hover:bg-primary-dark transition-colors disabled:opacity-60"
           >
-            {submitting ? '전송 중…' : '현장 시연 신청하기'}
+            {submitting ? '전송 중…' : DEMO_EXPERIENCE_COPY.submitButton}
           </button>
         </form>
       </section>

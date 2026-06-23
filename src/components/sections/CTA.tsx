@@ -10,7 +10,7 @@ export default function CTA() {
           세짐을 직접 체험해보세요
         </h2>
         <p className="text-base md:text-lg mb-8 max-w-xl mx-auto leading-relaxed font-medium text-white/90 [text-shadow:0_1px_6px_rgba(0,0,0,0.25)]">
-          전문 상담을 통해 최적의 세짐을 찾아보세요
+          전국 체험 센터에서 담당자와 함께 직접 체험하고 도입 상담도 받아보세요
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <OpenBrochureButton className="px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-md">

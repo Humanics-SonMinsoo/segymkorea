@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { OpenInquiryButton } from '@/components/inquiry/OpenInquiryButton'
 import { OpenBrochureButton } from '@/components/brochure/OpenBrochureButton'
+import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 
 type NavItem = {
   href: string
@@ -19,7 +20,7 @@ const navItems: NavItem[] = [
   { href: '/pricing', label: '가격안내' },
   { href: '/installations', label: '설치사례' },
   { href: '/blog', label: '블로그' },
-  { href: '/experience', label: '세짐 체험신청', isNew: true },
+  { href: '/experience', label: DEMO_EXPERIENCE_COPY.navLabel, isNew: true },
 ]
 
 const navComingSoonClass =

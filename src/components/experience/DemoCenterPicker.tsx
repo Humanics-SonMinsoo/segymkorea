@@ -1,6 +1,7 @@
 'use client'
 
 import { DEMO_CENTERS, isDemoCenterSelectable } from '@/data/demo-centers'
+import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 
 type Props = {
   selectedId: string
@@ -38,7 +39,7 @@ export function DemoCenterPicker({ selectedId, onSelect, variant = 'compact' }: 
               <div className="aspect-[16/10] bg-gray-100 overflow-hidden">
                 <img
                   src={center.imageSrc}
-                  alt={`${center.name} 시연 센터`}
+                  alt={`${center.name} ${DEMO_EXPERIENCE_COPY.centerFieldLabel}`}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />

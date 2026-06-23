@@ -4,6 +4,7 @@ import { addLead, readLeads } from '@/lib/leads-store'
 import { COOKIE_NAME, verifyAdminSession } from '@/lib/admin-auth'
 import { hasUpstashCredentials, isVercelDeployment } from '@/lib/upstash-env'
 import { getDemoCenterById, isDemoCenterSelectable } from '@/data/demo-centers'
+import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import type { DemoScheduleEntry, LeadInquiryType } from '@/types/lead'
 
 /** 서버리스에서 fetch/Redis 클라이언트 안정화 (Edge 미사용) */
@@ -77,10 +78,10 @@ export async function POST(request: Request) {
       }
       const center = getDemoCenterById(demoCenterId.trim())
       if (!center || !isDemoCenterSelectable(center)) {
-        return NextResponse.json({ error: '시연 센터를 선택해 주세요.' }, { status: 400 })
+        return NextResponse.json({ error: `${DEMO_EXPERIENCE_COPY.centerFieldLabel}를 선택해 주세요.` }, { status: 400 })
       }
       if (!Array.isArray(demoSchedulesRaw) || demoSchedulesRaw.length === 0) {
-        return NextResponse.json({ error: '시연 희망 일정을 입력해 주세요.' }, { status: 400 })
+        return NextResponse.json({ error: `${DEMO_EXPERIENCE_COPY.scheduleLabel}을 입력해 주세요.` }, { status: 400 })
       }
       const demoSchedules: DemoScheduleEntry[] = []
       for (const item of demoSchedulesRaw) {
@@ -91,7 +92,7 @@ export async function POST(request: Request) {
         demoSchedules.push({ date: date.trim(), timeSlot: timeSlot.trim() })
       }
       if (demoSchedules.length === 0) {
-        return NextResponse.json({ error: '시연 희망 일정을 입력해 주세요.' }, { status: 400 })
+        return NextResponse.json({ error: `${DEMO_EXPERIENCE_COPY.scheduleLabel}을 입력해 주세요.` }, { status: 400 })
       }
       const visitorCenter = typeof centerName === 'string' ? centerName.trim() : ''
       const lead = await addLead({

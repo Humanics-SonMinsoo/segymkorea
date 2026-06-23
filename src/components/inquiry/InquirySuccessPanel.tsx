@@ -5,6 +5,7 @@ import {
   buildInquirySummaryText,
   type InquirySubmissionSnapshot,
 } from '@/lib/inquiry-summary'
+import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 
 type Props = {
   snapshot: InquirySubmissionSnapshot
@@ -45,7 +46,7 @@ export function InquirySuccessPanel({ snapshot, onClose }: Props) {
   const shareSummary = useCallback(async () => {
     setShareError(null)
     const title =
-      snapshot.inquiryType === 'demo' ? '세짐 현장 시연 신청 내역' : '세짐 도입 상담 신청 내역'
+      snapshot.inquiryType === 'demo' ? DEMO_EXPERIENCE_COPY.summaryTitle : '세짐 도입 상담 신청 내역'
     if (typeof navigator.share === 'function') {
       try {
         await navigator.share({ title, text: summaryText })
@@ -63,17 +64,17 @@ export function InquirySuccessPanel({ snapshot, onClose }: Props) {
       <p className="text-lg font-semibold text-gray-900 text-center mb-1">신청이 접수되었습니다</p>
       <p className="ko-modal-copy text-sm text-gray-600 text-center mb-5 leading-relaxed">
         {snapshot.inquiryType === 'demo'
-          ? '아래 내용을 저장하거나 공유해 두시면 방문 시 편리합니다.'
+          ? DEMO_EXPERIENCE_COPY.successFollowUp
           : '아래 내용을 저장하거나 공유해 두실 수 있습니다.'}
       </p>
 
       <div className="rounded-xl border border-gray-200 bg-gray-50/80 p-4 sm:p-5 space-y-3 mb-5 text-left max-h-[min(50vh,360px)] overflow-y-auto">
         <p className="text-xs font-bold uppercase tracking-wide text-primary">
-          {snapshot.inquiryType === 'demo' ? '세짐 현장 시연 신청 내역' : '도입 상담 신청 내역'}
+          {snapshot.inquiryType === 'demo' ? DEMO_EXPERIENCE_COPY.summaryTitle : '도입 상담 신청 내역'}
         </p>
         {snapshot.inquiryType === 'demo' ? (
           <>
-            <SummaryRow label="시연 센터" value={snapshot.demoCenterName} />
+            <SummaryRow label={DEMO_EXPERIENCE_COPY.centerFieldLabel} value={snapshot.demoCenterName} />
             <SummaryRow label="주소" value={snapshot.demoCenterAddress} />
             <SummaryRow label="운영 센터" value={snapshot.visitorCenterName} />
             <SummaryRow label="성함" value={snapshot.name} />

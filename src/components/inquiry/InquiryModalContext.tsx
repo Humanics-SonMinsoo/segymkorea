@@ -12,6 +12,8 @@ import {
 import Link from 'next/link'
 import { DEMO_TIME_SLOTS } from '@/data/demo-centers'
 import { DemoCenterPicker } from '@/components/experience/DemoCenterPicker'
+import { DemoExperienceGuide } from '@/components/experience/DemoExperienceGuide'
+import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { buildInquirySubmissionSnapshot, type InquirySubmissionSnapshot } from '@/lib/inquiry-summary'
 import { InquirySuccessPanel } from '@/components/inquiry/InquirySuccessPanel'
 import { trackGa4GenerateLead } from '@/lib/ga4'
@@ -77,13 +79,13 @@ function InquiryModalDialog({
     modalStep === 'choose'
       ? '도입 문의하기'
       : inquiryType === 'demo'
-        ? '세짐 현장 시연 신청'
+        ? DEMO_EXPERIENCE_COPY.formTitle
         : '도입 문의하기'
 
   const introCopy =
     inquiryType === 'general'
       ? '아래 정보를 남겨 주시면, 세짐 영업 담당자가 확인 후 빠르게 연락드립니다.'
-      : '시연 센터를 선택하고 희망 일정을 남겨 주시면, 담당자가 확인 후 연락드립니다.'
+      : DEMO_EXPERIENCE_COPY.formIntro
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -162,12 +164,12 @@ function InquiryModalDialog({
       }
     } else {
       if (!demoCenterId) {
-        setError('시연 센터를 선택해 주세요.')
+        setError('체험 센터를 선택해 주세요.')
         return
       }
       const filledSchedules = demoSchedules.filter((s) => s.date.trim() && s.timeSlot.trim())
       if (filledSchedules.length === 0) {
-        setError('시연 희망 날짜와 시간대를 입력해 주세요.')
+        setError('체험 희망 날짜와 시간대를 입력해 주세요.')
         return
       }
       const hasPartial = demoSchedules.some(
@@ -224,7 +226,7 @@ function InquiryModalDialog({
       })
       setSubmissionSnapshot(snapshot)
       setSubmitted(true)
-      const formName = inquiryType === 'demo' ? '세짐 현장 시연 신청' : '도입 문의'
+      const formName = inquiryType === 'demo' ? DEMO_EXPERIENCE_COPY.analyticsFormName : '도입 문의'
       const formId = inquiryType === 'demo' ? 'segym_demo' : 'segym_inquiry'
       trackGa4GenerateLead({ form_id: formId, form_name: formName })
       trackMetaStandard('Lead', {
@@ -309,9 +311,9 @@ function InquiryModalDialog({
                 onClick={() => pickInquiryType('demo')}
                 className="w-full rounded-2xl border-2 border-primary/30 bg-white px-5 py-4 sm:py-5 text-center text-primary hover:border-primary hover:bg-primary-muted/40 transition-colors"
               >
-                <span className="block font-bold text-base sm:text-lg ko-modal-copy">현장 시연 신청</span>
+                <span className="block font-bold text-base sm:text-lg ko-modal-copy">{DEMO_EXPERIENCE_COPY.chooseTitle}</span>
                 <span className="block mt-1 text-xs sm:text-sm font-normal text-gray-500 ko-modal-copy">
-                  시연 센터에서 세짐을 직접 체험해 보세요
+                  {DEMO_EXPERIENCE_COPY.chooseSubtitle}
                 </span>
               </button>
             </div>
@@ -322,11 +324,12 @@ function InquiryModalDialog({
               <p className="ko-modal-copy text-sm sm:text-[15px] text-gray-600 leading-[1.65]">{introCopy}</p>
             </div>
             <form onSubmit={handleSubmit} className="px-5 py-5 sm:py-6 space-y-4">
+              {inquiryType === 'demo' ? <DemoExperienceGuide variant="compact" /> : null}
               {inquiryType === 'demo' ? (
                 <>
                   <div>
                     <p className="block text-sm font-medium text-gray-700 mb-2">
-                      시연 센터 선택 <span className="text-red-500">*</span>
+                      {DEMO_EXPERIENCE_COPY.centerSectionTitle} <span className="text-red-500">*</span>
                     </p>
                     <DemoCenterPicker
                       selectedId={demoCenterId}
@@ -412,7 +415,7 @@ function InquiryModalDialog({
               ) : (
                 <div className="space-y-3">
                   <p className="text-sm font-medium text-gray-700">
-                    시연 희망 일정 <span className="text-red-500">*</span>
+                    {DEMO_EXPERIENCE_COPY.scheduleLabel} <span className="text-red-500">*</span>
                   </p>
                   {demoSchedules.map((schedule, index) => (
                     <div
@@ -434,7 +437,7 @@ function InquiryModalDialog({
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <div>
                           <label htmlFor={`demo-date-${index}`} className="sr-only">
-                            시연 희망 날짜
+                            체험 희망 날짜
                           </label>
                           <input
                             id={`demo-date-${index}`}
@@ -447,7 +450,7 @@ function InquiryModalDialog({
                         </div>
                         <div>
                           <label htmlFor={`demo-time-${index}`} className="sr-only">
-                            시연 희망 시간대
+                            체험 희망 시간대
                           </label>
                           <select
                             id={`demo-time-${index}`}
@@ -494,7 +497,7 @@ function InquiryModalDialog({
                   className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow resize-y min-h-[80px]"
                   placeholder={
                     inquiryType === 'demo'
-                      ? '예: 시연 시 확인하고 싶은 운동, 센터 규모, 도입 검토 단계 등'
+                      ? '예: 체험 시 확인하고 싶은 운동, 센터 규모, 도입 검토 단계 등'
                       : '예: 도입 희망 시기, 센터 규모, 문의하고 싶은 제품 등'
                   }
                 />
@@ -541,7 +544,7 @@ function InquiryModalDialog({
                   disabled={submitting}
                   className="flex-1 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-primary-dark transition-colors disabled:opacity-60"
                 >
-                  {submitting ? '전송 중…' : inquiryType === 'demo' ? '현장 시연 신청하기' : '신청하기'}
+                  {submitting ? '전송 중…' : inquiryType === 'demo' ? DEMO_EXPERIENCE_COPY.submitButton : '신청하기'}
                 </button>
               </div>
             </form>

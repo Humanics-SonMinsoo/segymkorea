@@ -1,4 +1,4 @@
-/** 세짐 시연 가능 센터 — 도입 문의 모달 「현장 시연 신청」에서 선택 */
+/** 세짐 현장 체험 가능 센터 — 체험 신청 폼에서 선택 */
 export type DemoCenter = {
   id: string
   name: string

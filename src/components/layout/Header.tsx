@@ -18,8 +18,8 @@ const navItems: NavItem[] = [
   { href: '/product', label: '제품소개' },
   { href: '/pricing', label: '가격안내' },
   { href: '/installations', label: '설치사례' },
-  { href: '/blog', label: '블로그', isNew: true },
-  { href: '/experience', label: '세짐 체험신청' },
+  { href: '/blog', label: '블로그' },
+  { href: '/experience', label: '세짐 체험신청', isNew: true },
 ]
 
 const navComingSoonClass =

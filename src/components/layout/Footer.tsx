@@ -47,13 +47,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <span
-                  className="text-gray-600 opacity-50 cursor-default select-none pointer-events-none"
-                  title="준비 중입니다"
-                  aria-disabled="true"
-                >
-                  사용 가이드
-                </span>
+                <Link href="/experience" className="hover:text-gray-300 underline-offset-2 hover:underline">
+                  세짐 체험신청
+                </Link>
               </li>
               <li>
                 <Link href="/privacy" className="hover:text-gray-300 underline-offset-2 hover:underline">

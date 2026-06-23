@@ -19,7 +19,7 @@ const navItems: NavItem[] = [
   { href: '/pricing', label: '가격안내' },
   { href: '/installations', label: '설치사례' },
   { href: '/blog', label: '블로그', isNew: true },
-  { href: '/guide', label: '사용 가이드', comingSoon: true },
+  { href: '/experience', label: '세짐 체험신청' },
 ]
 
 const navComingSoonClass =

@@ -10,7 +10,8 @@ import {
   type ReactNode,
 } from 'react'
 import Link from 'next/link'
-import { DEMO_CENTERS, DEMO_TIME_SLOTS, isDemoCenterSelectable } from '@/data/demo-centers'
+import { DEMO_TIME_SLOTS } from '@/data/demo-centers'
+import { DemoCenterPicker } from '@/components/experience/DemoCenterPicker'
 import { buildInquirySubmissionSnapshot, type InquirySubmissionSnapshot } from '@/lib/inquiry-summary'
 import { InquirySuccessPanel } from '@/components/inquiry/InquirySuccessPanel'
 import { trackGa4GenerateLead } from '@/lib/ga4'
@@ -20,6 +21,7 @@ import type { DemoScheduleEntry, LeadInquiryType } from '@/types/lead'
 
 type InquiryModalContextValue = {
   openInquiryModal: () => void
+  openInquiryModalDemo: () => void
   closeInquiryModal: () => void
 }
 
@@ -43,9 +45,17 @@ function todayDateInputValue(): string {
   return new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })
 }
 
-function InquiryModalDialog({ onClose }: { onClose: () => void }) {
-  const [modalStep, setModalStep] = useState<ModalStep>('choose')
-  const [inquiryType, setInquiryType] = useState<LeadInquiryType>('general')
+function InquiryModalDialog({
+  onClose,
+  initialStep = 'choose',
+  initialInquiryType = 'general',
+}: {
+  onClose: () => void
+  initialStep?: ModalStep
+  initialInquiryType?: LeadInquiryType
+}) {
+  const [modalStep, setModalStep] = useState<ModalStep>(initialStep)
+  const [inquiryType, setInquiryType] = useState<LeadInquiryType>(initialInquiryType)
   const [centerName, setCenterName] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -88,8 +98,8 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
   }, [onClose])
 
   const resetForm = () => {
-    setModalStep('choose')
-    setInquiryType('general')
+    setModalStep(initialStep)
+    setInquiryType(initialInquiryType)
     setCenterName('')
     setName('')
     setPhone('')
@@ -318,51 +328,11 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
                     <p className="block text-sm font-medium text-gray-700 mb-2">
                       시연 센터 선택 <span className="text-red-500">*</span>
                     </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {DEMO_CENTERS.map((center) => {
-                        const selectable = isDemoCenterSelectable(center)
-                        const selected = demoCenterId === center.id
-                        return (
-                          <button
-                            key={center.id}
-                            type="button"
-                            disabled={!selectable}
-                            onClick={() => selectable && setDemoCenterId(center.id)}
-                            className={`relative rounded-xl border px-3 py-3 text-left transition-colors ${
-                              !selectable
-                                ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
-                                : selected
-                                  ? 'border-primary bg-primary-muted ring-2 ring-primary/20'
-                                  : center.featured
-                                    ? 'border-primary/40 bg-white hover:border-primary hover:bg-primary-muted/30'
-                                    : 'border-gray-200 bg-white hover:border-primary/40 hover:bg-gray-50'
-                            }`}
-                            aria-pressed={selected}
-                            aria-disabled={!selectable}
-                          >
-                            {center.featured ? (
-                              <span className="absolute right-2 top-2 rounded-md bg-red-500 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
-                                HOT
-                              </span>
-                            ) : null}
-                            <span className="block text-sm font-semibold text-gray-900 ko-modal-copy pr-10">
-                              {center.name}
-                              {center.location ? (
-                                <span className="font-normal text-gray-400 text-xs sm:text-[13px]">
-                                  {' '}
-                                  - {center.location}
-                                </span>
-                              ) : null}
-                            </span>
-                            {center.comingSoon ? (
-                              <span className="mt-1.5 inline-block rounded-md bg-amber-100 px-1.5 py-0.5 text-[11px] font-semibold text-amber-800">
-                                {center.comingSoonLabel ?? '오픈 예정'}
-                              </span>
-                            ) : null}
-                          </button>
-                        )
-                      })}
-                    </div>
+                    <DemoCenterPicker
+                      selectedId={demoCenterId}
+                      onSelect={setDemoCenterId}
+                      variant="compact"
+                    />
                   </div>
                   <div>
                     <label htmlFor="demo-visitor-center" className="block text-sm font-medium text-gray-700 mb-1">
@@ -584,13 +554,34 @@ function InquiryModalDialog({ onClose }: { onClose: () => void }) {
 
 export function InquiryModalProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false)
-  const openInquiryModal = useCallback(() => setOpen(true), [])
+  const [openConfig, setOpenConfig] = useState<{ step: ModalStep; type: LeadInquiryType }>({
+    step: 'choose',
+    type: 'general',
+  })
+
+  const openInquiryModal = useCallback(() => {
+    setOpenConfig({ step: 'choose', type: 'general' })
+    setOpen(true)
+  }, [])
+
+  const openInquiryModalDemo = useCallback(() => {
+    setOpenConfig({ step: 'form', type: 'demo' })
+    setOpen(true)
+  }, [])
+
   const closeInquiryModal = useCallback(() => setOpen(false), [])
 
   return (
-    <InquiryModalContext.Provider value={{ openInquiryModal, closeInquiryModal }}>
+    <InquiryModalContext.Provider value={{ openInquiryModal, openInquiryModalDemo, closeInquiryModal }}>
       {children}
-      {open && <InquiryModalDialog onClose={closeInquiryModal} />}
+      {open ? (
+        <InquiryModalDialog
+          key={`${openConfig.step}-${openConfig.type}`}
+          initialStep={openConfig.step}
+          initialInquiryType={openConfig.type}
+          onClose={closeInquiryModal}
+        />
+      ) : null}
     </InquiryModalContext.Provider>
   )
 }

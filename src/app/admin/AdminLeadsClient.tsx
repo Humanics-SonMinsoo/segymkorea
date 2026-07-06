@@ -6,6 +6,7 @@ import Link from 'next/link'
 import type { Lead, LeadAssignee, LeadInquiryType, LeadQuality } from '@/types/lead'
 import { LEAD_ASSIGNEES, LEAD_QUALITIES } from '@/types/lead'
 import type { BrochureRequest } from '@/types/brochure-request'
+import type { SegymDayRequest } from '@/types/segym-day-request'
 import { DEMO_CENTERS, getDemoCenterById } from '@/data/demo-centers'
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 
@@ -65,21 +66,23 @@ function leadScheduleCell(lead: Lead): string {
 
 export default function AdminLeadsClient() {
   const router = useRouter()
-  const [tab, setTab] = useState<'leads' | 'brochure'>('leads')
+  const [tab, setTab] = useState<'leads' | 'brochure' | 'segym-day'>('leads')
   const [leadFilter, setLeadFilter] = useState<'all' | LeadInquiryType>('all')
   const [leads, setLeads] = useState<Lead[]>([])
   const [brochures, setBrochures] = useState<BrochureRequest[]>([])
+  const [segymDayRequests, setSegymDayRequests] = useState<SegymDayRequest[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [savingId, setSavingId] = useState<string | null>(null)
 
   const loadAll = useCallback(async () => {
     setError(null)
-    const [lr, br] = await Promise.all([
+    const [lr, br, sr] = await Promise.all([
       fetch('/api/leads', { credentials: 'include' }),
       fetch('/api/brochure-requests', { credentials: 'include' }),
+      fetch('/api/segym-day-requests', { credentials: 'include' }),
     ])
-    if (lr.status === 401 || br.status === 401) {
+    if (lr.status === 401 || br.status === 401 || sr.status === 401) {
       router.push('/admin/login')
       return
     }
@@ -93,10 +96,17 @@ export default function AdminLeadsClient() {
       setLoading(false)
       return
     }
+    if (!sr.ok) {
+      setError('SEGYM DAY 신청을 불러오지 못했습니다.')
+      setLoading(false)
+      return
+    }
     const leadData = await lr.json()
     const brochureData = await br.json()
+    const segymDayData = await sr.json()
     setLeads(Array.isArray(leadData.leads) ? leadData.leads : [])
     setBrochures(Array.isArray(brochureData.requests) ? brochureData.requests : [])
+    setSegymDayRequests(Array.isArray(segymDayData.requests) ? segymDayData.requests : [])
     setLoading(false)
   }, [router])
 
@@ -125,6 +135,14 @@ export default function AdminLeadsClient() {
     const undelivered = brochures.filter((b) => !b.delivered).length
     return { total, todayCount, undelivered }
   }, [brochures])
+
+  const segymDayStats = useMemo(() => {
+    const total = segymDayRequests.length
+    const todayKST = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })
+    const todayCount = segymDayRequests.filter((r) => dateKeyKST(r.createdAt) === todayKST).length
+    const unassigned = segymDayRequests.filter((r) => !r.assignee).length
+    return { total, todayCount, unassigned }
+  }, [segymDayRequests])
 
   const patchLead = async (id: string, body: { assignee?: LeadAssignee; quality?: LeadQuality }) => {
     setSavingId(id)
@@ -190,6 +208,38 @@ export default function AdminLeadsClient() {
     }
   }
 
+  const patchSegymDay = async (id: string, body: { assignee?: LeadAssignee; quality?: LeadQuality }) => {
+    setSavingId(id)
+    try {
+      const res = await fetch(`/api/segym-day-requests/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(body),
+      })
+      if (res.status === 401) {
+        router.push('/admin/login')
+        return
+      }
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        const msg =
+          typeof data.error === 'string' && data.error.trim()
+            ? data.error
+            : `저장에 실패했습니다. (${res.status})`
+        setError(msg)
+        return
+      }
+      if (data.request) {
+        setSegymDayRequests((prev) => prev.map((r) => (r.id === id ? data.request : r)))
+      }
+    } catch {
+      setError('저장에 실패했습니다. (네트워크 오류)')
+    } finally {
+      setSavingId(null)
+    }
+  }
+
   const logout = async () => {
     await fetch('/api/admin/logout', { method: 'POST', credentials: 'include' })
     router.push('/admin/login')
@@ -222,7 +272,7 @@ export default function AdminLeadsClient() {
                   Admin
                 </span>
               </div>
-              <h1 className="text-lg font-semibold text-white mt-1">리드 / 소개서 관리</h1>
+              <h1 className="text-lg font-semibold text-white mt-1">리드 / 소개서 / SEGYM DAY 관리</h1>
               <div className="flex flex-wrap gap-2 mt-4">
                 <button
                   type="button"
@@ -246,11 +296,24 @@ export default function AdminLeadsClient() {
                 >
                   소개서 요청
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setTab('segym-day')}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                    tab === 'segym-day'
+                      ? 'bg-white text-primary-dark shadow-md'
+                      : 'bg-white/10 text-white/90 hover:bg-white/15'
+                  }`}
+                >
+                  SEGYM DAY
+                </button>
               </div>
               <p className="text-xs text-white/70 mt-2 max-w-xl">
                 {tab === 'leads'
                   ? `도입 문의·${DEMO_EXPERIENCE_COPY.adminLabel} 리드입니다. 담당자와 유효/무효를 기록할 수 있습니다.`
-                  : '이메일로 소개서(PDF) 발송 전에 아래 목록을 확인하세요.'}
+                  : tab === 'brochure'
+                    ? '이메일로 소개서(PDF) 발송 전에 아래 목록을 확인하세요.'
+                    : 'SEGYM DAY 이벤트 참여 신청 목록입니다.'}
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
@@ -428,7 +491,7 @@ export default function AdminLeadsClient() {
               </div>
             </div>
           </>
-        ) : (
+        ) : tab === 'brochure' ? (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50">
@@ -512,6 +575,105 @@ export default function AdminLeadsClient() {
                                 {row.delivered ? '전달 완료' : '대기'}
                               </span>
                             </label>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">총 SEGYM DAY 신청</p>
+                <p className="text-3xl font-bold text-slate-900 mt-1 tabular-nums">{segymDayStats.total}</p>
+              </div>
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50 ring-1 ring-primary/10">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">오늘 접수 (KST)</p>
+                <p className="text-3xl font-bold text-primary mt-1 tabular-nums">{segymDayStats.todayCount}</p>
+              </div>
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">담당자 미지정</p>
+                <p className="text-3xl font-bold text-amber-600 mt-1 tabular-nums">{segymDayStats.unassigned}</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200/80 bg-white shadow-sm shadow-slate-200/40 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="min-w-full text-sm">
+                  <thead>
+                    <tr className="bg-slate-50 text-left text-slate-600 border-b border-slate-200">
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">접수일시 (KST)</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">참여 장소</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">센터명</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">성함</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">연락처</th>
+                      <th className="px-3 py-3 font-semibold min-w-[160px]">궁금하신 점</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">리드 담당자</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">리드 품질</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {segymDayRequests.length === 0 ? (
+                      <tr>
+                        <td colSpan={8} className="px-4 py-12 text-center text-gray-500">
+                          아직 SEGYM DAY 신청이 없습니다.
+                        </td>
+                      </tr>
+                    ) : (
+                      segymDayRequests.map((row) => (
+                        <tr key={row.id} className="border-b border-slate-100 hover:bg-primary-muted/50 align-top transition-colors">
+                          <td className="px-3 py-3 text-gray-800 whitespace-nowrap">
+                            {formatDateTimeKST(row.createdAt)}
+                          </td>
+                          <td className="px-3 py-3 text-gray-900 font-medium whitespace-pre-wrap">
+                            {row.venueLabel}
+                            <span className="block text-xs text-gray-500 mt-0.5">{row.venueSchedule}</span>
+                          </td>
+                          <td className="px-3 py-3 text-gray-900 font-medium">{row.centerName || '—'}</td>
+                          <td className="px-3 py-3 text-gray-800">{row.name}</td>
+                          <td className="px-3 py-3 text-gray-800 whitespace-nowrap">{row.phone}</td>
+                          <td className="px-3 py-3 text-gray-600 whitespace-pre-wrap max-w-[220px] text-xs">
+                            {row.additionalNote || '—'}
+                          </td>
+                          <td className="px-3 py-3">
+                            <select
+                              className="w-full min-w-[120px] rounded-lg border border-gray-300 px-2 py-1.5 text-gray-900 bg-white"
+                              value={row.assignee ?? ''}
+                              disabled={savingId === row.id}
+                              onChange={(e) => {
+                                const v = e.target.value as LeadAssignee
+                                patchSegymDay(row.id, { assignee: v })
+                              }}
+                            >
+                              <option value="">미지정</option>
+                              {LEAD_ASSIGNEES.map((a) => (
+                                <option key={a} value={a}>
+                                  {a}
+                                </option>
+                              ))}
+                            </select>
+                          </td>
+                          <td className="px-3 py-3">
+                            <select
+                              className="w-full min-w-[120px] rounded-lg border border-gray-300 px-2 py-1.5 text-gray-900 bg-white"
+                              value={row.quality ?? ''}
+                              disabled={savingId === row.id}
+                              onChange={(e) => {
+                                const v = e.target.value as LeadQuality
+                                patchSegymDay(row.id, { quality: v })
+                              }}
+                            >
+                              <option value="">미선택</option>
+                              {LEAD_QUALITIES.map((q) => (
+                                <option key={q} value={q}>
+                                  {q}
+                                </option>
+                              ))}
+                            </select>
                           </td>
                         </tr>
                       ))

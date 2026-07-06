@@ -41,4 +41,12 @@ export const DEMO_EXPERIENCE_COPY = {
   adminLabel: '현장 체험 신청',
 
   analyticsFormName: '세짐 현장 체험 신청',
+
+  /** 홈페이지 */
+  homeHeroSubtitle: '담당자와 함께 체험 센터를 방문해 직접 체험하고 도입 상담도 받아보세요',
+  homeCtaTitle: '세짐을 직접 체험해보세요',
+  homeSectionTitle: '전국 체험 센터에서 만나보세요',
+  homeSectionHint:
+    '세짐이 설치된 센터에서 담당자와 함께 체험하고 도입 상담도 받아보실 수 있습니다. 혼자 방문하실 필요 없습니다.',
+  homeSectionCta: '체험 신청하기',
 } as const

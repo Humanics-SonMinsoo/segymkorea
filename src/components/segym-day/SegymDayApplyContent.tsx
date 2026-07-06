@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { SEGYM_DAY_COPY } from '@/data/segym-day'
 import { SegymDayVenuePicker } from '@/components/segym-day/SegymDayVenuePicker'
+import { SegymDayUrgencyBanner } from '@/components/segym-day/SegymDayUrgencyBanner'
 import { useSegymDayModal } from '@/components/segym-day/SegymDayContext'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
@@ -92,6 +93,8 @@ export function SegymDayApplyContent() {
 
   return (
     <div className="space-y-8">
+      <SegymDayUrgencyBanner variant="page" />
+
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed">
           참여를 희망하시는 장소를 선택하고 정보를 남겨 주세요.
@@ -111,7 +114,14 @@ export function SegymDayApplyContent() {
       </section>
 
       <section className="rounded-2xl border border-gray-200 bg-gray-50/50 p-5 sm:p-8">
-        <h2 className="text-lg font-bold text-gray-900 ko-modal-copy mb-6">신청 정보 입력</h2>
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
+          <div>
+            <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">신청 정보 입력</h2>
+            <p className="mt-1 text-xs sm:text-sm text-red-600 font-semibold ko-modal-copy">
+              ⚡ 선착순 20명 · 신청 기간 7월 6일(월) ~ 7월 13일(월)
+            </p>
+          </div>
+        </div>
         <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
           <div>
             <label htmlFor="sd-center" className="block text-sm font-medium text-gray-700 mb-1">
@@ -191,9 +201,9 @@ export function SegymDayApplyContent() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full sm:w-auto min-w-[200px] py-3.5 px-8 rounded-xl bg-primary text-white font-semibold hover:bg-primary-dark transition-colors disabled:opacity-60"
+            className="w-full sm:w-auto min-w-[200px] py-3.5 px-8 rounded-xl bg-primary text-white font-bold hover:bg-primary-dark transition-colors disabled:opacity-60 shadow-brand"
           >
-            {submitting ? '전송 중…' : SEGYM_DAY_COPY.applyButton}
+            {submitting ? '전송 중…' : `지금 신청하기 (${SEGYM_DAY_COPY.urgencyLimited})`}
           </button>
         </form>
       </section>

@@ -60,8 +60,13 @@ export const SEGYM_DAY_COPY = {
   navLabel: 'SEGYM DAY',
   pageTitle: 'SEGYM DAY 신청',
   pageDescription:
-    '가격 인상 전 최저가로 세짐을 선점할 수 있는 마지막 기회. 수원 올라잇짐에서 진행되는 프라이빗 SEGYM DAY에 참여해 보세요.',
+    '선착순 20명 한정 · 7월 13일(월) 마감. 가격 인상 전 최저가로 세짐을 선점할 수 있는 마지막 기회, 수원 올라잇짐 SEGYM DAY에 참여해 보세요.',
   applyButton: 'SEGYM DAY 신청하기',
   aboutButton: '이벤트 알아보기',
   popupStorageKey: 'segym-day-popup-dismissed-v1',
+  urgencyLimited: '선착순 20명',
+  urgencyHeadline: '지금 신청하지 않으면 자리가 없어질 수 있습니다',
+  urgencySubline:
+    '1차 수원 올라잇짐 SEGYM DAY는 선착순 20명만 참여 가능합니다. 20명 마감 시 예약 창은 즉시 닫힙니다.',
+  deadlineLabel: '7월 13일(월)',
 } as const

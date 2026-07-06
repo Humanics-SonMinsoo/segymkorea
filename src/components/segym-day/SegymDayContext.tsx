@@ -65,11 +65,14 @@ function SegymDayHomePopup({ onClose }: { onClose: () => void }) {
         <div className="bg-black">
           <img src={SEGYM_DAY_HERO_IMAGE} alt="SEGYM DAY" className="w-full h-auto block" />
         </div>
-        <div className="p-4 sm:p-5">
+        <div className="p-4 sm:p-5 space-y-2">
+          <p className="text-center text-xs font-semibold text-red-600 ko-modal-copy">
+            선착순 20명 · 7월 13일(월) 마감
+          </p>
           <Link
             href="/segym-day"
             onClick={onClose}
-            className="block w-full py-3.5 rounded-xl bg-primary text-white text-center font-bold hover:bg-primary-dark transition-colors"
+            className="block w-full py-3.5 rounded-xl bg-primary text-white text-center font-bold hover:bg-primary-dark transition-colors shadow-brand"
           >
             {SEGYM_DAY_COPY.applyButton}
           </Link>

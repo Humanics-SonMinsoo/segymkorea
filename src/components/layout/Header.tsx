@@ -14,6 +14,8 @@ type NavItem = {
   comingSoon?: boolean
   /** true면 NEW 배지 표시 (최근 오픈 메뉴) */
   isNew?: boolean
+  /** true면 보라색 CTA 버튼 스타일 */
+  isCta?: boolean
 }
 
 const navItems: NavItem[] = [
@@ -21,9 +23,12 @@ const navItems: NavItem[] = [
   { href: '/pricing', label: '가격안내' },
   { href: '/installations', label: '설치사례' },
   { href: '/blog', label: '블로그' },
-  { href: '/segym-day', label: SEGYM_DAY_COPY.navLabel, isNew: true },
+  { href: '/segym-day', label: SEGYM_DAY_COPY.navLabel, isCta: true },
   { href: '/experience', label: DEMO_EXPERIENCE_COPY.navLabel },
 ]
+
+const navCtaClass =
+  'inline-flex items-center px-3.5 py-1.5 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary-dark transition-all shadow-sm shadow-primary/25 hover:shadow-md hover:shadow-primary/30'
 
 const navComingSoonClass =
   'text-gray-400 opacity-55 cursor-not-allowed select-none pointer-events-none text-sm font-medium'
@@ -69,6 +74,10 @@ export default function Header() {
                 >
                   {item.label}
                 </span>
+              ) : item.isCta ? (
+                <Link key={item.href} href={item.href} className={navCtaClass}>
+                  {item.label}
+                </Link>
               ) : (
                 <Link
                   key={item.href}
@@ -125,6 +134,15 @@ export default function Header() {
                 >
                   {item.label}
                 </span>
+              ) : item.isCta ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`block text-center ${navCtaClass}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
               ) : (
                 <Link
                   key={item.href}

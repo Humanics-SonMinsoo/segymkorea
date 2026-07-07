@@ -75,10 +75,12 @@ export function SegymDaySharePanel({ variant = 'page' }: Props) {
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
         <div>
           <p className="text-sm font-bold text-gray-900 ko-modal-copy">
-            {isAdmin ? '초대 링크 · 카카오톡 공유' : '지인에게 초대하기'}
+            {isAdmin ? '초대 링크 · 카카오톡 공유 (영업·마케팅용)' : '지인에게 초대하기'}
           </p>
           <p className="mt-1 text-xs sm:text-sm text-gray-600 ko-modal-copy leading-relaxed">
-            {SEGYM_DAY_COPY.sharePanelHint}
+            {isAdmin
+              ? '대표님께 SEGYM DAY 초대 카드를 카카오톡으로 보내거나, 초대 문구를 복사해 전달하세요.'
+              : SEGYM_DAY_COPY.sharePanelHint}
           </p>
         </div>
         {!hasKakaoKey && isAdmin ? (

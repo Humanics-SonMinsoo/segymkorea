@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { buildSegymDayInviteText, getSegymDayPageUrl } from '@/lib/segym-day-share'
 import { getKakaoJsKey, isKakaoShareReady, shareSegymDayOnKakaoAsync } from '@/lib/kakao-share'
 import { SEGYM_DAY_COPY } from '@/data/segym-day'
+import { SegymDayKakaoDiagnostics } from '@/components/segym-day/SegymDayKakaoDiagnostics'
 
 type Props = {
   variant?: 'page' | 'admin'
@@ -49,7 +50,7 @@ export function SegymDaySharePanel({ variant = 'page' }: Props) {
       }
       if (result.reason === 'init_failed') {
         setShareError(
-          '카카오 앱 초기화에 실패했습니다. developers.kakao.com → 플랫폼 → Web에 https://segymkorea.com 이 등록됐는지, JavaScript 키가 맞는지 확인해 주세요.',
+          '카카오 인증(4019)에 실패했습니다. developers.kakao.com에서 ① JavaScript 키 → SDK 도메인, ② 제품 링크 관리 → 웹 도메인에 segymkorea.com을 등록했는지, Vercel JS 키가 같은 앱인지 확인해 주세요. (아래 진단 정보 참고)',
         )
         return
       }
@@ -153,6 +154,8 @@ export function SegymDaySharePanel({ variant = 'page' }: Props) {
           </pre>
         </details>
       ) : null}
+
+      {isAdmin ? <SegymDayKakaoDiagnostics /> : null}
 
       {isAdmin && hasKakaoKey && !isKakaoShareReady() && !kakaoSharing ? (
         <p className="mt-2 text-[11px] text-gray-400">카카오 공유는 버튼을 누르면 자동으로 연결됩니다.</p>

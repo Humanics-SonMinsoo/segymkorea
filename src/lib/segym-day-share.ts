@@ -1,14 +1,14 @@
 import { SEGYM_DAY_COPY, SEGYM_DAY_HERO_IMAGE } from '@/data/segym-day'
-import { getSiteUrl } from '@/lib/site-url'
+import { getKakaoShareOrigin } from '@/lib/site-url'
 
 export const SEGYM_DAY_PATH = '/segym-day'
 
 export function getSegymDayPageUrl(): string {
-  return `${getSiteUrl()}${SEGYM_DAY_PATH}`
+  return `${getKakaoShareOrigin()}${SEGYM_DAY_PATH}`
 }
 
 export function getSegymDayOgImageUrl(): string {
-  return `${getSiteUrl()}${SEGYM_DAY_HERO_IMAGE}`
+  return `${getKakaoShareOrigin()}${SEGYM_DAY_HERO_IMAGE}`
 }
 
 /** 카카오·OG 미리보기 설명 */

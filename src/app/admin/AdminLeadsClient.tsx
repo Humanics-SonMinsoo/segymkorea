@@ -9,6 +9,7 @@ import type { BrochureRequest } from '@/types/brochure-request'
 import type { SegymDayRequest } from '@/types/segym-day-request'
 import { DEMO_CENTERS, getDemoCenterById } from '@/data/demo-centers'
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
+import { SegymDaySharePanel } from '@/components/segym-day/SegymDaySharePanel'
 
 function formatDateTimeKST(iso: string): string {
   const d = new Date(iso)
@@ -586,6 +587,9 @@ export default function AdminLeadsClient() {
           </>
         ) : (
           <>
+            <div className="mb-6">
+              <SegymDaySharePanel variant="admin" />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-sm shadow-slate-200/50">
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">총 SEGYM DAY 신청</p>

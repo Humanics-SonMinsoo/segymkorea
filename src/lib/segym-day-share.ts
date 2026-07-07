@@ -1,4 +1,4 @@
-import { SEGYM_DAY_COPY, SEGYM_DAY_HERO_IMAGE } from '@/data/segym-day'
+import { SEGYM_DAY_COPY, SEGYM_DAY_SHARE_IMAGE } from '@/data/segym-day'
 import { getKakaoShareOrigin } from '@/lib/site-url'
 
 export const SEGYM_DAY_PATH = '/segym-day'
@@ -8,7 +8,7 @@ export function getSegymDayPageUrl(): string {
 }
 
 export function getSegymDayOgImageUrl(): string {
-  return `${getKakaoShareOrigin()}${SEGYM_DAY_HERO_IMAGE}`
+  return `${getKakaoShareOrigin()}${SEGYM_DAY_SHARE_IMAGE}`
 }
 
 /** 카카오·OG 미리보기 설명 */
@@ -23,12 +23,7 @@ export function buildSegymDayInviteText(): string {
     `[${SEGYM_DAY_COPY.shareCardTitle}]`,
     '',
     SEGYM_DAY_COPY.shareInviteLine,
-    '',
-    `📅 ${SEGYM_DAY_COPY.shareEventWhen}`,
-    `⏰ 신청 마감: ${SEGYM_DAY_COPY.deadlineLabel}`,
-    `👥 ${SEGYM_DAY_COPY.urgencyLimited}`,
-    '',
-    SEGYM_DAY_COPY.shareInviteBody,
+    SEGYM_DAY_COPY.shareEventWhen,
     '',
     `▶ 참여 신청: ${url}`,
   ].join('\n')

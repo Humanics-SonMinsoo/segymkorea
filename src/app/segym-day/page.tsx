@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import { SiteSubPage } from '@/components/layout/SiteSubPage'
 import { SegymDayApplyContent } from '@/components/segym-day/SegymDayApplyContent'
-import { SEGYM_DAY_COPY, SEGYM_DAY_HERO_IMAGE } from '@/data/segym-day'
+import { SEGYM_DAY_COPY, SEGYM_DAY_HERO_IMAGE, SEGYM_DAY_SHARE_IMAGE } from '@/data/segym-day'
 import { getSiteUrl } from '@/lib/site-url'
 import { SEGYM_DAY_PATH } from '@/lib/segym-day-share'
 
 const siteOrigin = getSiteUrl()
-const ogImage = `${siteOrigin}${SEGYM_DAY_HERO_IMAGE}`
+const ogImage = `${siteOrigin}${SEGYM_DAY_SHARE_IMAGE}`
 
 export const metadata: Metadata = {
   title: `${SEGYM_DAY_COPY.pageTitle} | 세짐 SEGYM`,
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         url: ogImage,
         width: 1200,
         height: 630,
-        alt: 'SEGYM DAY',
+        alt: 'SEGYM DAY VIP 초대장',
       },
     ],
   },

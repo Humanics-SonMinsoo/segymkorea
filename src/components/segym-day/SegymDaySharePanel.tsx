@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from 'react'
 import { buildSegymDayInviteText, getSegymDayPageUrl } from '@/lib/segym-day-share'
-import { getKakaoJsKey, isKakaoShareReady, shareSegymDayOnKakao } from '@/lib/kakao-share'
+import { getKakaoJsKey, isKakaoShareReady, shareSegymDayOnKakaoAsync } from '@/lib/kakao-share'
 import { SEGYM_DAY_COPY } from '@/data/segym-day'
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 export function SegymDaySharePanel({ variant = 'page' }: Props) {
   const [copyState, setCopyState] = useState<'idle' | 'link' | 'invite'>('idle')
   const [shareError, setShareError] = useState<string | null>(null)
+  const [kakaoSharing, setKakaoSharing] = useState(false)
 
   const inviteText = useMemo(() => buildSegymDayInviteText(), [])
   const pageUrl = useMemo(() => getSegymDayPageUrl(), [])
@@ -33,18 +34,31 @@ export function SegymDaySharePanel({ variant = 'page' }: Props) {
     }
   }, [])
 
-  const handleKakaoShare = useCallback(() => {
+  const handleKakaoShare = useCallback(async () => {
     setShareError(null)
-    const result = shareSegymDayOnKakao()
-    if (result.ok) return
-    if (result.reason === 'no_key') {
+    setKakaoSharing(true)
+    try {
+      const result = await shareSegymDayOnKakaoAsync()
+      if (result.ok) return
+      if (result.reason === 'no_key') {
+        setShareError(
+          '카카오 공유 키가 설정되지 않았습니다. Vercel에 NEXT_PUBLIC_KAKAO_JS_KEY를 등록한 뒤 재배포해 주세요.',
+        )
+        await copyText(inviteText, 'invite')
+        return
+      }
+      if (result.reason === 'init_failed') {
+        setShareError(
+          '카카오 앱 초기화에 실패했습니다. developers.kakao.com → 플랫폼 → Web에 https://segymkorea.com 이 등록됐는지, JavaScript 키가 맞는지 확인해 주세요.',
+        )
+        return
+      }
       setShareError(
-        '카카오 공유 키가 아직 설정되지 않았습니다. 초대 문구 복사 후 카톡에 붙여넣어 주세요. (Vercel: NEXT_PUBLIC_KAKAO_JS_KEY)',
+        '카카오 SDK를 불러오지 못했습니다. 네트워크·광고차단을 확인하거나 「초대 문구 복사」로 카톡에 붙여넣어 주세요.',
       )
-      void copyText(inviteText, 'invite')
-      return
+    } finally {
+      setKakaoSharing(false)
     }
-    setShareError('카카오 SDK 로딩 중입니다. 잠시 후 다시 시도하거나 초대 문구를 복사해 주세요.')
   }, [copyText, inviteText])
 
   const handleNativeShare = useCallback(async () => {
@@ -93,11 +107,12 @@ export function SegymDaySharePanel({ variant = 'page' }: Props) {
       <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
         <button
           type="button"
-          onClick={handleKakaoShare}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#FEE500] text-[#191919] text-sm font-bold hover:brightness-95 transition-all shadow-sm"
+          onClick={() => void handleKakaoShare()}
+          disabled={kakaoSharing}
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#FEE500] text-[#191919] text-sm font-bold hover:brightness-95 transition-all shadow-sm disabled:opacity-70"
         >
           <span aria-hidden>💬</span>
-          {SEGYM_DAY_COPY.kakaoShareButton}
+          {kakaoSharing ? '연결 중…' : SEGYM_DAY_COPY.kakaoShareButton}
         </button>
         <button
           type="button"
@@ -139,8 +154,8 @@ export function SegymDaySharePanel({ variant = 'page' }: Props) {
         </details>
       ) : null}
 
-      {isAdmin && hasKakaoKey && !isKakaoShareReady() ? (
-        <p className="mt-2 text-[11px] text-gray-400">카카오 SDK 로딩 중…</p>
+      {isAdmin && hasKakaoKey && !isKakaoShareReady() && !kakaoSharing ? (
+        <p className="mt-2 text-[11px] text-gray-400">카카오 공유는 버튼을 누르면 자동으로 연결됩니다.</p>
       ) : null}
     </div>
   )

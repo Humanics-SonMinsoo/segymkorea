@@ -59,7 +59,7 @@ export function ProductSpecSheet() {
                 }
               />
               <BaseRow label="프레임 색상" value="블랙" />
-              <BaseRow label="터치 디스플레이" value="21.5″ 터치 모니터 (스탠드형) 기본 제공" />
+              <BaseRow label="터치 디스플레이" value="21.5″ 터치 모니터 (일체형) 기본 제공" />
             </tbody>
           </table>
         </div>

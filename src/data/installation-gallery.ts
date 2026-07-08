@@ -6,7 +6,7 @@
  */
 
 /** 최신 도입 센터 — 갤러리 최상단 `NEW 센터` (전체·해당 카테고리 탭) */
-export const INSTALLATION_NEW_IDS = ['22', '23', '24'] as const
+export const INSTALLATION_NEW_IDS = ['27', '28'] as const
 
 /** 최근 행사·전시 — 갤러리 상단 `최근 행사` (전체·행사·전시 탭) */
 export const INSTALLATION_NEW_EVENT_IDS = ['25', '26'] as const
@@ -104,6 +104,29 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
     categoryId: 'event',
     regionKey: '행사',
     gallery: MYPROTEIN_GALLERY_NUMS.map((n) => eventImagePath('myprotein', n)),
+  },
+  {
+    id: '27',
+    src: '/images/installations/install-25.jpg',
+    title: '강원 동해 트리트라움 피트니스',
+    alt: '세짐 설치 사례 — 강원 동해 트리트라움 피트니스',
+    categoryId: 'health',
+    regionKey: '강원',
+    gallery: [
+      '/images/installations/install-25.jpg',
+      '/images/installations/install-26.jpg',
+      '/images/installations/install-27.jpg',
+      '/images/installations/install-28.jpg',
+    ],
+  },
+  {
+    id: '28',
+    src: '/images/installations/install-29.jpg',
+    title: '서울 영등포구 코드짐 신길점',
+    alt: '세짐 설치 사례 — 서울 영등포구 코드짐 신길점',
+    categoryId: 'health',
+    regionKey: '서울',
+    gallery: ['/images/installations/install-29.jpg', '/images/installations/install-30.jpg'],
   },
   {
     id: '22',

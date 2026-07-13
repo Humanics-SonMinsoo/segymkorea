@@ -11,7 +11,7 @@ import { trackMetaStandard } from '@/lib/meta-pixel'
 
 export function SegymDayApplyContent() {
   const { openAboutModal } = useSegymDayModal()
-  const [venueId, setVenueId] = useState('')
+  const [venueId, setVenueId] = useState('wonju-hawk-eye')
   const [centerName, setCenterName] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -118,7 +118,7 @@ export function SegymDayApplyContent() {
           <div>
             <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">신청 정보 입력</h2>
             <p className="mt-1 text-xs sm:text-sm text-red-600 font-semibold ko-modal-copy">
-              ⚡ 선착순 20명 · 신청 기간 7월 6일(월) ~ 7월 13일(월)
+              ⚡ 선착순 20명 · 신청 기간 7월 13일(월) ~ 7월 20일(월)
             </p>
           </div>
         </div>

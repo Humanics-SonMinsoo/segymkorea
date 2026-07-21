@@ -67,6 +67,20 @@ export const BLOG_POSTS: BlogPost[] = [
     href: 'https://blog.naver.com/humanics23/224353084887',
   },
   {
+    id: 'segym-day-news',
+    categoryId: 'news',
+    isNew: true,
+    title: 'SEGYM DAY 3차, 대전 원퍼센트피트니스에서 진행 중입니다',
+    excerpt:
+      '가격 인상 전 최저가로 세짐을 직접 만나볼 수 있는 프라이빗 초대 행사 SEGYM DAY가 지금 진행 중입니다. 이번 3차는 대전 원퍼센트피트니스에서 열립니다.',
+    teaser: '운동시설 대표님·관장님을 위한 프라이빗 쇼케이스, 지금 신청하면 참여하실 수 있어요.',
+    subjectLabel: '대전 원퍼센트피트니스',
+    thumbnail: '/images/segym-day/segym-day-vip-share.png',
+    dateLabel: '2026년 7월 21일',
+    author: '세짐',
+    href: '/segym-day',
+  },
+  {
     id: 'chelem-pt-review',
     categoryId: 'review',
     title: '"세짐을 선택하는 게 가장 효율적이었어요." PT샵 대표님이 세짐 스미스로봇을 도입한 이유',

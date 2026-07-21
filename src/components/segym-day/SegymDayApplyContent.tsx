@@ -115,7 +115,7 @@ export function SegymDayApplyContent() {
           <div>
             <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">신청 정보 입력</h2>
             <p className="mt-1 text-xs sm:text-sm text-red-600 font-semibold ko-modal-copy">
-              ⚡ 신청 기간 8월 3일(월) ~ 8월 10일(월)
+              ⚡ 신청 기간 7월 21일(화) ~ 8월 10일(월)
             </p>
           </div>
         </div>

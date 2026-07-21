@@ -74,7 +74,7 @@ export function SegymDayEventIntro() {
             계시는 대표님 및 관장님
           </li>
           <li>
-            <span className="font-medium text-gray-900">신청 기간</span> : 8월 3일(월) ~ 8월 10일(월)
+            <span className="font-medium text-gray-900">신청 기간</span> : 7월 21일(화) ~ 8월 10일(월)
           </li>
         </ul>
       </div>

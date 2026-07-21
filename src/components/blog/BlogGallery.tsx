@@ -67,6 +67,7 @@ function FeaturedPost({ post }: { post: BlogPost }) {
           src={post.thumbnail}
           alt=""
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+          style={post.thumbnailObjectPosition ? { objectPosition: post.thumbnailObjectPosition } : undefined}
         />
         <span className="absolute right-4 top-4 rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-gray-800 shadow-sm">
           {blogCategoryLabel(post.categoryId)}
@@ -106,6 +107,7 @@ function PostCard({ post }: { post: BlogPost }) {
           src={post.thumbnail}
           alt=""
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          style={post.thumbnailObjectPosition ? { objectPosition: post.thumbnailObjectPosition } : undefined}
           loading="lazy"
         />
         {post.isNew ? (

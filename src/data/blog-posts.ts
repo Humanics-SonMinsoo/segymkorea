@@ -31,6 +31,8 @@ export type BlogPost = {
   subjectLabel?: string
   /** 썸네일 경로 (public 기준) */
   thumbnail: string
+  /** 썸네일 crop 기준 (예: 얼굴이 잘리면 '50% 20%') */
+  thumbnailObjectPosition?: string
   /** 표기용 날짜 */
   dateLabel: string
   /** 작성 주체 표기 */
@@ -62,6 +64,7 @@ export const BLOG_POSTS: BlogPost[] = [
     teaser: '"0.1kg 단위 초정밀 조절부터 양방향 로보틱 트레이닝까지…" 대표님이 꼽은 도입 이유는?',
     subjectLabel: '강남 트라이핏',
     thumbnail: '/images/blog/tryfit-pt-review.jpg',
+    thumbnailObjectPosition: '50% 22%',
     dateLabel: '2026년 7월 21일',
     author: '세짐',
     href: 'https://blog.naver.com/humanics23/224353084887',

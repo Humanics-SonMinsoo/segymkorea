@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { SEGYM_DAY_COPY } from '@/data/segym-day'
 import { SegymDayVenuePicker } from '@/components/segym-day/SegymDayVenuePicker'
-import { SegymDayUrgencyBanner } from '@/components/segym-day/SegymDayUrgencyBanner'
 import { useSegymDayModal } from '@/components/segym-day/SegymDayContext'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
@@ -93,8 +92,6 @@ export function SegymDayApplyContent() {
 
   return (
     <div className="space-y-8">
-      <SegymDayUrgencyBanner variant="page" />
-
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed">
           참여를 희망하시는 장소를 선택하고 정보를 남겨 주세요.

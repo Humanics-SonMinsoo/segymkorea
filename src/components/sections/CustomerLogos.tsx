@@ -8,10 +8,10 @@ export default function CustomerLogos() {
   
   const customers = [
     {
-      name: '수원 영통구 올라잇짐',
-      description: '프리미엄 트레이닝 경험 제공',
-      icon: '🏋️',
-      image: '/images/customers/allright.png', // 이미지 경로 (선택사항)
+      name: '강남 첼렘피티 PT샵',
+      description: '프리미엄 1:1 PT 현장의 시그니처 장비',
+      icon: '💪',
+      image: '/images/customers/chelem.png', // 이미지 경로 (선택사항)
     },
     {
       name: '충북 진천 국가대표 선수촌',
@@ -47,7 +47,7 @@ export default function CustomerLogos() {
             </span>
           </h2>
           <p className="section-subtitle max-w-2xl mx-auto">
-            다양한 곳에서 세짐이 사용되고 있습니다
+            프리미엄 PT샵부터 국가대표 선수촌, 프로 스포츠 현장까지 세짐이 함께합니다
           </p>
         </div>
 

@@ -2,17 +2,17 @@ import Link from 'next/link'
 
 type Center = {
   name: string
-  image: string
+  logo: string
 }
 
-/** 이미지는 설치사례 갤러리 이미지를 사용 (건담짐은 실제 사진 확보 시 교체 예정) */
+/** 왼쪽부터 노출 순서: 올라잇짐 - 호크아이짐 - 트리트라움 - 올인짐 - 프렌드짐 - 건담짐 */
 const CENTERS: Center[] = [
-  { name: '원주 호크아이짐', image: '/images/installations/install-24.jpg' },
-  { name: '수원 올라잇짐', image: '/images/installations/install-18.png' },
-  { name: '동해 트리트라움 피트니스', image: '/images/installations/install-25.jpg' },
-  { name: '부산 건담짐', image: '/images/installations/install-04.jpg' },
-  { name: '의정부 올인짐', image: '/images/installations/install-23.jpg' },
-  { name: '시흥 프렌드짐', image: '/images/installations/install-10.jpg' },
+  { name: '수원 올라잇짐', logo: '/images/centers/logo-allright.png' },
+  { name: '원주 호크아이짐', logo: '/images/centers/logo-hawkeye.png' },
+  { name: '동해 트리트라움 피트니스', logo: '/images/centers/logo-treatraum.png' },
+  { name: '의정부 올인짐', logo: '/images/centers/logo-allin.png' },
+  { name: '시흥 프렌드짐', logo: '/images/centers/logo-friend.png' },
+  { name: '부산 건담짐', logo: '/images/centers/logo-gundam.png' },
 ]
 
 export default function BestFitnessCenters() {
@@ -26,25 +26,25 @@ export default function BestFitnessCenters() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-6 md:gap-8">
           {CENTERS.map((center) => (
-            <div
+            <Link
               key={center.name}
-              className="group relative aspect-[4/3] rounded-2xl overflow-hidden border border-gray-200 bg-gray-100"
+              href="/installations"
+              className="group flex flex-col items-center text-center"
             >
-              <img
-                src={center.image}
-                alt={`${center.name} 세짐 설치 현장`}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" aria-hidden />
-              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                <p className="text-white text-base sm:text-lg font-bold ko-modal-copy [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
-                  {center.name}
-                </p>
+              <div className="w-full aspect-square flex items-center justify-center">
+                <img
+                  src={center.logo}
+                  alt={`${center.name} 로고`}
+                  className="max-h-[80%] max-w-[80%] object-contain transition-transform duration-300 group-hover:scale-110"
+                  loading="lazy"
+                />
               </div>
-            </div>
+              <p className="mt-3 text-sm sm:text-base font-semibold text-gray-800 ko-modal-copy transition-colors group-hover:text-primary">
+                {center.name}
+              </p>
+            </Link>
           ))}
         </div>
 

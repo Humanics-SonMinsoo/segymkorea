@@ -1,4 +1,5 @@
 import Hero from '@/components/sections/Hero'
+import BestFitnessCenters from '@/components/sections/BestFitnessCenters'
 import CustomerLogos from '@/components/sections/CustomerLogos'
 import SegymIntro from '@/components/sections/SegymIntro'
 import ProductLineup from '@/components/sections/ProductLineup'
@@ -19,7 +20,7 @@ export default function Home() {
     <main className="min-h-screen pt-16">
       <Header />
       <Hero />
-      <CustomerLogos />
+      <BestFitnessCenters />
       <SegymIntro />
       <SegymStrengths />
       <RoboticTraining />
@@ -29,6 +30,7 @@ export default function Home() {
       <AmbassadorReason />
       <TrustHighlights />
       <BenefitsGuide />
+      <CustomerLogos />
       <CTA />
       <ProductLineup />
       <Footer />

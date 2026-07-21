@@ -11,7 +11,7 @@ import { trackMetaStandard } from '@/lib/meta-pixel'
 
 export function SegymDayApplyContent() {
   const { openAboutModal } = useSegymDayModal()
-  const [venueId, setVenueId] = useState('wonju-hawk-eye')
+  const [venueId, setVenueId] = useState('')
   const [centerName, setCenterName] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')

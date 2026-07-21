@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
-import { SEGYM_DAY_COPY, SEGYM_DAY_HERO_IMAGE } from '@/data/segym-day'
+import { SEGYM_DAY_COPY, SEGYM_DAY_HERO_IMAGE, SEGYM_DAY_HOME_POPUP_ENABLED } from '@/data/segym-day'
 import { SegymDayAboutModal } from '@/components/segym-day/SegymDayAboutModal'
 
 type SegymDayContextValue = {
@@ -88,6 +88,7 @@ export function SegymDayProvider({ children }: { children: ReactNode }) {
   const [popupOpen, setPopupOpen] = useState(false)
 
   useEffect(() => {
+    if (!SEGYM_DAY_HOME_POPUP_ENABLED) return
     if (pathname !== '/') return
     try {
       const dismissed = sessionStorage.getItem(SEGYM_DAY_COPY.popupStorageKey)
@@ -112,7 +113,9 @@ export function SegymDayProvider({ children }: { children: ReactNode }) {
   return (
     <SegymDayContext.Provider value={{ openAboutModal, closeAboutModal }}>
       {children}
-      {popupOpen && pathname === '/' ? <SegymDayHomePopup onClose={closePopup} /> : null}
+      {SEGYM_DAY_HOME_POPUP_ENABLED && popupOpen && pathname === '/' ? (
+        <SegymDayHomePopup onClose={closePopup} />
+      ) : null}
       <SegymDayAboutModal open={aboutOpen} onClose={closeAboutModal} />
     </SegymDayContext.Provider>
   )

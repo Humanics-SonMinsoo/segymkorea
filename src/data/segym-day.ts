@@ -6,6 +6,9 @@ export type SegymDayVenue = {
   comingSoonLabel?: string
 }
 
+/** 홈 접속 시 SEGYM DAY 팝업 노출 여부 (신청 기간에만 true) */
+export const SEGYM_DAY_HOME_POPUP_ENABLED = false
+
 export const SEGYM_DAY_HERO_IMAGE = '/images/segym-day/segym-day-hero.png'
 /** 카카오 공유·링크 미리보기용 VIP 초대장 이미지 */
 export const SEGYM_DAY_SHARE_IMAGE = '/images/segym-day/segym-day-vip-share.png'
@@ -32,7 +35,8 @@ export const SEGYM_DAY_VENUES: SegymDayVenue[] = [
     id: 'wonju-hawk-eye',
     title: '원주 호크아이짐 2호점',
     schedule: '7월 22일 오후 2시',
-    selectable: true,
+    selectable: false,
+    comingSoonLabel: '모집종료',
   },
   {
     id: 'busan',

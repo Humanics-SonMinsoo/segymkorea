@@ -8,10 +8,10 @@ export default function CustomerLogos() {
   
   const customers = [
     {
-      name: '강남 첼렘피티 PT샵',
+      name: '서울 광진구 첼렘피티 PT샵',
       description: '프리미엄 1:1 PT 현장의 시그니처 장비',
       icon: '💪',
-      image: '/images/customers/chelem.png', // 이미지 경로 (선택사항)
+      image: '/images/installations/install-20.jpg', // 설치사례 첼렘피티 이미지
     },
     {
       name: '충북 진천 국가대표 선수촌',

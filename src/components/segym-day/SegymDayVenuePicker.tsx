@@ -21,17 +21,27 @@ export function SegymDayVenuePicker({ selectedId, onSelect }: Props) {
             onClick={() => selectable && onSelect(venue.id)}
             className={`relative text-left rounded-xl border px-4 py-4 transition-colors ${
               !selectable
-                ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
+                ? 'border-gray-200 bg-gray-100 cursor-not-allowed'
                 : selected
                   ? 'border-primary bg-primary-muted ring-2 ring-primary/20'
                   : 'border-gray-200 bg-white hover:border-primary/40 hover:bg-gray-50'
             }`}
             aria-pressed={selected}
           >
-            <span className="block font-semibold text-gray-900 ko-modal-copy">{venue.title}</span>
-            <span className="block mt-1 text-sm text-gray-500 ko-modal-copy">{venue.schedule}</span>
+            <span className={`block font-semibold ko-modal-copy ${selectable ? 'text-gray-900' : 'text-gray-700'}`}>
+              {venue.title}
+            </span>
+            <span className={`block mt-1 text-sm ko-modal-copy ${selectable ? 'text-gray-500' : 'text-gray-500'}`}>
+              {venue.schedule}
+            </span>
             {venue.comingSoonLabel ? (
-              <span className="mt-2 inline-block rounded-md bg-amber-100 px-2 py-0.5 text-[11px] font-semibold text-amber-800">
+              <span
+                className={`mt-2 inline-block rounded-md px-2 py-0.5 text-[11px] font-semibold ${
+                  venue.comingSoonLabel === '모집마감'
+                    ? 'bg-gray-200 text-gray-700'
+                    : 'bg-amber-100 text-amber-800'
+                }`}
+              >
                 {venue.comingSoonLabel}
               </span>
             ) : null}

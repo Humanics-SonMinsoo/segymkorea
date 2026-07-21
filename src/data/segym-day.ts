@@ -36,7 +36,7 @@ export const SEGYM_DAY_VENUES: SegymDayVenue[] = [
     title: '원주 호크아이짐 2호점',
     schedule: '7월 22일 오후 2시',
     selectable: false,
-    comingSoonLabel: '모집종료',
+    comingSoonLabel: '모집마감',
   },
   {
     id: 'busan-gundam',

@@ -20,6 +20,8 @@ export type SubPageVariant = 'gradient' | 'light' | 'bar' | 'docs'
 type Props = {
   title: string
   description?: string
+  /** 설명 문단에 덧붙일 클래스 (예: 굵게) */
+  descriptionClassName?: string
   children: ReactNode
   contentMaxWidth?: ContentMaxWidth
   variant?: SubPageVariant
@@ -77,6 +79,7 @@ function BackLink({
 export function SiteSubPage({
   title,
   description,
+  descriptionClassName = '',
   children,
   contentMaxWidth = 'default',
   variant = 'gradient',
@@ -197,7 +200,9 @@ export function SiteSubPage({
                   <span className="w-6 h-1.5 rounded-full bg-brand-teal/70" aria-hidden />
                 </div>
                 {description ? (
-                  <p className="section-subtitle mt-6 text-gray-600 max-w-xl whitespace-pre-line">{description}</p>
+                  <p className={`section-subtitle mt-6 text-gray-600 max-w-xl whitespace-pre-line ${descriptionClassName}`}>
+                    {description}
+                  </p>
                 ) : null}
               </div>
             </div>

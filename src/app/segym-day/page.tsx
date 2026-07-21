@@ -42,6 +42,7 @@ export default function SegymDayPage() {
       contentMaxWidth="wide"
       title={SEGYM_DAY_COPY.pageTitle}
       description={SEGYM_DAY_COPY.pageDescription}
+      descriptionClassName="font-bold text-gray-900"
     >
       <div className="mb-8 -mt-2">
         <SegymDayEventSection />

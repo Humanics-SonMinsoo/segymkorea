@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SiteSubPage } from '@/components/layout/SiteSubPage'
 import { SegymDayApplyContent } from '@/components/segym-day/SegymDayApplyContent'
+import { SegymDayEventSection } from '@/components/segym-day/SegymDayEventSection'
 import { SEGYM_DAY_COPY, SEGYM_DAY_HERO_IMAGE, SEGYM_DAY_SHARE_IMAGE } from '@/data/segym-day'
 import { getSiteUrl } from '@/lib/site-url'
 import { SEGYM_DAY_PATH } from '@/lib/segym-day-share'
@@ -42,13 +43,11 @@ export default function SegymDayPage() {
       title={SEGYM_DAY_COPY.pageTitle}
       description={SEGYM_DAY_COPY.pageDescription}
     >
-      <div className="mb-8 -mt-2 space-y-4">
+      <div className="mb-8 -mt-2 space-y-6">
         <div className="mx-auto max-w-xs sm:max-w-sm rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
           <img src={SEGYM_DAY_HERO_IMAGE} alt="SEGYM DAY" className="w-full h-auto block" />
         </div>
-        <p className="mx-auto max-w-2xl text-center text-sm sm:text-[15px] text-gray-600 ko-modal-copy leading-relaxed">
-          {SEGYM_DAY_COPY.introNotice}
-        </p>
+        <SegymDayEventSection />
       </div>
       <SegymDayApplyContent />
     </SiteSubPage>

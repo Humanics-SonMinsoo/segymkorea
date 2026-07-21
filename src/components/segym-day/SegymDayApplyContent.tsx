@@ -2,14 +2,11 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { SEGYM_DAY_COPY } from '@/data/segym-day'
 import { SegymDayVenuePicker } from '@/components/segym-day/SegymDayVenuePicker'
-import { useSegymDayModal } from '@/components/segym-day/SegymDayContext'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 
 export function SegymDayApplyContent() {
-  const { openAboutModal } = useSegymDayModal()
   const [venueId, setVenueId] = useState('daejeon-one-percent')
   const [centerName, setCenterName] = useState('')
   const [name, setName] = useState('')
@@ -92,18 +89,9 @@ export function SegymDayApplyContent() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed">
-          참여를 희망하시는 장소를 선택하고 정보를 남겨 주세요.
-        </p>
-        <button
-          type="button"
-          onClick={openAboutModal}
-          className="shrink-0 px-5 py-2.5 rounded-lg border-2 border-primary/30 text-primary font-semibold hover:bg-primary-muted/40 transition-colors text-sm"
-        >
-          {SEGYM_DAY_COPY.aboutButton}
-        </button>
-      </div>
+      <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed">
+        참여를 희망하시는 장소를 선택하고 정보를 남겨 주세요.
+      </p>
 
       <section>
         <h2 className="text-lg font-bold text-gray-900 ko-modal-copy mb-3">참여 장소 선택</h2>

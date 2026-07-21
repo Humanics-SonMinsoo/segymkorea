@@ -17,9 +17,6 @@ export function SegymDayUrgencyBanner({ variant = 'page' }: { variant?: 'page' |
             <span className="inline-flex items-center rounded-md bg-red-500 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-white animate-pulse">
               마감 임박
             </span>
-            <span className="inline-flex items-center rounded-md bg-primary px-2 py-0.5 text-[11px] font-bold text-white">
-              {SEGYM_DAY_COPY.urgencyLimited}
-            </span>
           </div>
           <p className={`font-bold text-gray-900 ko-modal-copy ${compact ? 'text-sm' : 'text-base sm:text-lg'}`}>
             {SEGYM_DAY_COPY.urgencyHeadline}

@@ -42,10 +42,10 @@ export default function SegymDayPage() {
       title={SEGYM_DAY_COPY.pageTitle}
       description={SEGYM_DAY_COPY.pageDescription}
     >
-      <div className="mb-8 -mt-2 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+      <SegymDayApplyContent />
+      <div className="mt-8 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
         <img src={SEGYM_DAY_HERO_IMAGE} alt="SEGYM DAY" className="w-full h-auto block" />
       </div>
-      <SegymDayApplyContent />
     </SiteSubPage>
   )
 }

@@ -70,7 +70,7 @@ export function SegymDayApplyContent() {
       <div className="rounded-2xl border border-gray-200 bg-white p-8 sm:p-10 text-center">
         <p className="text-xl font-bold text-gray-900 mb-2">신청이 접수되었습니다</p>
         <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed mb-6">
-          담당자가 확인 후 연락드리겠습니다. 선착순 20명 마감 시 예약이 조기 종료될 수 있습니다.
+          담당자가 확인 후 연락드리겠습니다. 조기 마감 시 예약이 종료될 수 있습니다.
         </p>
         <button
           type="button"
@@ -118,7 +118,7 @@ export function SegymDayApplyContent() {
           <div>
             <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">신청 정보 입력</h2>
             <p className="mt-1 text-xs sm:text-sm text-red-600 font-semibold ko-modal-copy">
-              ⚡ 선착순 20명 · 신청 기간 8월 3일(월) ~ 8월 10일(월)
+              ⚡ 신청 기간 8월 3일(월) ~ 8월 10일(월)
             </p>
           </div>
         </div>
@@ -203,7 +203,7 @@ export function SegymDayApplyContent() {
             disabled={submitting}
             className="w-full sm:w-auto min-w-[200px] py-3.5 px-8 rounded-xl bg-primary text-white font-bold hover:bg-primary-dark transition-colors disabled:opacity-60 shadow-brand"
           >
-            {submitting ? '전송 중…' : `지금 신청하기 (${SEGYM_DAY_COPY.urgencyLimited})`}
+            {submitting ? '전송 중…' : '지금 신청하기'}
           </button>
         </form>
       </section>

@@ -74,9 +74,6 @@ export function SegymDayEventIntro() {
             계시는 대표님 및 관장님
           </li>
           <li>
-            <span className="font-medium text-gray-900">참여 인원</span> : 선착순 20명
-          </li>
-          <li>
             <span className="font-medium text-gray-900">신청 기간</span> : 8월 3일(월) ~ 8월 10일(월)
           </li>
         </ul>
@@ -95,8 +92,8 @@ export function SegymDayEventIntro() {
 
       <div className="space-y-4 border-t border-gray-100 pt-5">
         <p>
-          이번 행사는 <strong className="text-gray-900">딱 일주일 동안만</strong> 신청을 받으며, 선착순 20명이
-          마감되면 예약 창은 즉시 닫힙니다.
+          이번 행사는 <strong className="text-gray-900">딱 일주일 동안만</strong> 신청을 받으며, 조기 마감 시
+          예약 창은 즉시 닫힙니다.
         </p>
         <p>
           오직 현장 방문 대표님들께만 <strong className="text-gray-900">역대급 인상 전 최저가 혜택</strong>이

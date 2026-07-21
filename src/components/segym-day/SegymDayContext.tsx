@@ -67,7 +67,7 @@ function SegymDayHomePopup({ onClose }: { onClose: () => void }) {
         </div>
         <div className="p-4 sm:p-5 space-y-2">
           <p className="text-center text-xs font-semibold text-red-600 ko-modal-copy">
-            선착순 20명 · 7월 20일(월) 마감
+            선착순 20명 · 8월 10일(월) 마감
           </p>
           <Link
             href="/segym-day"

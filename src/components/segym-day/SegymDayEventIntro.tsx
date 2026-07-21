@@ -26,8 +26,8 @@ export function SegymDayEventIntro() {
           대표님들을 초대합니다!
         </p>
         <p>
-          이번 <strong className="text-gray-900">2차 행사</strong>는{' '}
-          <strong className="text-gray-900">&lsquo;원주 호크아이짐 2호점&rsquo;</strong>에서 오직 운동시설
+          이번 <strong className="text-gray-900">3차 행사</strong>는{' '}
+          <strong className="text-gray-900">&lsquo;대전 원퍼센트피트니스&rsquo;</strong>에서 오직 운동시설
           경영자분들만 모시고 프라이빗하게 진행됩니다.
         </p>
         <p>
@@ -61,13 +61,13 @@ export function SegymDayEventIntro() {
       </div>
 
       <div className="rounded-xl border border-gray-200 bg-gray-50/80 p-4 sm:p-5 space-y-3">
-        <p className="font-bold text-gray-900">📅 2차 SEGYM DAY 상세 안내 (원주 호크아이짐 2호점)</p>
+        <p className="font-bold text-gray-900">📅 3차 SEGYM DAY 상세 안내 (대전 원퍼센트피트니스)</p>
         <ul className="space-y-1.5 text-gray-700">
           <li>
-            <span className="font-medium text-gray-900">일시</span> : 7월 22일(수) 오후 2시
+            <span className="font-medium text-gray-900">일시</span> : 8월 12일(수) 오후 2시
           </li>
           <li>
-            <span className="font-medium text-gray-900">장소</span> : 원주 호크아이짐 2호점
+            <span className="font-medium text-gray-900">장소</span> : 대전 원퍼센트피트니스
           </li>
           <li>
             <span className="font-medium text-gray-900">참여 대상</span> : 피트니스 센터, PT샵 등 운동시설을 운영하고
@@ -77,7 +77,7 @@ export function SegymDayEventIntro() {
             <span className="font-medium text-gray-900">참여 인원</span> : 선착순 20명
           </li>
           <li>
-            <span className="font-medium text-gray-900">신청 기간</span> : 7월 13일(월) ~ 7월 20일(월)
+            <span className="font-medium text-gray-900">신청 기간</span> : 8월 3일(월) ~ 8월 10일(월)
           </li>
         </ul>
       </div>
@@ -85,7 +85,7 @@ export function SegymDayEventIntro() {
       <div className="space-y-3">
         <p className="font-bold text-gray-900">📋 당일 쇼케이스 행사 순서</p>
         <ol className="list-decimal list-inside space-y-1.5 text-gray-700">
-          <li>호크아이짐 2호점의 생생한 세짐 도입 및 운영 후기</li>
+          <li>원퍼센트피트니스의 생생한 세짐 도입 및 운영 후기</li>
           <li>세짐 대표님이 직접 들려주는 세짐의 미래 방향성과 비전</li>
           <li>하반기 출시 예정 프리미엄 NEW 기능 소개</li>
           <li>세짐 영업 담당자와 함께하는 1:1 머신 집중 체험 및 비즈니스 상담</li>
@@ -107,7 +107,7 @@ export function SegymDayEventIntro() {
           뜨거워집니다. 현장에서 기쁜 마음으로 기다리고 있겠습니다.
         </p>
         <p className="font-medium text-gray-900">
-          감사합니다. 원주 호크아이짐 2호점에서 뵙겠습니다! ❤️❤️❤️
+          감사합니다. 대전 원퍼센트피트니스에서 뵙겠습니다! ❤️❤️❤️
         </p>
       </div>
 

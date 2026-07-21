@@ -66,6 +66,8 @@ export const SEGYM_DAY_COPY = {
   pageTitle: 'SEGYM DAY 신청',
   pageDescription:
     '8월 10일(월) 신청 마감. 가격 인상 전 최저가로 세짐을 선점할 수 있는 마지막 기회, 대전 원퍼센트피트니스 SEGYM DAY에 참여해 보세요.',
+  introNotice:
+    '“체성분은 인바디로, 체성능은 세짐으로!” 가격 인상 전 최저가로 세짐을 선점하고, 하반기 대규모 신기능까지 추가 비용 없이 평생 무료 업데이트로 묶어둘 수 있는 마지막 기회입니다. 운동시설을 운영하시는 대표님·관장님을 SEGYM DAY에 초대합니다. 자세한 내용은 아래 “이벤트 알아보기”에서 확인해 주세요.',
   applyButton: 'SEGYM DAY 신청하기',
   aboutButton: '이벤트 알아보기',
   popupStorageKey: 'segym-day-popup-dismissed-v3',

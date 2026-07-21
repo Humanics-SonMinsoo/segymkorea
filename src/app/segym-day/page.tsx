@@ -42,10 +42,15 @@ export default function SegymDayPage() {
       title={SEGYM_DAY_COPY.pageTitle}
       description={SEGYM_DAY_COPY.pageDescription}
     >
-      <SegymDayApplyContent />
-      <div className="mt-8 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
-        <img src={SEGYM_DAY_HERO_IMAGE} alt="SEGYM DAY" className="w-full h-auto block" />
+      <div className="mb-8 -mt-2 space-y-4">
+        <div className="mx-auto max-w-xs sm:max-w-sm rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+          <img src={SEGYM_DAY_HERO_IMAGE} alt="SEGYM DAY" className="w-full h-auto block" />
+        </div>
+        <p className="mx-auto max-w-2xl text-center text-sm sm:text-[15px] text-gray-600 ko-modal-copy leading-relaxed">
+          {SEGYM_DAY_COPY.introNotice}
+        </p>
       </div>
+      <SegymDayApplyContent />
     </SiteSubPage>
   )
 }

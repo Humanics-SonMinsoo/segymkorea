@@ -26,18 +26,18 @@ export default function BestFitnessCenters() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 sm:gap-5 md:gap-6">
           {CENTERS.map((center) => (
             <Link
               key={center.name}
               href="/installations"
               className="group flex flex-col items-center text-center"
             >
-              <div className="w-full aspect-square flex items-center justify-center">
+              <div className="w-full aspect-square rounded-2xl border border-gray-200/70 shadow-sm overflow-hidden transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1">
                 <img
                   src={center.logo}
                   alt={`${center.name} 로고`}
-                  className="max-h-[80%] max-w-[80%] object-contain transition-transform duration-300 group-hover:scale-110"
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"
                 />
               </div>

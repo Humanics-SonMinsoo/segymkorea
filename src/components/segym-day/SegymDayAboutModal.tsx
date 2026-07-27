@@ -57,11 +57,11 @@ export function SegymDayAboutModal({ open, onClose }: Props) {
           </button>
         </div>
 
-        <div className="relative w-full aspect-[16/10] bg-gray-900 overflow-hidden shrink-0">
+        <div className="relative w-full bg-black overflow-hidden shrink-0">
           <img
             src={SEGYM_DAY_EVENT_IMAGE}
             alt="대전 원퍼센트피트니스 SEGYM DAY"
-            className="absolute inset-0 h-full w-full object-cover object-center"
+            className="block w-full h-auto object-contain"
           />
         </div>
 

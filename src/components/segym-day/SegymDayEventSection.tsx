@@ -8,11 +8,11 @@ export function SegymDayEventSection() {
         <h2 className="text-lg font-bold text-gray-900">SEGYM DAY 이벤트 안내</h2>
       </div>
 
-      <div className="relative w-full aspect-[3/4] sm:aspect-[16/10] bg-gray-900 overflow-hidden">
+      <div className="relative w-full bg-black overflow-hidden">
         <img
           src={SEGYM_DAY_EVENT_IMAGE}
           alt="대전 원퍼센트피트니스 SEGYM DAY"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="block w-full h-auto object-contain"
         />
       </div>
 

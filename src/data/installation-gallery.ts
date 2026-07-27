@@ -6,7 +6,7 @@
  */
 
 /** 최신 도입 센터 — 갤러리 최상단 `NEW 센터` (전체·해당 카테고리 탭) */
-export const INSTALLATION_NEW_IDS = ['27', '28'] as const
+export const INSTALLATION_NEW_IDS = ['29', '30'] as const
 
 /** 최근 행사·전시 — 갤러리 상단 `최근 행사` (전체·행사·전시 탭) */
 export const INSTALLATION_NEW_EVENT_IDS = ['25', '26'] as const
@@ -104,6 +104,34 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
     categoryId: 'event',
     regionKey: '행사',
     gallery: MYPROTEIN_GALLERY_NUMS.map((n) => eventImagePath('myprotein', n)),
+  },
+  {
+    id: '29',
+    src: '/images/installations/install-31.jpg',
+    title: '대전 대덕구 원퍼센트피트니스',
+    alt: '세짐 설치 사례 — 대전 대덕구 원퍼센트피트니스',
+    categoryId: 'health',
+    regionKey: '대전',
+    gallery: [
+      '/images/installations/install-31.jpg',
+      '/images/installations/install-32.jpg',
+    ],
+  },
+  {
+    id: '30',
+    src: '/images/installations/install-33.jpg',
+    title: '부산 동래구 건담짐',
+    alt: '세짐 설치 사례 — 부산 동래구 건담짐',
+    categoryId: 'health',
+    regionKey: '부산',
+    gallery: [
+      '/images/installations/install-33.jpg',
+      '/images/installations/install-34.jpg',
+      '/images/installations/install-35.jpg',
+      '/images/installations/install-36.jpg',
+      '/images/installations/install-37.jpg',
+      '/images/installations/install-38.jpg',
+    ],
   },
   {
     id: '27',

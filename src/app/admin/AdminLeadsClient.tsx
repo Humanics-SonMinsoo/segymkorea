@@ -615,6 +615,7 @@ export default function AdminLeadsClient() {
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">센터명</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">성함</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">연락처</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">참여 인원</th>
                       <th className="px-3 py-3 font-semibold min-w-[160px]">궁금하신 점</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">리드 담당자</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">리드 품질</th>
@@ -623,7 +624,7 @@ export default function AdminLeadsClient() {
                   <tbody>
                     {segymDayRequests.length === 0 ? (
                       <tr>
-                        <td colSpan={8} className="px-4 py-12 text-center text-gray-500">
+                        <td colSpan={9} className="px-4 py-12 text-center text-gray-500">
                           아직 SEGYM DAY 신청이 없습니다.
                         </td>
                       </tr>
@@ -640,6 +641,7 @@ export default function AdminLeadsClient() {
                           <td className="px-3 py-3 text-gray-900 font-medium">{row.centerName || '—'}</td>
                           <td className="px-3 py-3 text-gray-800">{row.name}</td>
                           <td className="px-3 py-3 text-gray-800 whitespace-nowrap">{row.phone}</td>
+                          <td className="px-3 py-3 text-gray-800 whitespace-nowrap">{row.attendeeCount || '—'}</td>
                           <td className="px-3 py-3 text-gray-600 whitespace-pre-wrap max-w-[220px] text-xs">
                             {row.additionalNote || '—'}
                           </td>

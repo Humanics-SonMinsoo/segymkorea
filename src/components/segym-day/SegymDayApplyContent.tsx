@@ -1,26 +1,34 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { SegymDayVenuePicker } from '@/components/segym-day/SegymDayVenuePicker'
+import { getSegymDayVenueById } from '@/data/segym-day'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
+
+const ATTENDEE_OPTIONS = ['1명', '2명', '3명', '4명', '5명', '6명', '7명', '8명', '9명', '10명'] as const
 
 export function SegymDayApplyContent() {
   const [venueId, setVenueId] = useState('daejeon-one-percent')
   const [centerName, setCenterName] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
+  const [attendeeCount, setAttendeeCount] = useState('')
   const [additionalNote, setAdditionalNote] = useState('')
   const [privacyAgreed, setPrivacyAgreed] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [submittedVenueLabel, setSubmittedVenueLabel] = useState('')
+  const [submittedVenueSchedule, setSubmittedVenueSchedule] = useState('')
+
+  const selectedVenue = useMemo(() => getSegymDayVenueById(venueId), [venueId])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
-    if (!venueId) {
+    if (!venueId || !selectedVenue) {
       setError('참여 장소를 선택해 주세요.')
       return
     }
@@ -42,6 +50,7 @@ export function SegymDayApplyContent() {
           centerName: centerName.trim(),
           name: name.trim(),
           phone: phone.trim(),
+          attendeeCount: attendeeCount.trim(),
           additionalNote: additionalNote.trim(),
         }),
       })
@@ -50,6 +59,8 @@ export function SegymDayApplyContent() {
         setError(typeof data.error === 'string' ? data.error : '접수에 실패했습니다.')
         return
       }
+      setSubmittedVenueLabel(selectedVenue.title)
+      setSubmittedVenueSchedule(selectedVenue.schedule)
       setSubmitted(true)
       trackGa4GenerateLead({ form_id: 'segym_day', form_name: 'SEGYM DAY 신청' })
       trackMetaStandard('Lead', { content_name: 'SEGYM DAY 신청', content_category: 'segym_day' })
@@ -65,6 +76,14 @@ export function SegymDayApplyContent() {
     return (
       <div className="rounded-2xl border border-gray-200 bg-white p-8 sm:p-10 text-center">
         <p className="text-xl font-bold text-gray-900 mb-2">신청이 접수되었습니다</p>
+        <div className="mx-auto mb-4 max-w-md rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-left">
+          <p className="text-sm font-semibold text-amber-950 ko-modal-copy">
+            {submittedVenueLabel || '대전 원퍼센트피트니스'}
+          </p>
+          <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
+            {submittedVenueSchedule || '8월 12일 오후 1시'}
+          </p>
+        </div>
         <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed mb-6">
           담당자가 확인 후 연락드리겠습니다. 조기 마감 시 예약이 종료될 수 있습니다.
         </p>
@@ -72,12 +91,15 @@ export function SegymDayApplyContent() {
           type="button"
           onClick={() => {
             setSubmitted(false)
-            setVenueId('')
+            setVenueId('daejeon-one-percent')
             setCenterName('')
             setName('')
             setPhone('')
+            setAttendeeCount('')
             setAdditionalNote('')
             setPrivacyAgreed(false)
+            setSubmittedVenueLabel('')
+            setSubmittedVenueSchedule('')
           }}
           className="px-6 py-3 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:bg-gray-50"
         >
@@ -108,6 +130,37 @@ export function SegymDayApplyContent() {
           </div>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="sd-venue" className="block text-sm font-medium text-gray-700 mb-1">
+                행사장
+              </label>
+              <input
+                id="sd-venue"
+                type="text"
+                readOnly
+                value={selectedVenue?.title ?? ''}
+                className="w-full rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5 text-amber-950 font-semibold outline-none cursor-default"
+                aria-describedby="sd-venue-hint"
+              />
+            </div>
+            <div>
+              <label htmlFor="sd-schedule" className="block text-sm font-medium text-gray-700 mb-1">
+                시간
+              </label>
+              <input
+                id="sd-schedule"
+                type="text"
+                readOnly
+                value={selectedVenue?.schedule ?? ''}
+                className="w-full rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5 text-amber-950 font-semibold outline-none cursor-default"
+              />
+            </div>
+          </div>
+          <p id="sd-venue-hint" className="text-xs text-gray-500 ko-modal-copy -mt-2">
+            위에서 선택한 장소·일정이 자동으로 입력됩니다. 신청 내용을 확인해 주세요.
+          </p>
+
           <div>
             <label htmlFor="sd-center" className="block text-sm font-medium text-gray-700 mb-1">
               센터명 <span className="text-red-500">*</span>
@@ -148,6 +201,24 @@ export function SegymDayApplyContent() {
                 placeholder="010-0000-0000"
               />
             </div>
+          </div>
+          <div>
+            <label htmlFor="sd-attendees" className="block text-sm font-medium text-gray-700 mb-1">
+              참여 인원 <span className="text-gray-400 font-normal">(선택)</span>
+            </label>
+            <select
+              id="sd-attendees"
+              value={attendeeCount}
+              onChange={(e) => setAttendeeCount(e.target.value)}
+              className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-gray-900 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+            >
+              <option value="">선택해 주세요</option>
+              {ATTENDEE_OPTIONS.map((opt) => (
+                <option key={opt} value={opt}>
+                  {opt}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label htmlFor="sd-note" className="block text-sm font-medium text-gray-700 mb-1">

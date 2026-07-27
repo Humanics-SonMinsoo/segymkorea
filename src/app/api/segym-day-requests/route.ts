@@ -38,7 +38,10 @@ export async function POST(request: Request) {
   }
   try {
     const body = await request.json()
-    const { venueId, centerName, name, phone, additionalNote } = body as Record<string, unknown>
+    const { venueId, centerName, name, phone, additionalNote, attendeeCount } = body as Record<
+      string,
+      unknown
+    >
     if (
       typeof venueId !== 'string' ||
       typeof centerName !== 'string' ||
@@ -46,6 +49,9 @@ export async function POST(request: Request) {
       typeof phone !== 'string' ||
       typeof additionalNote !== 'string'
     ) {
+      return NextResponse.json({ error: '잘못된 요청입니다.' }, { status: 400 })
+    }
+    if (attendeeCount !== undefined && typeof attendeeCount !== 'string') {
       return NextResponse.json({ error: '잘못된 요청입니다.' }, { status: 400 })
     }
     if (!venueId.trim() || !name.trim() || !phone.trim()) {
@@ -62,6 +68,7 @@ export async function POST(request: Request) {
       centerName,
       name,
       phone,
+      attendeeCount: typeof attendeeCount === 'string' ? attendeeCount : '',
       additionalNote,
     })
     return NextResponse.json({ ok: true, id: row.id })

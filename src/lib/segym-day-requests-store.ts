@@ -58,6 +58,7 @@ export type NewSegymDayRequestInput = {
   centerName: string
   name: string
   phone: string
+  attendeeCount?: string
   additionalNote: string
 }
 
@@ -72,6 +73,7 @@ export async function addSegymDayRequest(input: NewSegymDayRequestInput): Promis
     centerName: input.centerName.trim(),
     name: input.name.trim(),
     phone: input.phone.trim(),
+    attendeeCount: (input.attendeeCount ?? '').trim(),
     additionalNote: input.additionalNote.trim(),
     assignee: '',
     quality: '',

@@ -4,6 +4,8 @@ export type SegymDayVenue = {
   schedule: string
   selectable: boolean
   comingSoonLabel?: string
+  /** 카드 UI 톤 — closed: 종료 흐림 / comingSoon: 커밍순 / active: 선택 가능 */
+  appearance?: 'closed' | 'comingSoon' | 'active'
 }
 
 /** 홈 접속 시 SEGYM DAY 팝업 노출 여부 (신청 기간에만 true) */
@@ -13,15 +15,11 @@ export const SEGYM_DAY_HERO_IMAGE = '/images/segym-day/segym-day-hero.png'
 /** 카카오 공유·링크 미리보기용 VIP 초대장 이미지 */
 export const SEGYM_DAY_SHARE_IMAGE = '/images/segym-day/segym-day-vip-share.png'
 
-export const SEGYM_DAY_CAROUSEL_IMAGES = [
-  '/images/segym-day/segym-day-1.png',
-  '/images/segym-day/segym-day-2.png',
-  '/images/segym-day/segym-day-3.png',
-  '/images/segym-day/segym-day-4.png',
-  '/images/segym-day/segym-day-5.png',
-  '/images/segym-day/segym-day-6.png',
-  '/images/segym-day/segym-day-7.png',
-] as const
+/** 이벤트 안내 상단 이미지 (단일, 화면 꽉 채움) */
+export const SEGYM_DAY_EVENT_IMAGE = '/images/segym-day/segym-day-oneper.png'
+
+/** @deprecated 단일 이미지로 대체됨 — 기존 참조 호환용 */
+export const SEGYM_DAY_CAROUSEL_IMAGES = [SEGYM_DAY_EVENT_IMAGE] as const
 
 export const SEGYM_DAY_VENUES: SegymDayVenue[] = [
   {
@@ -30,6 +28,7 @@ export const SEGYM_DAY_VENUES: SegymDayVenue[] = [
     schedule: '7월 15일 오후 2시',
     selectable: false,
     comingSoonLabel: '모집마감',
+    appearance: 'closed',
   },
   {
     id: 'wonju-hawk-eye',
@@ -37,19 +36,22 @@ export const SEGYM_DAY_VENUES: SegymDayVenue[] = [
     schedule: '7월 22일 오후 2시',
     selectable: false,
     comingSoonLabel: '모집마감',
-  },
-  {
-    id: 'busan-gundam',
-    title: '부산 건담짐',
-    schedule: '8월 예정',
-    selectable: false,
-    comingSoonLabel: '일정 확정 중',
+    appearance: 'closed',
   },
   {
     id: 'daejeon-one-percent',
     title: '대전 원퍼센트피트니스',
-    schedule: '8월 12일 오후 2시',
+    schedule: '8월 12일 오후 1시',
     selectable: true,
+    appearance: 'active',
+  },
+  {
+    id: 'busan-gundam',
+    title: '부산 건담짐',
+    schedule: '일정 추후 공개',
+    selectable: false,
+    comingSoonLabel: 'COMING SOON',
+    appearance: 'comingSoon',
   },
 ]
 
@@ -65,20 +67,20 @@ export const SEGYM_DAY_COPY = {
   navLabel: 'SEGYM DAY',
   pageTitle: 'SEGYM DAY 신청',
   pageDescription:
-    '8월 10일(월) 신청 마감. 가격 인상 전 최저가로 세짐을 선점할 수 있는 마지막 기회,\n대전 원퍼센트피트니스 SEGYM DAY에 참여해 보세요.',
+    '8월 11일(화) 신청 마감. 가격 인상 전 최저가로 세짐을 선점할 수 있는 마지막 기회,\n대전 원퍼센트피트니스 SEGYM DAY에 참여해 보세요.',
   applyButton: 'SEGYM DAY 신청하기',
   aboutButton: '이벤트 알아보기',
   popupStorageKey: 'segym-day-popup-dismissed-v3',
   urgencyHeadline: '지금 신청하지 않으면 자리가 없어질 수 있습니다',
   urgencySubline:
     '3차 대전 원퍼센트피트니스 SEGYM DAY는 사전 신청제로 진행됩니다. 마감 시 예약 창은 즉시 닫힙니다.',
-  deadlineLabel: '8월 10일(월)',
+  deadlineLabel: '8월 11일(화)',
   shareCardTitle: 'SEGYM DAY VIP 초대장',
-  shareOgDescription: '당신을 초대합니다.\n8월 12일 오후 2시, 대전 원퍼센트피트니스',
+  shareOgDescription: '당신을 초대합니다.\n8월 12일 오후 1시, 대전 원퍼센트피트니스',
   shareInviteLine: '당신을 초대합니다.',
-  shareEventWhen: '8월 12일 오후 2시, 대전 원퍼센트피트니스',
+  shareEventWhen: '8월 12일 오후 1시, 대전 원퍼센트피트니스',
   shareInviteBody: '',
-  shareKakaoDescription: '당신을 초대합니다.\n8월 12일 오후 2시, 대전 원퍼센트피트니스',
+  shareKakaoDescription: '당신을 초대합니다.\n8월 12일 오후 1시, 대전 원퍼센트피트니스',
   kakaoShareButton: '참여 신청하기',
   sharePanelHint:
     '카카오톡으로 초대 카드를 보내거나, 초대 문구를 복사해 대표님께 전달해 보세요.',

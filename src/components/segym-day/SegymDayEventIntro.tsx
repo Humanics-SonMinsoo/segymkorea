@@ -1,7 +1,3 @@
-'use client'
-
-import { SEGYM_DAY_CAROUSEL_IMAGES } from '@/data/segym-day'
-
 export function SegymDayEventIntro() {
   return (
     <div className="space-y-6 text-sm sm:text-[15px] text-gray-700 ko-modal-copy leading-relaxed">
@@ -64,7 +60,7 @@ export function SegymDayEventIntro() {
         <p className="font-bold text-gray-900">📅 3차 SEGYM DAY 상세 안내 (대전 원퍼센트피트니스)</p>
         <ul className="space-y-1.5 text-gray-700">
           <li>
-            <span className="font-medium text-gray-900">일시</span> : 8월 12일(수) 오후 2시
+            <span className="font-medium text-gray-900">일시</span> : 8월 12일(수) 오후 1시
           </li>
           <li>
             <span className="font-medium text-gray-900">장소</span> : 대전 원퍼센트피트니스
@@ -74,7 +70,7 @@ export function SegymDayEventIntro() {
             계시는 대표님 및 관장님
           </li>
           <li>
-            <span className="font-medium text-gray-900">신청 기간</span> : 7월 21일(화) ~ 8월 10일(월)
+            <span className="font-medium text-gray-900">신청 기간</span> : 7월 21일(화) ~ 8월 11일(화)
           </li>
         </ul>
       </div>
@@ -106,12 +102,6 @@ export function SegymDayEventIntro() {
         <p className="font-medium text-gray-900">
           감사합니다. 대전 원퍼센트피트니스에서 뵙겠습니다! ❤️❤️❤️
         </p>
-      </div>
-
-      <div className="sr-only" aria-hidden>
-        {SEGYM_DAY_CAROUSEL_IMAGES.map((src, i) => (
-          <span key={src}>슬라이드 {i + 1}</span>
-        ))}
       </div>
     </div>
   )

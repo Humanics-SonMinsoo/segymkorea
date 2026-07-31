@@ -95,6 +95,13 @@ export default function Header() {
             <OpenInquiryButton className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all font-semibold">
               도입 문의하기
             </OpenInquiryButton>
+            <Link
+              href="/en"
+              className="text-gray-500 hover:text-primary transition-colors text-sm font-medium"
+              title="English site"
+            >
+              EN
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -167,6 +174,13 @@ export default function Header() {
             >
               도입 문의하기
             </OpenInquiryButton>
+            <Link
+              href="/en"
+              className="block text-center text-gray-500 hover:text-primary text-sm font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              English (EN)
+            </Link>
           </div>
         )}
       </nav>

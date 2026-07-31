@@ -7,14 +7,21 @@ export function EnHumanicsIntro() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           <div className="lg:col-span-4">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-3">About Humanics</p>
-            <h2
-              className="text-3xl sm:text-4xl font-bold tracking-[0.08em] text-gray-900"
-              style={{ fontFamily: 'var(--font-segym), system-ui, sans-serif' }}
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">About Humanics</p>
+            <a
+              href="https://www.humanics.kr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex rounded-2xl bg-black p-5 sm:p-6 shadow-sm ring-1 ring-black/10 hover:ring-primary/40 transition-shadow"
+              aria-label="Humanics Co., Ltd."
             >
-              HUMANICS
-            </h2>
-            <p className="mt-2 text-sm text-gray-500">Humanics Co., Ltd. · Korea</p>
+              <img
+                src="/images/brand/humanics-logo.png"
+                alt="HUMANICS"
+                className="h-16 sm:h-20 w-auto object-contain"
+              />
+            </a>
+            <p className="mt-3 text-sm text-gray-500">Humanics Co., Ltd. · Korea</p>
           </div>
           <div className="lg:col-span-8 space-y-4">
             <p className="text-lg sm:text-xl font-semibold text-gray-900 leading-snug">

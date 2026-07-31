@@ -1,5 +1,5 @@
 /**
- * Top-of-page Humanics ??SEGYM relationship (EN site requirement)
+ * Top-of-page Humanics ? SEGYM relationship (EN site requirement)
  */
 export function EnHumanicsIntro() {
   return (
@@ -16,25 +16,25 @@ export function EnHumanicsIntro() {
               aria-label="Humanics Co., Ltd."
             >
               <img
-                src="/images/brand/humanics-logo3.jpg"
+                src="/images/brand/humanics-logo-h.jpg"
                 alt="HUMANICS"
-                className="h-28 sm:h-36 md:h-40 w-auto max-w-full object-contain"
+                className="h-20 sm:h-24 md:h-28 w-auto max-w-full object-contain"
               />
             </a>
-            <p className="mt-4 text-base text-gray-500">Humanics Co., Ltd. Â· Korea</p>
+            <p className="mt-4 text-base text-gray-500">Humanics Co., Ltd. · Korea</p>
           </div>
           <div className="lg:col-span-8 space-y-5">
             <p className="text-xl sm:text-2xl md:text-[1.65rem] font-semibold text-gray-900 leading-snug">
               SEGYM is the fitness robotics brand developed and operated by Humanics.
             </p>
             <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-              Humanics builds human?“technology fusion robotics that elevate everyday life. From precision digital
-              loading to AI-guided training insight, SEGYM brings that mission onto the gym floor ??for elite
+              Humanics builds human?technology fusion robotics that elevate everyday life. From precision digital
+              loading to AI-guided training insight, SEGYM brings that mission onto the gym floor ? for elite
               athletes, everyday members, and rehabilitation settings alike.
             </p>
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-1">
               <p className="text-sm sm:text-base text-gray-500">
-                HQ &amp; R&amp;D in Gyeongsan Â· Sales office in Gwangmyeong
+                HQ &amp; R&amp;D in Gyeongsan · Sales office in Gwangmyeong
               </p>
               <a
                 href="https://www.humanics.kr"
@@ -44,7 +44,8 @@ export function EnHumanicsIntro() {
               >
                 Visit Humanics website
                 <span aria-hidden className="text-base leading-none">
-                  ??                </span>
+                  ?
+                </span>
               </a>
             </div>
           </div>

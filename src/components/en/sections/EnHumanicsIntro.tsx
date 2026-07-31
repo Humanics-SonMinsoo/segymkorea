@@ -32,17 +32,22 @@ export function EnHumanicsIntro() {
               loading to AI-guided training insight, SEGYM brings that mission onto the gym floor — for elite
               athletes, everyday members, and rehabilitation settings alike.
             </p>
-            <p className="text-sm sm:text-base text-gray-500">
-              HQ &amp; R&amp;D in Gyeongsan · Sales office in Gwangmyeong ·{' '}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-1">
+              <p className="text-sm sm:text-base text-gray-500">
+                HQ &amp; R&amp;D in Gyeongsan · Sales office in Gwangmyeong
+              </p>
               <a
                 href="https://www.humanics.kr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary font-medium underline-offset-2 hover:underline"
+                className="inline-flex items-center justify-center gap-1.5 self-start rounded-lg border-2 border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-primary hover:text-white transition-colors"
               >
-                humanics.kr
+                Visit Humanics website
+                <span aria-hidden className="text-base leading-none">
+                  →
+                </span>
               </a>
-            </p>
+            </div>
           </div>
         </div>
       </div>

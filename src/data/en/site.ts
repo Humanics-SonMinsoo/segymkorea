@@ -40,5 +40,5 @@ export const EN_META = {
     'SEGYM is an AI smart fitness robot developed by Humanics. Precision digital loading, real-time performance analysis, and safer strength training for gyms, PT studios, and rehab.',
   scanTitle: 'SEGYM Scan & Score — Coming Soon | Humanics',
   scanDescription:
-    'SEGYM Scan & Score turns movement into measurable athletic insight. Explore the upcoming performance assessment experience from Humanics.',
+    'SEGYM Scan & Score measures body performance through guided tests — force, speed, range of motion, and balance — then shows the result as a clear score with stats.',
 } as const

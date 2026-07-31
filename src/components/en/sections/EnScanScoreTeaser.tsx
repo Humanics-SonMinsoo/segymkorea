@@ -12,8 +12,8 @@ export function EnScanScoreTeaser() {
           SEGYM Scan &amp; Score
         </h2>
         <p className="mt-5 text-base sm:text-lg text-neutral-300 max-w-2xl leading-relaxed">
-          Turn movement into measurable athletic insight. Scan. Score. Train with clarity —
-          a Humanics experience designed for operators who want data members can feel.
+          Measure body performance through guided tests — force, speed, range of motion, and balance — then see the
+          result as a clear score with supporting stats.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-3">
           <Link

@@ -20,6 +20,12 @@ export function EnCTA() {
             {EN_NAV.inquire}
           </OpenInquiryButton>
         </div>
+        <p className="mt-8 text-sm text-white/80">
+          Or email us at{' '}
+          <a href="mailto:contact@humanics.kr" className="font-semibold text-white underline underline-offset-2 hover:text-white">
+            contact@humanics.kr
+          </a>
+        </p>
       </div>
     </section>
   )

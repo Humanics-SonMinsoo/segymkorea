@@ -37,8 +37,7 @@ export default function EnProductSmithPage() {
 
         <section id="specs" className="mt-14 scroll-mt-28">
           <h2 className="section-title text-gray-900 mb-2">Spec sheet</h2>
-          <p className="text-sm text-gray-500 mb-6">Technical specifications (same sheet as the Korean product page).</p>
-          <ProductSpecSheet />
+          <ProductSpecSheet locale="en" />
         </section>
 
         <div className="mt-12 flex flex-col sm:flex-row gap-3">

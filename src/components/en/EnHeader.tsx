@@ -20,6 +20,7 @@ const navItems: NavItem[] = [
   { href: '/en/installations', label: EN_NAV.installations },
   { href: '/en/blog', label: EN_NAV.blog },
   { href: '/en/scan-and-score', label: EN_NAV.scanAndScore, isCta: true },
+  { href: '/en#contact-info', label: EN_NAV.contact },
 ]
 
 const navCtaClass =

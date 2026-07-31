@@ -36,11 +36,10 @@ export function EnScanScoreBanner() {
           <div className="flex-1 min-w-0">
             <p className="text-[11px] font-bold uppercase tracking-wider text-primary mb-0.5">Coming soon</p>
             <p className="text-sm sm:text-base font-bold text-gray-900">
-              SEGYM Scan &amp; Score — performance assessment, redefined
+              SEGYM Scan &amp; Score — body performance assessment
             </p>
             <p className="mt-1 text-xs sm:text-sm text-gray-600 leading-relaxed">
-              A new Humanics product experience is in development. Explore the flow, request a demo, or get launch
-              updates.
+              Measure athletic ability through guided tests — then see the result as a clear score with stats.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 shrink-0">

@@ -1,5 +1,5 @@
 /**
- * Top-of-page Humanics ↔ SEGYM relationship (EN site requirement)
+ * Top-of-page Humanics ??SEGYM relationship (EN site requirement)
  */
 export function EnHumanicsIntro() {
   return (
@@ -16,7 +16,7 @@ export function EnHumanicsIntro() {
               aria-label="Humanics Co., Ltd."
             >
               <img
-                src="/images/brand/humanics-logo2.jpg"
+                src="/images/brand/humanics-logo3.jpg"
                 alt="HUMANICS"
                 className="h-28 sm:h-36 md:h-40 w-auto max-w-full object-contain"
               />
@@ -28,8 +28,8 @@ export function EnHumanicsIntro() {
               SEGYM is the fitness robotics brand developed and operated by Humanics.
             </p>
             <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-              Humanics builds human–technology fusion robotics that elevate everyday life. From precision digital
-              loading to AI-guided training insight, SEGYM brings that mission onto the gym floor — for elite
+              Humanics builds human?�technology fusion robotics that elevate everyday life. From precision digital
+              loading to AI-guided training insight, SEGYM brings that mission onto the gym floor ??for elite
               athletes, everyday members, and rehabilitation settings alike.
             </p>
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-1">
@@ -44,8 +44,7 @@ export function EnHumanicsIntro() {
               >
                 Visit Humanics website
                 <span aria-hidden className="text-base leading-none">
-                  →
-                </span>
+                  ??                </span>
               </a>
             </div>
           </div>

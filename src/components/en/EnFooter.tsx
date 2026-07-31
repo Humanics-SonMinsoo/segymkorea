@@ -36,6 +36,11 @@ export function EnFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/en/blog" className="hover:text-gray-300 underline-offset-2 hover:underline">
+                  {EN_NAV.blog}
+                </Link>
+              </li>
+              <li>
                 <Link href="/en/scan-and-score" className="hover:text-gray-300 underline-offset-2 hover:underline">
                   {EN_NAV.scanAndScore}
                 </Link>

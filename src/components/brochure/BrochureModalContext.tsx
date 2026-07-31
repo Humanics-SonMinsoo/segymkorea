@@ -10,6 +10,8 @@ import {
 } from 'react'
 import Link from 'next/link'
 import { useInquiryModal } from '@/components/inquiry/InquiryModalContext'
+import { EnBrochureDialog } from '@/components/en/EnLeadModals'
+import { useIsEnglishSite } from '@/lib/locale'
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
@@ -351,10 +353,13 @@ function BrochureModalDialog({ onClose }: { onClose: () => void }) {
 }
 
 export function BrochureModalProvider({ children }: { children: ReactNode }) {
+  const isEn = useIsEnglishSite()
   const { openInquiryModalDemo } = useInquiryModal()
   const [phase, setPhase] = useState<BrochurePhase | null>(null)
 
-  const openBrochureModal = useCallback(() => setPhase('choose'), [])
+  const openBrochureModal = useCallback(() => {
+    setPhase(isEn ? 'form' : 'choose')
+  }, [isEn])
   const closeBrochureModal = useCallback(() => setPhase(null), [])
 
   const handlePickBrochure = useCallback(() => setPhase('form'), [])
@@ -367,14 +372,16 @@ export function BrochureModalProvider({ children }: { children: ReactNode }) {
   return (
     <BrochureModalContext.Provider value={{ openBrochureModal, closeBrochureModal }}>
       {children}
-      {phase === 'choose' ? (
+      {phase === 'choose' && !isEn ? (
         <BrochureChooseDialog
           onClose={closeBrochureModal}
           onPickBrochure={handlePickBrochure}
           onPickDemo={handlePickDemo}
         />
       ) : null}
-      {phase === 'form' ? <BrochureModalDialog onClose={closeBrochureModal} /> : null}
+      {phase === 'form' ? (
+        isEn ? <EnBrochureDialog onClose={closeBrochureModal} /> : <BrochureModalDialog onClose={closeBrochureModal} />
+      ) : null}
     </BrochureModalContext.Provider>
   )
 }

@@ -9,21 +9,23 @@ export const COMPANY_PUBLIC_EN = {
   addressMain: 'Yeungnam University Business Incubator #205, 280 Daehak-ro, Gyeongsan-si, Gyeongsangbuk-do, Korea',
   addressOffice: '1F #101, 15 Iljik-ro 99beon-gil, Gwangmyeong-si, Gyeonggi-do, Korea',
   phone: '02-897-5250',
-  email: 'humanics@humanics.kr',
+  email: 'contact@humanics.kr',
   website: 'https://www.humanics.kr',
 } as const
 
 export const HUMANICS_BRAND_BAR = {
   logoText: 'HUMANICS',
   tagline: 'SEGYM is developed and operated by Humanics Co., Ltd.',
-  catchphrase: 'Human–technology fusion robotics that elevates everyday life.',
+  catchphrase: 'Human-technology fusion robotics that elevates everyday life.',
   linkLabel: 'humanics.kr',
+  websiteButton: 'Visit Humanics website',
 } as const
 
 export const EN_NAV = {
   home: 'Home',
   product: 'Product',
   installations: 'Installations',
+  blog: 'Blog',
   scanAndScore: 'Scan & Score',
   contact: 'Contact',
   getBrochure: 'Get brochure',

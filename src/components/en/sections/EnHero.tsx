@@ -20,7 +20,7 @@ export function EnHero() {
             <div className="flex flex-col items-center text-center gap-8">
               <div>
                 <p className="text-lg lg:text-xl xl:text-2xl text-white font-medium mb-3 drop-shadow-lg">
-                  Chosen by Korea&apos;s top bodybuilder, Jaehoon Park
+                  Chosen by Korea&apos;s top bodybuilder, Jaehun Park
                 </p>
                 <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight drop-shadow-2xl">
                   AI Smart Fitness Robot{' '}
@@ -45,7 +45,7 @@ export function EnHero() {
       <div className="lg:hidden bg-white px-4 py-8">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-sm text-gray-700 font-medium mb-2">
-            Chosen by Korea&apos;s top bodybuilder, Jaehoon Park
+            Chosen by Korea&apos;s top bodybuilder, Jaehun Park
           </p>
           <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-6">
             AI Smart Fitness Robot{' '}

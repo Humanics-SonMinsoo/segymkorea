@@ -18,6 +18,7 @@ const navItems: NavItem[] = [
   { href: '/en', label: EN_NAV.home },
   { href: '/en/product', label: EN_NAV.product },
   { href: '/en/installations', label: EN_NAV.installations },
+  { href: '/en/blog', label: EN_NAV.blog },
   { href: '/en/scan-and-score', label: EN_NAV.scanAndScore, isCta: true },
 ]
 

@@ -1,12 +1,12 @@
 import Link from 'next/link'
 
 const CENTERS = [
-  { name: 'Allright Gym (Suwon)', logo: '/images/centers/logo-allright.png' },
-  { name: 'Hawk Eye Gym (Wonju)', logo: '/images/centers/logo-hawkeye.png' },
-  { name: 'Treatraum Fitness (Donghae)', logo: '/images/centers/logo-treatraum.png' },
-  { name: 'All-In Gym (Uijeongbu)', logo: '/images/centers/logo-allin.png' },
-  { name: 'Friend Gym (Siheung)', logo: '/images/centers/logo-friend.png' },
-  { name: 'Gundam Gym (Busan)', logo: '/images/centers/logo-gundam.png' },
+  { name: 'Allright Gym', logo: '/images/centers/logo-allright.png' },
+  { name: 'Hawk Eye Gym', logo: '/images/centers/logo-hawkeye.png' },
+  { name: 'Treatraum Fitness', logo: '/images/centers/logo-treatraum.png' },
+  { name: 'All-In Gym', logo: '/images/centers/logo-allin.png' },
+  { name: 'Friend Gym', logo: '/images/centers/logo-friend.png' },
+  { name: 'Gundam Gym', logo: '/images/centers/logo-gundam.png' },
 ]
 
 export function EnBestFitnessCenters() {

@@ -152,6 +152,7 @@ export function FloatingFaqWidget() {
   const clusterRef = useRef<HTMLDivElement>(null)
 
   const hideOnAdmin = pathname?.startsWith('/admin') ?? false
+  const hideOnEnglish = pathname === '/en' || (pathname?.startsWith('/en/') ?? false)
 
   const faqItems: FaqItem[] = useMemo(
     () => [
@@ -225,7 +226,7 @@ export function FloatingFaqWidget() {
     return () => document.removeEventListener('mousedown', onDocDown)
   }, [openId, close])
 
-  if (hideOnAdmin) {
+  if (hideOnAdmin || hideOnEnglish) {
     return null
   }
 

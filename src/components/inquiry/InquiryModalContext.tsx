@@ -16,6 +16,8 @@ import { DemoExperienceGuide } from '@/components/experience/DemoExperienceGuide
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { buildInquirySubmissionSnapshot, type InquirySubmissionSnapshot } from '@/lib/inquiry-summary'
 import { InquirySuccessPanel } from '@/components/inquiry/InquirySuccessPanel'
+import { EnInquiryDialog } from '@/components/en/EnLeadModals'
+import { useIsEnglishSite } from '@/lib/locale'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
@@ -556,6 +558,7 @@ function InquiryModalDialog({
 }
 
 export function InquiryModalProvider({ children }: { children: ReactNode }) {
+  const isEn = useIsEnglishSite()
   const [open, setOpen] = useState(false)
   const [openConfig, setOpenConfig] = useState<{ step: ModalStep; type: LeadInquiryType }>({
     step: 'choose',
@@ -578,12 +581,16 @@ export function InquiryModalProvider({ children }: { children: ReactNode }) {
     <InquiryModalContext.Provider value={{ openInquiryModal, openInquiryModalDemo, closeInquiryModal }}>
       {children}
       {open ? (
-        <InquiryModalDialog
-          key={`${openConfig.step}-${openConfig.type}`}
-          initialStep={openConfig.step}
-          initialInquiryType={openConfig.type}
-          onClose={closeInquiryModal}
-        />
+        isEn ? (
+          <EnInquiryDialog onClose={closeInquiryModal} />
+        ) : (
+          <InquiryModalDialog
+            key={`${openConfig.step}-${openConfig.type}`}
+            initialStep={openConfig.step}
+            initialInquiryType={openConfig.type}
+            onClose={closeInquiryModal}
+          />
+        )
       ) : null}
     </InquiryModalContext.Provider>
   )

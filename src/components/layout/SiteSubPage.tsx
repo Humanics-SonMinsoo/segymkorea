@@ -22,6 +22,8 @@ type Props = {
   description?: string
   /** 설명 문단에 덧붙일 클래스 (예: 굵게) */
   descriptionClassName?: string
+  /** 제목(h1)에 덧붙일 클래스 */
+  titleClassName?: string
   children: ReactNode
   contentMaxWidth?: ContentMaxWidth
   variant?: SubPageVariant
@@ -80,6 +82,7 @@ export function SiteSubPage({
   title,
   description,
   descriptionClassName = '',
+  titleClassName = '',
   children,
   contentMaxWidth = 'default',
   variant = 'gradient',
@@ -192,7 +195,9 @@ export function SiteSubPage({
             {topNav ?? <HomeLink className="text-gray-500 hover:text-primary mb-8" />}
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-12">
               <div className="max-w-2xl">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight ko-modal-copy">
+                <h1
+                  className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight ko-modal-copy ${titleClassName}`}
+                >
                   {title}
                 </h1>
                 <div className="flex gap-2 mt-5">

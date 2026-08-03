@@ -221,6 +221,13 @@ export function SegymDayApplyContent() {
               {error}
             </p>
           ) : null}
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full sm:w-auto min-w-[200px] py-3.5 px-8 rounded-xl bg-primary text-white font-bold hover:bg-primary-dark transition-colors disabled:opacity-60 shadow-brand"
+          >
+            {submitting ? '전송 중…' : '지금 신청하기'}
+          </button>
         </form>
       </section>
 

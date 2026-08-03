@@ -9,7 +9,6 @@ import { EnScanScoreTeaser } from '@/components/en/sections/EnScanScoreTeaser'
 import { EnCustomerUseCases } from '@/components/en/sections/EnCustomerUseCases'
 import { EnContact } from '@/components/en/sections/EnContact'
 import { EnCTA } from '@/components/en/sections/EnCTA'
-import { EnScanScoreBanner } from '@/components/en/EnScanScoreBanner'
 import { EnHumanicsIntro } from '@/components/en/sections/EnHumanicsIntro'
 
 export default function EnHomePage() {
@@ -27,7 +26,6 @@ export default function EnHomePage() {
       <EnCustomerUseCases />
       <EnContact />
       <EnCTA />
-      <EnScanScoreBanner />
     </main>
   )
 }

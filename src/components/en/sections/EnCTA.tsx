@@ -7,10 +7,10 @@ export function EnCTA() {
     <section id="contact" className="py-20 bg-gradient-to-br from-primary to-primary-dark text-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-white tracking-tight [text-shadow:0_2px_12px_rgba(0,0,0,0.35)]">
-          Experience SEGYM in person
+          Ready to bring SEGYM to your facility?
         </h2>
         <p className="text-base md:text-lg mb-8 max-w-xl mx-auto leading-relaxed font-medium text-white/90 [text-shadow:0_1px_6px_rgba(0,0,0,0.25)]">
-          Visit a demo center with our team — try the machine and discuss deployment for your facility
+          Request a consultation with our team — discuss specs, installation, and deployment for your gym or studio
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <OpenBrochureButton className="px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-md">

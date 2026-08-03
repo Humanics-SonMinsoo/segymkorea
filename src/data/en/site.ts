@@ -29,7 +29,7 @@ export const EN_NAV = {
   scanAndScore: 'Scan & Score',
   contact: 'Contact',
   getBrochure: 'Get brochure',
-  inquire: 'Request a demo',
+  inquire: 'Product inquiry',
   languageKo: '한국어',
   languageEn: 'EN',
 } as const

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { EN_META } from '@/data/en/site'
 import { EnHeader } from '@/components/en/EnHeader'
 import { EnFooter } from '@/components/en/EnFooter'
-import { EnScanScorePopup } from '@/components/en/EnScanScorePopup'
+import { EnScanScoreBanner } from '@/components/en/EnScanScoreBanner'
 
 export const metadata: Metadata = {
   title: EN_META.homeTitle,
@@ -24,7 +24,7 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
       <EnHeader />
       <div className={EN_HEADER_OFFSET}>{children}</div>
       <EnFooter />
-      <EnScanScorePopup />
+      <EnScanScoreBanner />
     </div>
   )
 }

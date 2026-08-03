@@ -44,10 +44,10 @@ export default function SegymDayPage() {
       description={SEGYM_DAY_COPY.pageDescription}
       descriptionClassName="font-bold text-gray-900"
     >
-      <div className="mb-8 -mt-2">
+      <SegymDayApplyContent />
+      <div className="mt-10">
         <SegymDayEventSection />
       </div>
-      <SegymDayApplyContent />
     </SiteSubPage>
   )
 }

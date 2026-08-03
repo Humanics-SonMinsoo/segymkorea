@@ -65,9 +65,8 @@ export function isSegymDayVenueSelectable(venue: SegymDayVenue): boolean {
 
 export const SEGYM_DAY_COPY = {
   navLabel: 'SEGYM DAY',
-  pageTitle: 'SEGYM DAY 신청',
-  pageDescription:
-    '8월 11일(화) 신청 마감. 가격 인상 전 최저가로 세짐을 선점할 수 있는 마지막 기회,\n대전 원퍼센트피트니스 SEGYM DAY에 참여해 보세요.',
+  pageTitle: '8월 11일 대전원퍼센트피트니스 SEGYM DAY 참가신청',
+  pageDescription: '',
   applyButton: 'SEGYM DAY 신청하기',
   aboutButton: '이벤트 알아보기',
   popupStorageKey: 'segym-day-popup-dismissed-v3',

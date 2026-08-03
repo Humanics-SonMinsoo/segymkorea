@@ -41,8 +41,6 @@ export default function SegymDayPage() {
       variant="light"
       contentMaxWidth="wide"
       title={SEGYM_DAY_COPY.pageTitle}
-      description={SEGYM_DAY_COPY.pageDescription}
-      descriptionClassName="font-bold text-gray-900"
     >
       <SegymDayApplyContent />
       <div className="mt-10">

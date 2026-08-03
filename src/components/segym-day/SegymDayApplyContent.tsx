@@ -119,31 +119,13 @@ export function SegymDayApplyContent() {
           </div>
         </div>
         <form id="segym-day-apply-form" onSubmit={handleSubmit} className="space-y-4 max-w-2xl pb-24">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="sd-venue" className="block text-sm font-medium text-gray-700 mb-1">
-                행사장
-              </label>
-              <input
-                id="sd-venue"
-                type="text"
-                readOnly
-                value={selectedVenue?.title ?? ''}
-                className="w-full rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5 text-amber-950 font-semibold outline-none cursor-default"
-              />
-            </div>
-            <div>
-              <label htmlFor="sd-schedule" className="block text-sm font-medium text-gray-700 mb-1">
-                시간
-              </label>
-              <input
-                id="sd-schedule"
-                type="text"
-                readOnly
-                value={selectedVenue?.schedule ?? ''}
-                className="w-full rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5 text-amber-950 font-semibold outline-none cursor-default"
-              />
-            </div>
+          <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+            <p className="text-sm font-semibold text-amber-950 ko-modal-copy">
+              {selectedVenue?.title ?? '대전 원퍼센트피트니스'}
+            </p>
+            <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
+              {selectedVenue?.schedule ?? '8월 12일 오후 1시'}
+            </p>
           </div>
 
           <div>

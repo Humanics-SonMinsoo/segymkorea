@@ -2,15 +2,14 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { SegymDayVenuePicker } from '@/components/segym-day/SegymDayVenuePicker'
 import { getSegymDayVenueById } from '@/data/segym-day'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 
 const ATTENDEE_OPTIONS = ['1명', '2명', '3명', '4명', '5명', '6명', '7명', '8명', '9명', '10명'] as const
+const FIXED_VENUE_ID = 'daejeon-one-percent'
 
 export function SegymDayApplyContent() {
-  const [venueId, setVenueId] = useState('daejeon-one-percent')
   const [centerName, setCenterName] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -23,13 +22,13 @@ export function SegymDayApplyContent() {
   const [submittedVenueLabel, setSubmittedVenueLabel] = useState('')
   const [submittedVenueSchedule, setSubmittedVenueSchedule] = useState('')
 
-  const selectedVenue = useMemo(() => getSegymDayVenueById(venueId), [venueId])
+  const selectedVenue = useMemo(() => getSegymDayVenueById(FIXED_VENUE_ID), [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
-    if (!venueId || !selectedVenue) {
-      setError('참여 장소를 선택해 주세요.')
+    if (!selectedVenue) {
+      setError('행사 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.')
       return
     }
     if (!centerName.trim() || !name.trim() || !phone.trim()) {
@@ -46,7 +45,7 @@ export function SegymDayApplyContent() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          venueId,
+          venueId: FIXED_VENUE_ID,
           centerName: centerName.trim(),
           name: name.trim(),
           phone: phone.trim(),
@@ -91,7 +90,6 @@ export function SegymDayApplyContent() {
           type="button"
           onClick={() => {
             setSubmitted(false)
-            setVenueId('daejeon-one-percent')
             setCenterName('')
             setName('')
             setPhone('')
@@ -111,15 +109,6 @@ export function SegymDayApplyContent() {
 
   return (
     <div className="space-y-8 pb-28">
-      <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed">
-        참여를 희망하시는 장소를 선택하고 정보를 남겨 주세요.
-      </p>
-
-      <section>
-        <h2 className="text-lg font-bold text-gray-900 ko-modal-copy mb-3">참여 장소 선택</h2>
-        <SegymDayVenuePicker selectedId={venueId} onSelect={setVenueId} />
-      </section>
-
       <section className="rounded-2xl border border-gray-200 bg-gray-50/50 p-5 sm:p-8">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
           <div>
@@ -141,7 +130,6 @@ export function SegymDayApplyContent() {
                 readOnly
                 value={selectedVenue?.title ?? ''}
                 className="w-full rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5 text-amber-950 font-semibold outline-none cursor-default"
-                aria-describedby="sd-venue-hint"
               />
             </div>
             <div>
@@ -157,9 +145,6 @@ export function SegymDayApplyContent() {
               />
             </div>
           </div>
-          <p id="sd-venue-hint" className="text-xs text-gray-500 ko-modal-copy -mt-2">
-            위에서 선택한 장소·일정이 자동으로 입력됩니다. 신청 내용을 확인해 주세요.
-          </p>
 
           <div>
             <label htmlFor="sd-center" className="block text-sm font-medium text-gray-700 mb-1">

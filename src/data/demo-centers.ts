@@ -1,4 +1,4 @@
-/** 세짐 현장 체험 가능 센터 — 체험 신청 폼에서 선택 */
+﻿/** 세짐 현장 체험 가능 센터 — 체험 신청 폼에서 선택 */
 export type DemoCenter = {
   id: string
   name: string
@@ -77,7 +77,7 @@ export const DEMO_CENTERS: DemoCenter[] = [
   },
   {
     id: 'one-percent',
-    name: '원퍼센트피트니스',
+    name: '원퍼센트 피트니스',
     location: '대전 대덕구',
     comingSoon: true,
     comingSoonLabel: '8월 예정',

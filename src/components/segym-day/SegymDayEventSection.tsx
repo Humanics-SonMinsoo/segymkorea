@@ -1,4 +1,4 @@
-import { SEGYM_DAY_EVENT_IMAGE } from '@/data/segym-day'
+﻿import { SEGYM_DAY_EVENT_IMAGE } from '@/data/segym-day'
 import { SegymDayEventIntro } from '@/components/segym-day/SegymDayEventIntro'
 
 export function SegymDayEventSection() {
@@ -11,7 +11,7 @@ export function SegymDayEventSection() {
       <div className="relative w-full bg-black overflow-hidden">
         <img
           src={SEGYM_DAY_EVENT_IMAGE}
-          alt="대전 원퍼센트피트니스 SEGYM DAY"
+          alt="대전 원퍼센트 피트니스 SEGYM DAY"
           className="block w-full h-auto object-contain"
         />
       </div>

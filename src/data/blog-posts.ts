@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 블로그 — 글을 추가할 때는 `BLOG_POSTS`에 항목만 추가하면 됩니다.
  * (썸네일 파일: public/images/blog/…)
  *
@@ -73,11 +73,11 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 'segym-day-news',
     categoryId: 'news',
     isNew: true,
-    title: 'SEGYM DAY 3차, 대전 원퍼센트피트니스에서 진행 중입니다',
+    title: 'SEGYM DAY 3차, 대전 원퍼센트 피트니스에서 진행 중입니다',
     excerpt:
-      '가격 인상 전 최저가로 세짐을 직접 만나볼 수 있는 프라이빗 초대 행사 SEGYM DAY가 지금 진행 중입니다. 이번 3차는 대전 원퍼센트피트니스에서 열립니다.',
+      '가격 인상 전 최저가로 세짐을 직접 만나볼 수 있는 프라이빗 초대 행사 SEGYM DAY가 지금 진행 중입니다. 이번 3차는 대전 원퍼센트 피트니스에서 열립니다.',
     teaser: '운동시설 대표님·관장님을 위한 프라이빗 쇼케이스, 지금 신청하면 참여하실 수 있어요.',
-    subjectLabel: '대전 원퍼센트피트니스',
+    subjectLabel: '대전 원퍼센트 피트니스',
     thumbnail: '/images/segym-day/segym-day-vip-share.png',
     dateLabel: '2026년 7월 21일',
     author: '세짐',

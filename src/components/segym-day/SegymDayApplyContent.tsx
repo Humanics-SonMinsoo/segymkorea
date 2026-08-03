@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
@@ -77,7 +77,7 @@ export function SegymDayApplyContent() {
         <p className="text-xl font-bold text-gray-900 mb-2">신청이 접수되었습니다</p>
         <div className="mx-auto mb-4 max-w-md rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-left">
           <p className="text-sm font-semibold text-amber-950 ko-modal-copy">
-            {submittedVenueLabel || '대전 원퍼센트피트니스'}
+            {submittedVenueLabel || '대전 원퍼센트 피트니스'}
           </p>
           <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
             {submittedVenueSchedule || '8월 12일 오후 1시'}
@@ -121,7 +121,7 @@ export function SegymDayApplyContent() {
         <form id="segym-day-apply-form" onSubmit={handleSubmit} className="space-y-4 max-w-2xl pb-24">
           <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
             <p className="text-sm font-semibold text-amber-950 ko-modal-copy">
-              {selectedVenue?.title ?? '대전 원퍼센트피트니스'}
+              {selectedVenue?.title ?? '대전 원퍼센트 피트니스'}
             </p>
             <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
               {selectedVenue?.schedule ?? '8월 12일 오후 1시'}

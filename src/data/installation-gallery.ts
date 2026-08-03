@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 설치사례 갤러리 — 제목은 `title`, 분류는 `categoryId`, 지역 묶음은 `regionKey`만 맞추면 됩니다.
  * (이미지 파일: public/images/installations/install-01.jpg …)
  *
@@ -108,8 +108,8 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
   {
     id: '29',
     src: '/images/installations/install-31.jpg',
-    title: '대전 대덕구 원퍼센트피트니스',
-    alt: '세짐 설치 사례 — 대전 대덕구 원퍼센트피트니스',
+    title: '대전 대덕구 원퍼센트 피트니스',
+    alt: '세짐 설치 사례 — 대전 대덕구 원퍼센트 피트니스',
     categoryId: 'health',
     regionKey: '대전',
     gallery: [

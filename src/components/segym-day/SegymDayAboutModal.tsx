@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect } from 'react'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
@@ -60,7 +60,7 @@ export function SegymDayAboutModal({ open, onClose }: Props) {
         <div className="relative w-full bg-black overflow-hidden shrink-0">
           <img
             src={SEGYM_DAY_EVENT_IMAGE}
-            alt="대전 원퍼센트피트니스 SEGYM DAY"
+            alt="대전 원퍼센트 피트니스 SEGYM DAY"
             className="block w-full h-auto object-contain"
           />
         </div>

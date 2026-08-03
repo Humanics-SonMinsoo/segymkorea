@@ -43,7 +43,7 @@ export default function SegymDayPage() {
       title={SEGYM_DAY_COPY.pageTitle}
     >
       <SegymDayApplyContent />
-      <div className="mt-10">
+      <div className="mt-10 pb-28">
         <SegymDayEventSection />
       </div>
     </SiteSubPage>

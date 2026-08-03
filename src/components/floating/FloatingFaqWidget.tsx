@@ -153,6 +153,7 @@ export function FloatingFaqWidget() {
 
   const hideOnAdmin = pathname?.startsWith('/admin') ?? false
   const hideOnEnglish = pathname === '/en' || (pathname?.startsWith('/en/') ?? false)
+  const hideOnSegymDay = pathname === '/segym-day' || (pathname?.startsWith('/segym-day/') ?? false)
 
   const faqItems: FaqItem[] = useMemo(
     () => [
@@ -226,7 +227,7 @@ export function FloatingFaqWidget() {
     return () => document.removeEventListener('mousedown', onDocDown)
   }, [openId, close])
 
-  if (hideOnAdmin || hideOnEnglish) {
+  if (hideOnAdmin || hideOnEnglish || hideOnSegymDay) {
     return null
   }
 

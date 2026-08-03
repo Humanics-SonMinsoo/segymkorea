@@ -110,7 +110,7 @@ export function SegymDayApplyContent() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-28">
       <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed">
         참여를 희망하시는 장소를 선택하고 정보를 남겨 주세요.
       </p>
@@ -129,7 +129,7 @@ export function SegymDayApplyContent() {
             </p>
           </div>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
+        <form id="segym-day-apply-form" onSubmit={handleSubmit} className="space-y-4 max-w-2xl pb-24">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="sd-venue" className="block text-sm font-medium text-gray-700 mb-1">
@@ -254,15 +254,23 @@ export function SegymDayApplyContent() {
               {error}
             </p>
           ) : null}
-          <button
-            type="submit"
-            disabled={submitting}
-            className="w-full sm:w-auto min-w-[200px] py-3.5 px-8 rounded-xl bg-primary text-white font-bold hover:bg-primary-dark transition-colors disabled:opacity-60 shadow-brand"
-          >
-            {submitting ? '전송 중…' : '지금 신청하기'}
-          </button>
         </form>
       </section>
+
+      <div className="fixed inset-x-0 bottom-0 z-[70] pointer-events-none">
+        <div className="pointer-events-auto border-t border-primary/20 bg-white/95 backdrop-blur-md shadow-[0_-8px_30px_rgba(0,0,0,0.12)]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
+            <button
+              type="submit"
+              form="segym-day-apply-form"
+              disabled={submitting}
+              className="w-full py-3.5 sm:py-4 rounded-xl bg-primary text-white text-base sm:text-lg font-bold hover:bg-primary-dark transition-colors disabled:opacity-60 shadow-brand"
+            >
+              {submitting ? '전송 중…' : '지금 신청하기'}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

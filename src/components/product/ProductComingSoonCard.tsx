@@ -20,7 +20,7 @@ export function ProductComingSoonCard({ layout, locale = 'ko' }: Props) {
           ? 'bg-white rounded-xl overflow-hidden shadow-md border-2 border-dashed border-gray-200'
           : 'h-full min-h-0 flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm border-2 border-dashed border-gray-200'
       }
-      aria-label={isEn ? 'New cardio robot, coming October 2026' : '신규 유산소 로봇, 26년 10월 출시 예정'}
+      aria-label={isEn ? 'New cardio robot, coming first half of 2027' : '신규 유산소 로봇, 2027년 상반기 출시 예정'}
     >
       <div
         className={
@@ -52,13 +52,13 @@ export function ProductComingSoonCard({ layout, locale = 'ko' }: Props) {
             <>
               New cardio robot
               <br />
-              <span className="whitespace-nowrap">Coming October 2026</span>
+              <span className="whitespace-nowrap">Coming H1 2027</span>
             </>
           ) : (
             <>
               새로운 유산소 로봇,
               <br className="sm:hidden" />{' '}
-              <span className="whitespace-nowrap">26년 10월 출시 예정</span>
+              <span className="whitespace-nowrap">2027년 상반기 출시 예정</span>
             </>
           )}
         </h3>

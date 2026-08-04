@@ -103,26 +103,20 @@ export function EnScanAndScorePage() {
       {/* What it is */}
       <section id="what" className="border-t border-white/10 py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div>
-              <p className="text-sm font-bold tracking-[0.2em] text-primary mb-3">WHAT IT IS</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
-                Body performance assessment, built as a test
-              </h2>
-              <p className="mt-6 text-neutral-400 text-base sm:text-lg leading-relaxed">
-                SEGYM Scan &amp; Score evaluates athletic ability through structured test movements — then presents the
-                outcome as readable results.
-              </p>
-              <p className="mt-4 text-neutral-400 text-base sm:text-lg leading-relaxed">
-                Instead of guessing how someone moves, you can analyze signals like{' '}
-                <strong className="text-white">force, speed, range of motion, and balance</strong> from the session
-                itself.
-              </p>
-            </div>
-            <PhoneShot
-              src="/images/scan-score/measure-transition.png"
-              alt="Guided resistance change during Scan and Score measurement"
-            />
+          <div className="max-w-3xl">
+            <p className="text-sm font-bold tracking-[0.2em] text-primary mb-3">WHAT IT IS</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+              Body performance assessment, built as a test
+            </h2>
+            <p className="mt-6 text-neutral-400 text-base sm:text-lg leading-relaxed">
+              SEGYM Scan &amp; Score evaluates athletic ability through structured test movements — then presents the
+              outcome as readable results.
+            </p>
+            <p className="mt-4 text-neutral-400 text-base sm:text-lg leading-relaxed">
+              Instead of guessing how someone moves, you can analyze signals like{' '}
+              <strong className="text-white">force, speed, range of motion, and balance</strong> from the session
+              itself.
+            </p>
           </div>
 
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
@@ -174,35 +168,29 @@ export function EnScanAndScorePage() {
       {/* Score highlight */}
       <section className="border-t border-white/10 py-20 md:py-28 bg-neutral-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div>
-              <p className="text-sm font-bold tracking-[0.2em] text-primary mb-3">THE RESULT</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
-                Measurement you can understand as a score
-              </h2>
-              <p className="mt-6 text-neutral-400 text-base sm:text-lg leading-relaxed">
-                The core of Scan &amp; Score is simple: run the assessment, then see performance as a score —
-                supported by statistics that make the result easy to read and compare.
-              </p>
-              <ul className="mt-8 space-y-4 text-neutral-300">
-                <li className="flex gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  <span>Clear SEGYM Score after each test session</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  <span>Force, speed, range of motion, and balance in one view</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  <span>Supporting movement-quality stats alongside the score</span>
-                </li>
-              </ul>
-            </div>
-            <PhoneShot
-              src="/images/scan-score/result-score.png"
-              alt="Detailed Scan and Score result with statistics"
-            />
+          <div className="max-w-3xl">
+            <p className="text-sm font-bold tracking-[0.2em] text-primary mb-3">THE RESULT</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+              Measurement you can understand as a score
+            </h2>
+            <p className="mt-6 text-neutral-400 text-base sm:text-lg leading-relaxed">
+              The core of Scan &amp; Score is simple: run the assessment, then see performance as a score —
+              supported by statistics that make the result easy to read and compare.
+            </p>
+            <ul className="mt-8 space-y-4 text-neutral-300">
+              <li className="flex gap-3">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                <span>Clear SEGYM Score after each test session</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                <span>Force, speed, range of motion, and balance in one view</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                <span>Supporting movement-quality stats alongside the score</span>
+              </li>
+            </ul>
           </div>
 
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-5">

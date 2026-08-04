@@ -56,9 +56,11 @@ export function EnFooter() {
           <div className="space-y-3">
             <p>
               <span className="font-semibold text-gray-200">{C.legalName}</span>
+              <span className="text-gray-500"> ({C.legalNameKo})</span>
               <span className="mx-2 text-gray-700 hidden sm:inline">|</span>
               <span className="block sm:inline mt-1 sm:mt-0">
                 <span className="font-semibold text-gray-200">CEO</span> {C.ceo}
+                <span className="text-gray-500"> ({C.ceoKo})</span>
               </span>
               <span className="mx-2 text-gray-700 hidden sm:inline">|</span>
               <span className="block sm:inline mt-1 sm:mt-0">
@@ -68,9 +70,11 @@ export function EnFooter() {
             <p>
               <span className="font-semibold text-gray-200">HQ &amp; R&amp;D</span> {C.addressMain}
             </p>
+            <p className="text-gray-500">{C.addressMainKo}</p>
             <p>
               <span className="font-semibold text-gray-200">Sales office</span> {C.addressOffice}
             </p>
+            <p className="text-gray-500">{C.addressOfficeKo}</p>
           </div>
 
           <div className="mt-8 pt-8 border-t border-gray-800 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">

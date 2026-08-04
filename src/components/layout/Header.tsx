@@ -6,7 +6,7 @@ import { OpenInquiryButton } from '@/components/inquiry/OpenInquiryButton'
 import { OpenBrochureButton } from '@/components/brochure/OpenBrochureButton'
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { SEGYM_DAY_COPY } from '@/data/segym-day'
-import { UPDATE_2026_COPY, UPDATE_2026_PATH } from '@/data/update-2026'
+import { UPDATE_2026_COPY, UPDATE_2026_PATH, UPDATE_2026_PUBLIC_ENABLED } from '@/data/update-2026'
 import { UpdatePromoBar } from '@/components/update/UpdatePromoBar'
 
 type NavItem = {
@@ -27,7 +27,9 @@ const navItems: NavItem[] = [
   { href: '/pricing', label: '가격안내' },
   { href: '/installations', label: '설치사례' },
   { href: '/blog', label: '블로그' },
-  { href: UPDATE_2026_PATH, label: UPDATE_2026_COPY.navLabel, isUpdate: true, isNew: true },
+  ...(UPDATE_2026_PUBLIC_ENABLED
+    ? [{ href: UPDATE_2026_PATH, label: UPDATE_2026_COPY.navLabel, isUpdate: true, isNew: true } as NavItem]
+    : []),
   { href: '/segym-day', label: SEGYM_DAY_COPY.navLabel, isCta: true },
   { href: '/experience', label: DEMO_EXPERIENCE_COPY.navLabel },
 ]
@@ -57,7 +59,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-      <UpdatePromoBar />
+      {UPDATE_2026_PUBLIC_ENABLED ? <UpdatePromoBar /> : null}
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}

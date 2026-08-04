@@ -14,10 +14,11 @@ import BenefitsGuide from '@/components/sections/BenefitsGuide'
 import CTA from '@/components/sections/CTA'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { KO_HEADER_OFFSET_CLASS } from '@/data/update-2026'
 
 export default function Home() {
   return (
-    <main className="min-h-screen pt-[6.5rem] sm:pt-[6.25rem]">
+    <main className={`min-h-screen ${KO_HEADER_OFFSET_CLASS}`}>
       <Header />
       <Hero />
       <BestFitnessCenters />

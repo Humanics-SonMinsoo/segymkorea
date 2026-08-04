@@ -112,7 +112,7 @@ export function SiteSubPage({
     return (
       <>
         <Header />
-        <main className="min-h-screen pt-16 bg-gray-100">
+        <main className="min-h-screen pt-[6.5rem] sm:pt-[6.25rem] bg-gray-100">
           <div className={`${mw} mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14`}>
             {topNav ?? <HomeLink className="text-primary mb-8 hover:text-primary-dark" />}
             <div className="rounded-xl border border-gray-200/80 bg-white shadow-sm p-6 sm:p-8 md:p-10">
@@ -136,7 +136,7 @@ export function SiteSubPage({
       return (
         <>
           <Header />
-          <main className="min-h-screen pt-16">
+          <main className="min-h-screen pt-[6.5rem] sm:pt-[6.25rem]">
             <div
               className="h-1.5 w-full bg-gradient-to-r from-primary via-primary-dark to-brand-teal"
               aria-hidden
@@ -159,7 +159,7 @@ export function SiteSubPage({
     return (
       <>
         <Header />
-        <main className="min-h-screen pt-16">
+        <main className="min-h-screen pt-[6.5rem] sm:pt-[6.25rem]">
           <div
             className="h-1.5 w-full bg-gradient-to-r from-primary via-primary-dark to-brand-teal"
             aria-hidden
@@ -190,7 +190,7 @@ export function SiteSubPage({
     return (
       <>
         <Header />
-        <main className="min-h-screen pt-16 bg-white">
+        <main className="min-h-screen pt-[6.5rem] sm:pt-[6.25rem] bg-white">
           <div className={`${mw} mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-4`}>
             {topNav ?? <HomeLink className="text-gray-500 hover:text-primary mb-8" />}
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-12">
@@ -229,7 +229,7 @@ export function SiteSubPage({
   return (
     <>
       <Header />
-      <main className="min-h-screen pt-16">
+      <main className="min-h-screen pt-[6.5rem] sm:pt-[6.25rem]">
         <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-primary-dark text-white">
           <div
             className="absolute inset-0 pointer-events-none opacity-90"

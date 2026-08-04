@@ -6,6 +6,8 @@ import { OpenInquiryButton } from '@/components/inquiry/OpenInquiryButton'
 import { OpenBrochureButton } from '@/components/brochure/OpenBrochureButton'
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { SEGYM_DAY_COPY } from '@/data/segym-day'
+import { UPDATE_2026_COPY, UPDATE_2026_PATH } from '@/data/update-2026'
+import { UpdatePromoBar } from '@/components/update/UpdatePromoBar'
 
 type NavItem = {
   href: string
@@ -16,6 +18,8 @@ type NavItem = {
   isNew?: boolean
   /** true면 보라색 CTA 버튼 스타일 */
   isCta?: boolean
+  /** true면 틸 포인트 CTA (업데이트 등) */
+  isUpdate?: boolean
 }
 
 const navItems: NavItem[] = [
@@ -23,12 +27,16 @@ const navItems: NavItem[] = [
   { href: '/pricing', label: '가격안내' },
   { href: '/installations', label: '설치사례' },
   { href: '/blog', label: '블로그' },
+  { href: UPDATE_2026_PATH, label: UPDATE_2026_COPY.navLabel, isUpdate: true, isNew: true },
   { href: '/segym-day', label: SEGYM_DAY_COPY.navLabel, isCta: true },
   { href: '/experience', label: DEMO_EXPERIENCE_COPY.navLabel },
 ]
 
 const navCtaClass =
   'inline-flex items-center px-3.5 py-1.5 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary-dark transition-all shadow-sm shadow-primary/25 hover:shadow-md hover:shadow-primary/30'
+
+const navUpdateClass =
+  'inline-flex items-center px-3.5 py-1.5 rounded-lg bg-brand-teal text-white text-sm font-bold hover:bg-brand-teal-dark transition-all shadow-sm shadow-brand-teal/30'
 
 const navComingSoonClass =
   'text-gray-400 opacity-55 cursor-not-allowed select-none pointer-events-none text-sm font-medium'
@@ -49,6 +57,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+      <UpdatePromoBar />
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -63,7 +72,7 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-6">
+          <div className="hidden md:flex md:items-center md:space-x-5 lg:space-x-6">
             {navItems.map((item) =>
               item.comingSoon ? (
                 <span
@@ -74,6 +83,10 @@ export default function Header() {
                 >
                   {item.label}
                 </span>
+              ) : item.isUpdate ? (
+                <Link key={item.href} href={item.href} className={navUpdateClass}>
+                  {item.label}
+                </Link>
               ) : item.isCta ? (
                 <Link key={item.href} href={item.href} className={navCtaClass}>
                   {item.label}
@@ -141,6 +154,15 @@ export default function Header() {
                 >
                   {item.label}
                 </span>
+              ) : item.isUpdate ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`block text-center ${navUpdateClass}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
               ) : item.isCta ? (
                 <Link
                   key={item.href}

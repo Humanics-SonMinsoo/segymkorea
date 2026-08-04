@@ -17,7 +17,7 @@ import Footer from '@/components/layout/Footer'
 
 export default function Home() {
   return (
-    <main className="min-h-screen pt-16">
+    <main className="min-h-screen pt-[6.5rem] sm:pt-[6.25rem]">
       <Header />
       <Hero />
       <BestFitnessCenters />

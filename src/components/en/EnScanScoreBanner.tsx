@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { OpenInquiryButton } from '@/components/inquiry/OpenInquiryButton'
 import { EN_NAV } from '@/data/en/site'
 
-const STORAGE_KEY = 'segym-en-scan-score-float-dismissed-v2'
+const STORAGE_KEY = 'segym-en-scan-score-float-dismissed-v3'
 
 export function EnScanScoreBanner() {
   const pathname = usePathname()
@@ -77,7 +77,8 @@ export function EnScanScoreBanner() {
           <p className="text-[11px] font-bold uppercase tracking-wider text-primary">Coming soon</p>
           <p className="mt-0.5 text-sm font-bold text-gray-900 leading-snug">SEGYM Scan &amp; Score</p>
           <p className="mt-1 text-xs text-gray-600 leading-relaxed">
-            Body performance measurement is launching — measure athletic ability, then see it as a clear score.
+            Body performance measurement is coming in September 2026 — measure athletic ability, then see it as a clear
+            score.
           </p>
         </div>
 

@@ -16,7 +16,7 @@ export const COMPANY_PUBLIC_EN = {
 export const HUMANICS_BRAND_BAR = {
   logoText: 'HUMANICS',
   tagline: 'SEGYM is developed and operated by Humanics Co., Ltd.',
-  catchphrase: 'Human-technology fusion robotics that elevates everyday life.',
+  catchphrase: 'Robotics that elevate everyday life.',
   linkLabel: 'humanics.kr',
   websiteButton: 'Visit Humanics website',
 } as const
@@ -28,8 +28,8 @@ export const EN_NAV = {
   blog: 'Blog',
   scanAndScore: 'Scan & Score',
   contact: 'Contact',
-  getBrochure: 'Get brochure',
-  inquire: 'Product inquiry',
+  getBrochure: 'Download brochure',
+  inquire: 'Contact sales',
   languageKo: '한국어',
   languageEn: 'EN',
 } as const

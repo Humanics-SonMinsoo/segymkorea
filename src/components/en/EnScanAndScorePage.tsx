@@ -82,7 +82,7 @@ export function EnScanAndScorePage() {
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <OpenInquiryButton className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-black hover:bg-neutral-100 transition-colors">
-                  Request launch updates
+                  Get launch updates
                 </OpenInquiryButton>
                 <a
                   href="#what"
@@ -233,7 +233,7 @@ export function EnScanAndScorePage() {
             Be first when Scan &amp; Score launches
           </h2>
           <p className="mt-4 text-neutral-400 leading-relaxed">
-            Request a product demo, partnership conversation, or launch notification.
+            Reach out for partnership conversations or Scan &amp; Score launch updates.
             SEGYM Scan &amp; Score is developed and operated by Humanics Co., Ltd.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">

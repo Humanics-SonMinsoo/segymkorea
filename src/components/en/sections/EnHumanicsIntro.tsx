@@ -28,9 +28,9 @@ export function EnHumanicsIntro() {
               SEGYM is the fitness robotics brand developed and operated by Humanics.
             </p>
             <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-              Humanics builds human-technology fusion robotics that elevate everyday life. From precision digital
-              loading to AI-guided training insight, SEGYM brings that mission onto the gym floor — for elite
-              athletes, everyday members, and rehabilitation settings alike.
+              Humanics builds robotics that elevate everyday life. From precision digital loading to AI-guided
+              training insight, SEGYM brings that mission onto the gym floor — for elite athletes, everyday members,
+              and rehabilitation settings alike.
             </p>
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-1">
               <p className="text-sm sm:text-base text-gray-500">

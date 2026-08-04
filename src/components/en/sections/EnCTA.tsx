@@ -10,7 +10,7 @@ export function EnCTA() {
           Ready to bring SEGYM to your facility?
         </h2>
         <p className="text-base md:text-lg mb-8 max-w-xl mx-auto leading-relaxed font-medium text-white/90 [text-shadow:0_1px_6px_rgba(0,0,0,0.25)]">
-          Request a consultation with our team — discuss specs, installation, and deployment for your gym or studio
+          Talk with our sales team about specs, installation, and deployment for your gym or studio
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <OpenBrochureButton className="px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-md">

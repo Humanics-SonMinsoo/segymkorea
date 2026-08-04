@@ -12,7 +12,7 @@ export function EnContact() {
             Get in touch with Humanics
           </h2>
           <p className="section-subtitle mb-8">
-            Product inquiries, demos, partnerships, and Scan &amp; Score launch updates
+            Sales, partnerships, and Scan &amp; Score launch updates
           </p>
           <a
             href={`mailto:${C.email}`}

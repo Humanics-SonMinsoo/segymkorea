@@ -24,7 +24,7 @@ const navItems: NavItem[] = [
 ]
 
 const navCtaClass =
-  'inline-flex items-center px-3.5 py-1.5 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary-dark transition-all shadow-sm shadow-primary/25'
+  'inline-flex items-center px-3.5 py-1.5 rounded-lg bg-brand-teal text-white text-sm font-bold hover:bg-brand-teal-dark transition-all shadow-sm shadow-brand-teal/30 ring-1 ring-brand-teal/40'
 
 export function EnHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

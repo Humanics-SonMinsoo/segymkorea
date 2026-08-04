@@ -61,43 +61,41 @@ export function EnScanAndScorePage() {
   return (
     <div className="bg-black text-white">
       {/* Hero */}
-      <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img src="/images/segym_new.png" alt="" className="h-full w-full object-cover opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/55 to-black" />
-        </div>
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-primary-light mb-6">
-                Coming soon · Humanics
-              </p>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
-                SEGYM
-                <br />
-                Scan &amp; Score
-              </h1>
-              <p className="mt-6 text-base sm:text-lg md:text-xl text-neutral-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Measure your body&apos;s athletic ability through guided tests — then see the result as a clear score.
-              </p>
-              <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <OpenInquiryButton className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-black hover:bg-neutral-100 transition-colors">
-                  Get launch updates
-                </OpenInquiryButton>
-                <a
-                  href="#what"
-                  className="inline-flex items-center justify-center rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
-                >
-                  See how it works
-                </a>
-              </div>
-            </div>
-            <div className="hidden sm:block">
-              <PhoneShot
-                src="/images/scan-score/result-score.png"
-                alt="SEGYM Scan and Score result card"
-              />
-            </div>
+      <section className="relative overflow-hidden border-b border-white/10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/25 via-black to-black" />
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 md:py-24">
+          <div className="text-center max-w-3xl mx-auto">
+            <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-primary-light mb-5">
+              Coming soon · Humanics
+            </p>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05]">
+              SEGYM
+              <br />
+              Scan &amp; Score
+            </h1>
+            <p className="mt-5 text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed">
+              Measure your body&apos;s athletic ability through guided tests — then see the result as a clear score.
+            </p>
+          </div>
+
+          <div className="mt-10 md:mt-12 rounded-2xl overflow-hidden border border-white/10 bg-neutral-950 shadow-2xl shadow-primary/20">
+            <img
+              src="/images/scan-score/launch-hero.png"
+              alt="SEGYM Scan and Score — body performance measurement feature launch"
+              className="w-full h-auto block"
+            />
+          </div>
+
+          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+            <OpenInquiryButton className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-black hover:bg-neutral-100 transition-colors">
+              Get launch updates
+            </OpenInquiryButton>
+            <a
+              href="#what"
+              className="inline-flex items-center justify-center rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+            >
+              See how it works
+            </a>
           </div>
         </div>
       </section>

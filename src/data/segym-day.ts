@@ -65,7 +65,7 @@ export function isSegymDayVenueSelectable(venue: SegymDayVenue): boolean {
 
 export const SEGYM_DAY_COPY = {
   navLabel: 'SEGYM DAY',
-  pageTitle: '8월 11일 대전 원퍼센트 피트니스 SEGYM DAY 참가신청',
+  pageTitle: '8월 12일 대전 원퍼센트 피트니스 SEGYM DAY 참가신청',
   pageDescription: '',
   applyButton: 'SEGYM DAY 신청하기',
   aboutButton: '이벤트 알아보기',

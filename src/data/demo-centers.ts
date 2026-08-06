@@ -79,17 +79,13 @@ export const DEMO_CENTERS: DemoCenter[] = [
     id: 'one-percent',
     name: '원퍼센트 피트니스',
     location: '대전 대덕구',
-    comingSoon: true,
-    comingSoonLabel: '8월 예정',
-    disabled: true,
+    imageSrc: '/images/installations/install-31.jpg',
   },
   {
     id: 'gundam',
     name: '건담짐',
     location: '부산 동래구',
-    comingSoon: true,
-    comingSoonLabel: '8월 예정',
-    disabled: true,
+    imageSrc: '/images/installations/install-33.jpg',
   },
 ]
 

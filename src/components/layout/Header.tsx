@@ -6,7 +6,7 @@ import { OpenInquiryButton } from '@/components/inquiry/OpenInquiryButton'
 import { OpenBrochureButton } from '@/components/brochure/OpenBrochureButton'
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { SEGYM_DAY_COPY } from '@/data/segym-day'
-import { UPDATE_2026_COPY, UPDATE_2026_PATH, UPDATE_2026_PUBLIC_ENABLED } from '@/data/update-2026'
+import { UPDATE_2026_PUBLIC_ENABLED } from '@/data/update-2026'
 import { UpdatePromoBar } from '@/components/update/UpdatePromoBar'
 
 type NavItem = {
@@ -18,8 +18,6 @@ type NavItem = {
   isNew?: boolean
   /** true면 HOT 강조 (글씨색 + 배지, 박스 없음) */
   isHot?: boolean
-  /** true면 틸 포인트 CTA (업데이트 등) */
-  isUpdate?: boolean
 }
 
 const navItems: NavItem[] = [
@@ -27,15 +25,9 @@ const navItems: NavItem[] = [
   { href: '/pricing', label: '가격안내' },
   { href: '/installations', label: '설치사례' },
   { href: '/blog', label: '블로그' },
-  ...(UPDATE_2026_PUBLIC_ENABLED
-    ? [{ href: UPDATE_2026_PATH, label: UPDATE_2026_COPY.navLabel, isUpdate: true, isNew: true } as NavItem]
-    : []),
   { href: '/segym-day', label: SEGYM_DAY_COPY.navLabel, isHot: true },
   { href: '/experience', label: DEMO_EXPERIENCE_COPY.navLabel },
 ]
-
-const navUpdateClass =
-  'inline-flex items-center px-3.5 py-1.5 rounded-lg bg-brand-teal text-white text-sm font-bold hover:bg-brand-teal-dark transition-all shadow-sm shadow-brand-teal/30'
 
 const navComingSoonClass =
   'text-gray-400 opacity-55 cursor-not-allowed select-none pointer-events-none text-sm font-medium'
@@ -96,10 +88,6 @@ export default function Header() {
                 >
                   {item.label}
                 </span>
-              ) : item.isUpdate ? (
-                <Link key={item.href} href={item.href} className={navUpdateClass}>
-                  {item.label}
-                </Link>
               ) : item.isHot ? (
                 <Link key={item.href} href={item.href} className={navHotClass}>
                   {item.label}
@@ -168,15 +156,6 @@ export default function Header() {
                 >
                   {item.label}
                 </span>
-              ) : item.isUpdate ? (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`block text-center ${navUpdateClass}`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
               ) : item.isHot ? (
                 <Link
                   key={item.href}

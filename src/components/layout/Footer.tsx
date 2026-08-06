@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { COMPANY_PUBLIC } from '@/data/company-public'
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { SEGYM_DAY_COPY } from '@/data/segym-day'
-import { UPDATE_2026_COPY, UPDATE_2026_PUBLIC_ENABLED } from '@/data/update-2026'
 import { FooterAdminLinks } from './FooterAdminLinks'
 import { ScrollToTopButton } from './ScrollToTopButton'
 
@@ -49,13 +48,6 @@ export default function Footer() {
                   블로그
                 </Link>
               </li>
-              {UPDATE_2026_PUBLIC_ENABLED ? (
-                <li>
-                  <Link href="/update" className="hover:text-gray-300 underline-offset-2 hover:underline">
-                    {UPDATE_2026_COPY.navLabel}
-                  </Link>
-                </li>
-              ) : null}
               <li>
                 <Link href="/segym-day" className="hover:text-gray-300 underline-offset-2 hover:underline">
                   {SEGYM_DAY_COPY.navLabel}

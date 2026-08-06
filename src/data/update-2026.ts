@@ -12,21 +12,16 @@ export const UPDATE_2026_PATH = '/update'
 
 export const UPDATE_2026_COPY = {
   navLabel: '업데이트',
-  pageTitle: '26년 하반기 업데이트 예고',
+  pageTitle: '2026년 하반기 업데이트 소식',
   pageDescription:
     '내릴 때 100kg, 올릴 때 60kg — 세짐 네거티브 기능과 체성능 측정이 2026 하반기에 업데이트됩니다.',
   /** 상단 띠배너 */
   bannerHook: '내릴 때 100kg, 올릴 때 60kg?',
   bannerTitle: '세짐 네거티브 기능 출시된다!',
   bannerSchedule: '26년 하반기 업데이트 일정',
-  bannerCta: '자세히 보기',
   /** /update 히어로 */
-  heroEyebrow: 'Coming soon · 2026 하반기',
-  heroTitle: '내릴 때 100kg,\n올릴 때 60kg.',
-  heroSubtitle: '세짐 네거티브 기능, 출시됩니다.',
-  heroBody:
-    '바벨이 움직이는 방향에 따라 무게를 다르게 설정할 수 있습니다. 네거티브를 무겁게, 수축을 무겁게 — 원하는 방식으로.',
-  overviewTitle: '업데이트 예정 기능',
+  heroTitle: '2026년 하반기 업데이트 소식',
+  overviewTitle: '이번 업데이트 기능',
   priceTitle: '하반기 신기능, 업데이트로 제공',
   priceBody:
     '네거티브 트레이닝과 체성능 측정은 하반기 정식 업데이트로 제공될 예정입니다. 지금 세짐을 도입하시면 신기능까지 함께 확보하세요.',
@@ -36,12 +31,14 @@ export const UPDATE_2026_COPY = {
   homeBandEyebrow: '2026 하반기 업데이트',
   homeBandTitle: '내릴 때 100kg, 올릴 때 60kg?',
   homeBandBody: '세짐 네거티브 기능이 출시됩니다. 바벨 방향에 따라 무게를 다르게 — 수축을 무겁게도 가능합니다.',
-  homeBandCta: '업데이트 예고 보기',
+  homeBandCta: '업데이트 소식 미리보기',
 } as const
 
 export const UPDATE_NEGATIVE = {
   id: 'negative',
-  badge: 'NEW · 기능 01',
+  badge: '1. 네거티브 트레이닝 기능',
+  overviewTitle: '네거티브 트레이닝 기능',
+  overviewBody: '바벨이 움직이는 방향에 따라 무게를 다르게 설정할 수 있습니다.',
   title: '로보틱 네거티브 트레이닝',
   subtitle: 'Robotic Negative Training',
   hook: '내릴 때 100kg, 올릴 때 60kg',
@@ -66,7 +63,9 @@ export const UPDATE_NEGATIVE = {
 /** 체성능 — 영문 Scan & Score를 짧게 요약한 버전 */
 export const UPDATE_BODY_PERF = {
   id: 'body-performance',
-  badge: '기능 02',
+  badge: '2. 체성능 측정 기능',
+  overviewTitle: '체성능 측정 기능',
+  overviewBody: '가이드 테스트로 회원의 운동능력을 측정하고, 결과를 점수로 확인합니다.',
   title: '체성능 측정',
   subtitle: 'Scan & Score',
   hook: '운동능력을 점수로 확인하세요',

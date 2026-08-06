@@ -24,9 +24,9 @@ export default function Home() {
       <Hero />
       <BestFitnessCenters />
       <SegymIntro />
-      <RoboticTraining />
-      {UPDATE_2026_PUBLIC_ENABLED ? <UpdateHomePromoBand /> : null}
       <SegymStrengths />
+      {UPDATE_2026_PUBLIC_ENABLED ? <UpdateHomePromoBand /> : null}
+      <RoboticTraining />
       <AppShowcase />
       <PTSales />
       <CustomerStories />

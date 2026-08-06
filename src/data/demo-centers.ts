@@ -79,12 +79,14 @@ export const DEMO_CENTERS: DemoCenter[] = [
     id: 'one-percent',
     name: '원퍼센트 피트니스',
     location: '대전 대덕구',
+    address: '대전광역시 대덕구 신탄진로 837 5층',
     imageSrc: '/images/installations/install-31.jpg',
   },
   {
     id: 'gundam',
     name: '건담짐',
     location: '부산 동래구',
+    address: '부산광역시 동래구 온천천로 391 1층',
     imageSrc: '/images/installations/install-33.jpg',
   },
 ]

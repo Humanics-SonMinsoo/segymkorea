@@ -16,8 +16,8 @@ type NavItem = {
   comingSoon?: boolean
   /** true면 NEW 배지 표시 (최근 오픈 메뉴) */
   isNew?: boolean
-  /** true면 보라색 CTA 버튼 스타일 */
-  isCta?: boolean
+  /** true면 HOT 강조 (글씨색 + 배지, 박스 없음) */
+  isHot?: boolean
   /** true면 틸 포인트 CTA (업데이트 등) */
   isUpdate?: boolean
 }
@@ -30,18 +30,18 @@ const navItems: NavItem[] = [
   ...(UPDATE_2026_PUBLIC_ENABLED
     ? [{ href: UPDATE_2026_PATH, label: UPDATE_2026_COPY.navLabel, isUpdate: true, isNew: true } as NavItem]
     : []),
-  { href: '/segym-day', label: SEGYM_DAY_COPY.navLabel, isCta: true },
+  { href: '/segym-day', label: SEGYM_DAY_COPY.navLabel, isHot: true },
   { href: '/experience', label: DEMO_EXPERIENCE_COPY.navLabel },
 ]
-
-const navCtaClass =
-  'inline-flex items-center px-3.5 py-1.5 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary-dark transition-all shadow-sm shadow-primary/25 hover:shadow-md hover:shadow-primary/30'
 
 const navUpdateClass =
   'inline-flex items-center px-3.5 py-1.5 rounded-lg bg-brand-teal text-white text-sm font-bold hover:bg-brand-teal-dark transition-all shadow-sm shadow-brand-teal/30'
 
 const navComingSoonClass =
   'text-gray-400 opacity-55 cursor-not-allowed select-none pointer-events-none text-sm font-medium'
+
+const navHotClass =
+  'inline-flex items-center text-primary hover:text-primary-dark transition-colors text-sm font-bold'
 
 function NewBadge() {
   return (
@@ -50,6 +50,17 @@ function NewBadge() {
       aria-label="새로 오픈"
     >
       N
+    </span>
+  )
+}
+
+function HotBadge() {
+  return (
+    <span
+      className="ml-1.5 inline-flex items-center rounded-full bg-red-500 px-1.5 py-px text-[9px] font-bold uppercase leading-tight tracking-wide text-white align-middle"
+      aria-label="HOT"
+    >
+      HOT
     </span>
   )
 }
@@ -89,9 +100,10 @@ export default function Header() {
                 <Link key={item.href} href={item.href} className={navUpdateClass}>
                   {item.label}
                 </Link>
-              ) : item.isCta ? (
-                <Link key={item.href} href={item.href} className={navCtaClass}>
+              ) : item.isHot ? (
+                <Link key={item.href} href={item.href} className={navHotClass}>
                   {item.label}
+                  <HotBadge />
                 </Link>
               ) : (
                 <Link
@@ -165,14 +177,15 @@ export default function Header() {
                 >
                   {item.label}
                 </Link>
-              ) : item.isCta ? (
+              ) : item.isHot ? (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`block text-center ${navCtaClass}`}
+                  className={`block ${navHotClass}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
+                  <HotBadge />
                 </Link>
               ) : (
                 <Link

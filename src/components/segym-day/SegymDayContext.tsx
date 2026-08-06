@@ -4,7 +4,11 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
-import { SEGYM_DAY_COPY, SEGYM_DAY_HERO_IMAGE, SEGYM_DAY_HOME_POPUP_ENABLED } from '@/data/segym-day'
+import {
+  SEGYM_DAY_COPY,
+  SEGYM_DAY_HOME_POPUP_ENABLED,
+  SEGYM_DAY_POPUP_IMAGE,
+} from '@/data/segym-day'
 import { SegymDayAboutModal } from '@/components/segym-day/SegymDayAboutModal'
 
 type SegymDayContextValue = {
@@ -22,7 +26,21 @@ export function useSegymDayModal() {
   return ctx
 }
 
-function SegymDayHomePopup({ onClose }: { onClose: () => void }) {
+function todayKey() {
+  const d = new Date()
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
+function SegymDayHomePopup({
+  onClose,
+  onHideToday,
+}: {
+  onClose: () => void
+  onHideToday: () => void
+}) {
   const entered = useModalEnterAnimation()
 
   useEffect(() => {
@@ -62,13 +80,24 @@ function SegymDayHomePopup({ onClose }: { onClose: () => void }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        <div className="bg-black">
-          <img src={SEGYM_DAY_HERO_IMAGE} alt="SEGYM DAY" className="w-full h-auto block" />
+
+        <div className="bg-neutral-950">
+          <img src={SEGYM_DAY_POPUP_IMAGE} alt="SEGYM DAY 대전 원퍼센트 피트니스" className="w-full h-auto block" />
         </div>
-        <div className="p-4 sm:p-5 space-y-2">
-          <p className="text-center text-xs font-semibold text-red-600 ko-modal-copy">
-            8월 11일(화) 마감
-          </p>
+
+        <div className="p-4 sm:p-5 space-y-3">
+          <div className="text-center space-y-1.5">
+            <p className="text-base sm:text-lg font-bold text-gray-900 ko-modal-copy leading-snug">
+              {SEGYM_DAY_COPY.popupHeadline}
+            </p>
+            <p className="text-xs sm:text-sm text-gray-600 ko-modal-copy leading-relaxed">
+              {SEGYM_DAY_COPY.popupSubline}
+            </p>
+            <p className="text-xs font-semibold text-red-600 ko-modal-copy">
+              신청 마감 {SEGYM_DAY_COPY.deadlineLabel}
+            </p>
+          </div>
+
           <Link
             href="/segym-day"
             onClick={onClose}
@@ -76,6 +105,23 @@ function SegymDayHomePopup({ onClose }: { onClose: () => void }) {
           >
             {SEGYM_DAY_COPY.applyButton}
           </Link>
+
+          <div className="flex flex-col sm:flex-row gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 py-2.5 rounded-xl border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              {SEGYM_DAY_COPY.popupClose}
+            </button>
+            <button
+              type="button"
+              onClick={onHideToday}
+              className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:text-gray-800 hover:bg-gray-50 transition-colors"
+            >
+              {SEGYM_DAY_COPY.popupHideToday}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -90,17 +136,29 @@ export function SegymDayProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!SEGYM_DAY_HOME_POPUP_ENABLED) return
     if (pathname !== '/') return
+
     try {
-      const dismissed = sessionStorage.getItem(SEGYM_DAY_COPY.popupStorageKey)
-      if (!dismissed) setPopupOpen(true)
+      if (localStorage.getItem(SEGYM_DAY_COPY.popupHideTodayKey) === todayKey()) return
+      if (sessionStorage.getItem(SEGYM_DAY_COPY.popupStorageKey) === '1') return
     } catch {
-      setPopupOpen(true)
+      /* ignore */
     }
+    setPopupOpen(true)
   }, [pathname])
 
   const closePopup = useCallback(() => {
     setPopupOpen(false)
     try {
+      sessionStorage.setItem(SEGYM_DAY_COPY.popupStorageKey, '1')
+    } catch {
+      /* ignore */
+    }
+  }, [])
+
+  const hideToday = useCallback(() => {
+    setPopupOpen(false)
+    try {
+      localStorage.setItem(SEGYM_DAY_COPY.popupHideTodayKey, todayKey())
       sessionStorage.setItem(SEGYM_DAY_COPY.popupStorageKey, '1')
     } catch {
       /* ignore */
@@ -114,7 +172,7 @@ export function SegymDayProvider({ children }: { children: ReactNode }) {
     <SegymDayContext.Provider value={{ openAboutModal, closeAboutModal }}>
       {children}
       {SEGYM_DAY_HOME_POPUP_ENABLED && popupOpen && pathname === '/' ? (
-        <SegymDayHomePopup onClose={closePopup} />
+        <SegymDayHomePopup onClose={closePopup} onHideToday={hideToday} />
       ) : null}
       <SegymDayAboutModal open={aboutOpen} onClose={closeAboutModal} />
     </SegymDayContext.Provider>

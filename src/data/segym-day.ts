@@ -9,7 +9,7 @@
 }
 
 /** 홈 접속 시 SEGYM DAY 팝업 노출 여부 (신청 기간에만 true) */
-export const SEGYM_DAY_HOME_POPUP_ENABLED = false
+export const SEGYM_DAY_HOME_POPUP_ENABLED = true
 
 export const SEGYM_DAY_HERO_IMAGE = '/images/segym-day/segym-day-hero.png'
 /** 카카오 공유·링크 미리보기용 VIP 초대장 이미지 */
@@ -17,6 +17,9 @@ export const SEGYM_DAY_SHARE_IMAGE = '/images/segym-day/segym-day-vip-share.png'
 
 /** 이벤트 안내 상단 이미지 (단일, 화면 꽉 채움) */
 export const SEGYM_DAY_EVENT_IMAGE = '/images/segym-day/segym-day-oneper.png'
+
+/** 홈 팝업·신청 페이지 배너 */
+export const SEGYM_DAY_POPUP_IMAGE = '/images/segym-day/segym-day-apply-banner.png'
 
 /** @deprecated 단일 이미지로 대체됨 — 기존 참조 호환용 */
 export const SEGYM_DAY_CAROUSEL_IMAGES = [SEGYM_DAY_EVENT_IMAGE] as const
@@ -69,7 +72,12 @@ export const SEGYM_DAY_COPY = {
   pageDescription: '',
   applyButton: 'SEGYM DAY 신청하기',
   aboutButton: '이벤트 알아보기',
-  popupStorageKey: 'segym-day-popup-dismissed-v3',
+  popupStorageKey: 'segym-day-popup-dismissed-v4',
+  popupHideTodayKey: 'segym-day-popup-hide-today-v4',
+  popupHeadline: '8월 12일, 대전에 세짐이 찾아갑니다!',
+  popupSubline: '대전 원퍼센트 피트니스 · 오후 1시 · 신청 마감 8월 11일(화)',
+  popupHideToday: '오늘 하루 종일 보지 않기',
+  popupClose: '닫기',
   urgencyHeadline: '지금 신청하지 않으면 자리가 없어질 수 있습니다',
   urgencySubline:
     '3차 대전 원퍼센트 피트니스 SEGYM DAY는 사전 신청제로 진행됩니다. 마감 시 예약 창은 즉시 닫힙니다.',

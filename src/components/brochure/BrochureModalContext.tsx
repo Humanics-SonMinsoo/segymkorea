@@ -9,10 +9,8 @@ import {
   type ReactNode,
 } from 'react'
 import Link from 'next/link'
-import { useInquiryModal } from '@/components/inquiry/InquiryModalContext'
 import { EnBrochureDialog } from '@/components/en/EnLeadModals'
 import { useIsEnglishSite } from '@/lib/locale'
-import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
@@ -22,7 +20,7 @@ type BrochureModalContextValue = {
   closeBrochureModal: () => void
 }
 
-type BrochurePhase = 'choose' | 'form'
+type BrochurePhase = 'form'
 
 const BrochureModalContext = createContext<BrochureModalContextValue | null>(null)
 
@@ -32,96 +30,6 @@ export function useBrochureModal() {
     throw new Error('useBrochureModal은 BrochureModalProvider 안에서만 사용할 수 있습니다.')
   }
   return ctx
-}
-
-function BrochureChooseDialog({
-  onClose,
-  onPickBrochure,
-  onPickDemo,
-}: {
-  onClose: () => void
-  onPickBrochure: () => void
-  onPickDemo: () => void
-}) {
-  const entered = useModalEnterAnimation()
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', onKey)
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
-  }, [onClose])
-
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="brochure-choose-title"
-    >
-      <button
-        type="button"
-        className={`absolute inset-0 bg-black/50 backdrop-blur-[1px] transition-opacity duration-300 ease-out motion-reduce:transition-none ${
-          entered ? 'opacity-100' : 'opacity-0'
-        }`}
-        aria-label="닫기"
-        onClick={onClose}
-      />
-      <div
-        className={`relative z-10 w-full max-w-lg sm:max-w-xl rounded-2xl bg-white shadow-2xl border border-gray-100 transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:scale-100 ${
-          entered ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.97] translate-y-3'
-        }`}
-      >
-        <div className="flex items-center justify-between gap-3 border-b border-gray-100 px-5 py-3.5 sm:py-4 rounded-t-2xl">
-          <h2 id="brochure-choose-title" className="text-lg sm:text-xl font-bold text-gray-900 min-w-0 pr-2">
-            소개서 받기
-          </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="shrink-0 rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-800 -mr-1"
-            aria-label="모달 닫기"
-          >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <div className="px-5 py-8 sm:py-10">
-          <p className="ko-modal-copy text-sm sm:text-[15px] text-gray-600 text-center leading-[1.65] mb-8">
-            원하시는 항목을 선택해 주세요.
-          </p>
-          <div className="flex flex-col gap-3 sm:gap-4 max-w-sm mx-auto">
-            <button
-              type="button"
-              onClick={onPickBrochure}
-              className="w-full rounded-2xl border-2 border-primary bg-primary px-5 py-4 sm:py-5 text-center text-white shadow-brand hover:bg-primary-dark transition-colors"
-            >
-              <span className="block font-bold text-base sm:text-lg ko-modal-copy">소개서 받기</span>
-              <span className="block mt-1 text-xs sm:text-sm font-normal text-white/85 ko-modal-copy">
-                이메일로 세짐 소개서(PDF)를 보내 드립니다
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={onPickDemo}
-              className="w-full rounded-2xl border-2 border-primary/30 bg-white px-5 py-4 sm:py-5 text-center text-primary hover:border-primary hover:bg-primary-muted/40 transition-colors"
-            >
-              <span className="block font-bold text-base sm:text-lg ko-modal-copy">{DEMO_EXPERIENCE_COPY.chooseTitle}</span>
-              <span className="block mt-1 text-xs sm:text-sm font-normal text-gray-500 ko-modal-copy">
-                {DEMO_EXPERIENCE_COPY.chooseSubtitle}
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
 }
 
 function BrochureModalDialog({ onClose }: { onClose: () => void }) {
@@ -354,31 +262,16 @@ function BrochureModalDialog({ onClose }: { onClose: () => void }) {
 
 export function BrochureModalProvider({ children }: { children: ReactNode }) {
   const isEn = useIsEnglishSite()
-  const { openInquiryModalDemo } = useInquiryModal()
   const [phase, setPhase] = useState<BrochurePhase | null>(null)
 
   const openBrochureModal = useCallback(() => {
-    setPhase(isEn ? 'form' : 'choose')
-  }, [isEn])
+    setPhase('form')
+  }, [])
   const closeBrochureModal = useCallback(() => setPhase(null), [])
-
-  const handlePickBrochure = useCallback(() => setPhase('form'), [])
-
-  const handlePickDemo = useCallback(() => {
-    setPhase(null)
-    openInquiryModalDemo()
-  }, [openInquiryModalDemo])
 
   return (
     <BrochureModalContext.Provider value={{ openBrochureModal, closeBrochureModal }}>
       {children}
-      {phase === 'choose' && !isEn ? (
-        <BrochureChooseDialog
-          onClose={closeBrochureModal}
-          onPickBrochure={handlePickBrochure}
-          onPickDemo={handlePickDemo}
-        />
-      ) : null}
       {phase === 'form' ? (
         isEn ? <EnBrochureDialog onClose={closeBrochureModal} /> : <BrochureModalDialog onClose={closeBrochureModal} />
       ) : null}

@@ -263,7 +263,7 @@ function InquiryModalDialog({
         }`}
       >
         <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-gray-100 bg-white px-5 py-3.5 sm:py-4 rounded-t-2xl">
-          {modalStep === 'form' && !submitted ? (
+          {modalStep === 'form' && !submitted && inquiryType === 'demo' ? (
             <button
               type="button"
               onClick={goToChoose}
@@ -534,13 +534,15 @@ function InquiryModalDialog({
                 </p>
               )}
               <div className="flex gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={goToChoose}
-                  className="flex-1 py-3 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:bg-gray-50 transition-colors"
-                >
-                  이전
-                </button>
+                {inquiryType === 'demo' ? (
+                  <button
+                    type="button"
+                    onClick={goToChoose}
+                    className="flex-1 py-3 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:bg-gray-50 transition-colors"
+                  >
+                    이전
+                  </button>
+                ) : null}
                 <button
                   type="submit"
                   disabled={submitting}
@@ -566,7 +568,7 @@ export function InquiryModalProvider({ children }: { children: ReactNode }) {
   })
 
   const openInquiryModal = useCallback(() => {
-    setOpenConfig({ step: 'choose', type: 'general' })
+    setOpenConfig({ step: 'form', type: 'general' })
     setOpen(true)
   }, [])
 

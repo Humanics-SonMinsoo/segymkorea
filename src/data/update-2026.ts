@@ -1,6 +1,6 @@
 /** 2026 하반기 SEGYM 업데이트 프로모션 카피 */
 
-/** false면 한글 사이트에서 띠배너·네비·푸터 링크를 숨김 (/update 경로는 유지) */
+/** false면 한글 사이트에서 띠배너/네비/푸터 링크를 숨김 (/update 경로는 유지) */
 export const UPDATE_2026_PUBLIC_ENABLED = true
 
 /** 띠배너 노출 여부에 따른 고정 헤더 오프셋 */
@@ -23,7 +23,7 @@ export const UPDATE_2026_COPY = {
   heroTitle: '2026년 하반기 업데이트 소식',
   priceTitle: '9월 업데이트 전, 지금이 도입 타이밍',
   priceBody:
-    '업데이트 이후 세짐 가격이 상승합니다. 네거티브·체성능 신기능이 적용되기 전, 9월 업데이트 전에 미리 도입하세요.',
+    '업데이트 이후 세짐 가격이 상승합니다. 네거티브와 체성능 신기능이 적용되기 전, 세짐을 미리 도입하세요.',
   priceCta: '도입 상담 신청',
   /** 홈 중간 띠 섹션 */
   homeBandEyebrow: '2026 하반기 업데이트',
@@ -44,7 +44,7 @@ export const UPDATE_NEGATIVE = {
   points: [
     {
       title: '방향별 무게 설정',
-      body: '내리는 구간과 올리는 구간에 서로 다른 무게를 걸 수 있습니다. 예: 내릴 때 100kg · 올릴 때 60kg.',
+      body: '내리는 구간과 올리는 구간에 서로 다른 무게를 걸 수 있습니다. 예: 내릴 때 100kg, 올릴 때 60kg.',
     },
     {
       title: '수축을 무겁게도',
@@ -62,7 +62,7 @@ export const UPDATE_BODY_PERF = {
   id: 'body-performance',
   badge: '2. 체성능 측정 기능',
   overviewTitle: '체성능 측정 기능',
-  overviewBody: '체성분뿐 아니라 회원의 체성능·운동능력까지 확인하고 분석할 수 있습니다.',
+  overviewBody: '체성분뿐 아니라 회원의 체성능, 운동능력까지 확인하고 분석할 수 있습니다.',
   title: '체성능 측정',
   subtitle: 'Scan & Score',
   hook: '체성분만으로는 부족합니다. 체성능까지.',
@@ -73,7 +73,7 @@ export const UPDATE_BODY_PERF = {
     { title: '힘', body: '얼마나 힘을 낼 수 있는지', icon: '💪' },
     { title: '속도', body: '리프팅 중 움직임 속도', icon: '⚡' },
     { title: '가동범위', body: '부하 하에서의 가동성', icon: '📐' },
-    { title: '밸런스', body: '좌우 대칭·안정성', icon: '⚖️' },
+    { title: '밸런스', body: '좌우 대칭, 안정성', icon: '⚖️' },
   ],
   flowSummary: [
     '측정할 항목 선택',
@@ -82,7 +82,7 @@ export const UPDATE_BODY_PERF = {
   ],
   resultPoints: [
     '체성분 너머의 실제 운동능력 데이터',
-    '힘·속도·가동범위·밸런스를 한눈에',
-    'PT 상담·세일즈에 바로 활용 가능한 점수',
+    '힘, 속도, 가동범위, 밸런스를 한눈에',
+    'PT 상담과 세일즈에 바로 활용 가능한 점수',
   ],
 } as const

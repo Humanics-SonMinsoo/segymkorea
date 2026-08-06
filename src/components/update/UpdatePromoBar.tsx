@@ -20,7 +20,7 @@ export function UpdatePromoBar() {
             {UPDATE_2026_COPY.bannerHook}
           </span>
           <span className="mx-1.5 sm:mx-2 text-white/45 hidden sm:inline" aria-hidden>
-            ·
+            /
           </span>
           <span className="block sm:inline mt-0.5 sm:mt-0 font-medium text-white/95">
             {UPDATE_2026_COPY.bannerTitle}

@@ -25,7 +25,7 @@ export function NegativeWeightDiagram() {
             <p className="mt-2 text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-white">
               100<span className="text-2xl sm:text-3xl font-semibold text-primary-light ml-1">kg</span>
             </p>
-            <p className="mt-2 text-sm text-neutral-400 ko-modal-copy">네거티브 · 신장성 수축</p>
+            <p className="mt-2 text-sm text-neutral-400 ko-modal-copy">네거티브, 신장성 수축</p>
           </div>
 
           {/* 중앙 바벨 그래픽 */}
@@ -52,7 +52,7 @@ export function NegativeWeightDiagram() {
             <p className="mt-2 text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-white">
               60<span className="text-2xl sm:text-3xl font-semibold text-brand-teal ml-1">kg</span>
             </p>
-            <p className="mt-2 text-sm text-neutral-400 ko-modal-copy">컨센트릭 · 수축</p>
+            <p className="mt-2 text-sm text-neutral-400 ko-modal-copy">컨센트릭, 수축</p>
           </div>
         </div>
       </div>

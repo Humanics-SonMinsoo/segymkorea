@@ -14,7 +14,8 @@ import BenefitsGuide from '@/components/sections/BenefitsGuide'
 import CTA from '@/components/sections/CTA'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { KO_HEADER_OFFSET_CLASS } from '@/data/update-2026'
+import { UpdateHomePromoBand } from '@/components/update/UpdateHomePromoBand'
+import { KO_HEADER_OFFSET_CLASS, UPDATE_2026_PUBLIC_ENABLED } from '@/data/update-2026'
 
 export default function Home() {
   return (
@@ -23,8 +24,9 @@ export default function Home() {
       <Hero />
       <BestFitnessCenters />
       <SegymIntro />
-      <SegymStrengths />
       <RoboticTraining />
+      {UPDATE_2026_PUBLIC_ENABLED ? <UpdateHomePromoBand /> : null}
+      <SegymStrengths />
       <AppShowcase />
       <PTSales />
       <CustomerStories />

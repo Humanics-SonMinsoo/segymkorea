@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { OpenInquiryButton } from '@/components/inquiry/OpenInquiryButton'
+import { NegativeWeightDiagram } from '@/components/update/NegativeWeightDiagram'
 import {
   UPDATE_2026_COPY,
   UPDATE_BODY_PERF,
@@ -21,12 +21,9 @@ export function UpdatePageContent() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight ko-modal-copy">
               {C.heroTitle}
             </h1>
-            <p className="mt-8 text-sm font-semibold tracking-[0.18em] text-primary-light">
-              {C.overviewTitle}
-            </p>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
             <a
               href={`#${neg.id}`}
               className="rounded-2xl border border-primary/40 bg-black/50 p-6 sm:p-7 text-left hover:border-primary-light transition-colors"
@@ -54,16 +51,19 @@ export function UpdatePageContent() {
       {/* 네거티브 기능 업데이트 안내 */}
       <section id={neg.id} className="scroll-mt-28 border-b border-white/10 py-16 md:py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold tracking-[0.2em] text-primary-light mb-3">{neg.badge}</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight ko-modal-copy max-w-3xl">
             {neg.title}
           </h2>
-          <p className="mt-4 text-xl sm:text-2xl font-medium text-primary-light ko-modal-copy">
+          <p className="mt-4 text-lg sm:text-xl font-medium text-primary-light ko-modal-copy max-w-3xl leading-snug">
             {neg.hook}
           </p>
           <p className="mt-2 text-sm text-neutral-500">{neg.subtitle}</p>
 
-          <p className="mt-8 text-base sm:text-lg text-neutral-300 leading-relaxed ko-modal-copy max-w-3xl">
+          <div className="mt-10">
+            <NegativeWeightDiagram />
+          </div>
+
+          <p className="mt-10 text-base sm:text-lg text-neutral-300 leading-relaxed ko-modal-copy max-w-3xl">
             {neg.intro}
           </p>
 
@@ -132,23 +132,17 @@ export function UpdatePageContent() {
       {/* CTA */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-primary to-primary-dark">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80 mb-3">2026 H2 Update</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80 mb-3">Before September Update</p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight ko-modal-copy [text-shadow:0_2px_12px_rgba(0,0,0,0.35)]">
             {C.priceTitle}
           </h2>
           <p className="mt-5 text-base sm:text-lg text-white/90 leading-relaxed ko-modal-copy [text-shadow:0_1px_6px_rgba(0,0,0,0.25)]">
             {C.priceBody}
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="mt-8 flex justify-center">
             <OpenInquiryButton className="inline-flex items-center justify-center rounded-xl bg-white px-7 py-3.5 text-sm font-bold text-primary hover:bg-neutral-100 transition-colors shadow-md">
               {C.priceCta}
             </OpenInquiryButton>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center justify-center rounded-xl border-2 border-white/90 px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/15 transition-colors"
-            >
-              {C.pricePricing}
-            </Link>
           </div>
         </div>
       </section>

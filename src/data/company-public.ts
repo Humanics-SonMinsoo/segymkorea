@@ -10,7 +10,7 @@ export const COMPANY_PUBLIC = {
   addressOffice:
     '경기도 광명시 일직로 99번길 15 (일직동 505-5) 1층 101호',
   phone: '02-897-5250',
-  email: 'humanics@humanics.kr',
+  email: 'contact@humanics.kr',
 } as const
 
 /**

@@ -85,7 +85,7 @@ export function UpdatePageContent() {
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight ko-modal-copy">{body.title}</h2>
           <p className="mt-2 text-neutral-500">{body.subtitle}</p>
           <p className="mt-5 text-xl sm:text-2xl font-medium text-brand-teal ko-modal-copy">{body.hook}</p>
-          <p className="mt-4 text-neutral-400 text-base sm:text-lg leading-relaxed ko-modal-copy max-w-3xl">
+          <p className="mt-4 text-neutral-400 text-base sm:text-lg leading-relaxed ko-modal-copy max-w-3xl whitespace-pre-line">
             {body.intro}
           </p>
 
@@ -136,7 +136,7 @@ export function UpdatePageContent() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight ko-modal-copy [text-shadow:0_2px_12px_rgba(0,0,0,0.35)]">
             {C.priceTitle}
           </h2>
-          <p className="mt-5 text-base sm:text-lg text-white/90 leading-relaxed ko-modal-copy [text-shadow:0_1px_6px_rgba(0,0,0,0.25)]">
+          <p className="mt-5 text-base sm:text-lg text-white/90 leading-relaxed ko-modal-copy whitespace-pre-line [text-shadow:0_1px_6px_rgba(0,0,0,0.25)]">
             {C.priceBody}
           </p>
           <div className="mt-8 flex justify-center">

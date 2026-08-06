@@ -23,7 +23,7 @@ export const UPDATE_2026_COPY = {
   heroTitle: '2026년 하반기 업데이트 소식',
   priceTitle: '9월 업데이트 전, 지금이 도입 타이밍',
   priceBody:
-    '업데이트 이후 세짐 가격이 상승합니다. 네거티브와 체성능 신기능이 적용되기 전, 세짐을 미리 도입하세요.',
+    '업데이트 이후 세짐 가격이 상승합니다.\n네거티브와 체성능 신기능이 적용되기 전, 세짐을 미리 도입하세요.',
   priceCta: '도입 상담 신청',
   /** 홈 중간 띠 섹션 */
   homeBandEyebrow: '2026 하반기 업데이트',
@@ -67,7 +67,7 @@ export const UPDATE_BODY_PERF = {
   subtitle: 'Scan & Score',
   hook: '체성분만으로는 부족합니다. 체성능까지.',
   intro:
-    '회원들의 체성분뿐만 아니라 체성능(운동능력)까지 확인하고 분석할 수 있습니다. 가이드 테스트로 측정하고, 결과는 SEGYM Score로 한눈에 확인하세요.',
+    '회원들의 체성분뿐만 아니라 체성능(운동능력)까지 확인하고 분석할 수 있습니다.\n가이드에 따라 쉽게 체성능을 측정하고, 결과는 SEGYM Score로 한눈에 확인하세요.',
   heroImage: '/images/scan-score/launch-hero-ko.png',
   measures: [
     { title: '힘', body: '얼마나 힘을 낼 수 있는지', icon: '💪' },

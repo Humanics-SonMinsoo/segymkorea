@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { OpenInquiryButton } from '@/components/inquiry/OpenInquiryButton'
 import { EN_NAV } from '@/data/en/site'
 
-const STORAGE_KEY = 'segym-en-scan-score-float-dismissed-v3'
+const STORAGE_KEY = 'segym-en-scan-score-float-dismissed-v4'
 
 export function EnScanScoreBanner() {
   const pathname = usePathname()

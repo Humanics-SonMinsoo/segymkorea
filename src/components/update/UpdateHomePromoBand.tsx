@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { UPDATE_2026_COPY, UPDATE_2026_PATH } from '@/data/update-2026'
 
-/** 홈 랜딩 — 편의성 섹션과 재활 섹션 사이 네거티브 홍보 띠 */
+/** 홈 랜딩 — 편의성 섹션과 재활 섹션 사이 업데이트 홍보 띠 */
 export function UpdateHomePromoBand() {
   const C = UPDATE_2026_COPY
 
@@ -15,8 +15,8 @@ export function UpdateHomePromoBand() {
         }}
       />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 md:py-16">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-12">
-          <div className="min-w-0 max-w-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="min-w-0">
             <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-brand-teal mb-3">
               {C.homeBandEyebrow}
             </p>
@@ -26,16 +26,23 @@ export function UpdateHomePromoBand() {
             <p className="mt-4 text-sm sm:text-base md:text-lg text-white/90 leading-relaxed ko-modal-copy">
               {C.homeBandBody}
             </p>
+            <div className="mt-6">
+              <Link
+                href={UPDATE_2026_PATH}
+                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-primary shadow-lg hover:bg-neutral-100 transition-colors"
+              >
+                {C.homeBandCta}
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
           </div>
 
-          <div className="shrink-0">
-            <Link
-              href={UPDATE_2026_PATH}
-              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-primary shadow-lg hover:bg-neutral-100 transition-colors"
-            >
-              {C.homeBandCta}
-              <span aria-hidden>→</span>
-            </Link>
+          <div className="rounded-2xl overflow-hidden border border-white/15 bg-black/40 shadow-2xl shadow-black/30">
+            <img
+              src="/images/scan-score/launch-hero-ko.png"
+              alt="세짐 체성능 측정 기능 출시 — 2026.09"
+              className="w-full h-auto block"
+            />
           </div>
         </div>
       </div>

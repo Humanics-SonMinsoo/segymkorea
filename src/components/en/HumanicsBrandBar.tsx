@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { COMPANY_PUBLIC_EN, HUMANICS_BRAND_BAR } from '@/data/en/site'
 
 export function HumanicsBrandBar() {
@@ -31,9 +30,6 @@ export function HumanicsBrandBar() {
               {HUMANICS_BRAND_BAR.websiteButton}
               <span aria-hidden>→</span>
             </a>
-            <Link href="/" className="hover:text-white transition-colors">
-              한국어
-            </Link>
           </div>
         </div>
       </div>

@@ -45,11 +45,6 @@ export function EnFooter() {
                   {EN_NAV.scanAndScore}
                 </Link>
               </li>
-              <li>
-                <Link href="/" className="hover:text-gray-300 underline-offset-2 hover:underline">
-                  Korean site
-                </Link>
-              </li>
             </ul>
           </div>
 

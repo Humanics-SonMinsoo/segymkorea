@@ -9,7 +9,7 @@
 }
 
 /** 홈 접속 시 SEGYM DAY 팝업 노출 여부 (신청 기간에만 true) */
-export const SEGYM_DAY_HOME_POPUP_ENABLED = true
+export const SEGYM_DAY_HOME_POPUP_ENABLED = false
 
 export const SEGYM_DAY_HERO_IMAGE = '/images/segym-day/segym-day-hero.png'
 /** 카카오 공유·링크 미리보기용 VIP 초대장 이미지 */

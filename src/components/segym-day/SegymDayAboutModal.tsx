@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
-import { SEGYM_DAY_EVENT_IMAGE } from '@/data/segym-day'
 import { SegymDayEventIntro } from '@/components/segym-day/SegymDayEventIntro'
 
 type Props = {
@@ -55,14 +54,6 @@ export function SegymDayAboutModal({ open, onClose }: Props) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
-        </div>
-
-        <div className="relative w-full bg-black overflow-hidden shrink-0">
-          <img
-            src={SEGYM_DAY_EVENT_IMAGE}
-            alt="대전 원퍼센트 피트니스 SEGYM DAY"
-            className="block w-full h-auto object-contain"
-          />
         </div>
 
         <div className="overflow-y-auto px-4 sm:px-6 py-5 sm:py-6">

@@ -43,13 +43,6 @@ export default function SegymDayPage() {
       title={SEGYM_DAY_COPY.pageTitle}
       titleClassName="!text-[1.55rem] sm:!text-4xl lg:!text-5xl"
     >
-      <div className="mb-8 -mt-2 rounded-2xl overflow-hidden border border-gray-200 bg-neutral-950 shadow-sm">
-        <img
-          src="/images/segym-day/segym-day-apply-banner.png"
-          alt="SEGYM DAY 참가신청 안내"
-          className="w-full h-auto block"
-        />
-      </div>
       <SegymDayApplyContent />
       <div className="mt-10 pb-28">
         <SegymDayEventSection />

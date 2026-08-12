@@ -7,7 +7,6 @@ import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
 import {
   SEGYM_DAY_COPY,
   SEGYM_DAY_HOME_POPUP_ENABLED,
-  SEGYM_DAY_POPUP_IMAGE,
 } from '@/data/segym-day'
 import { SegymDayAboutModal } from '@/components/segym-day/SegymDayAboutModal'
 
@@ -81,8 +80,9 @@ function SegymDayHomePopup({
           </svg>
         </button>
 
-        <div className="bg-neutral-950">
-          <img src={SEGYM_DAY_POPUP_IMAGE} alt="SEGYM DAY 대전 원퍼센트 피트니스" className="w-full h-auto block" />
+        <div className="bg-gradient-to-br from-primary to-primary-dark px-5 py-6 sm:px-6 sm:py-7 text-center text-white">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80 mb-2">SEGYM DAY</p>
+          <p className="text-base sm:text-lg font-bold ko-modal-copy leading-snug">{SEGYM_DAY_COPY.popupHeadline}</p>
         </div>
 
         <div className="p-4 sm:p-5 space-y-3">

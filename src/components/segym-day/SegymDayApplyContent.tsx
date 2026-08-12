@@ -7,7 +7,7 @@ import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 
 const ATTENDEE_OPTIONS = ['1명', '2명', '3명', '4명', '5명', '6명', '7명', '8명', '9명', '10명'] as const
-const FIXED_VENUE_ID = 'daejeon-one-percent'
+const FIXED_VENUE_ID = 'busan-gundam'
 
 export function SegymDayApplyContent() {
   const [centerName, setCenterName] = useState('')
@@ -77,10 +77,10 @@ export function SegymDayApplyContent() {
         <p className="text-xl font-bold text-gray-900 mb-2">신청이 접수되었습니다</p>
         <div className="mx-auto mb-4 max-w-md rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-left">
           <p className="text-sm font-semibold text-amber-950 ko-modal-copy">
-            {submittedVenueLabel || '대전 원퍼센트 피트니스'}
+            {submittedVenueLabel || '부산 건담짐'}
           </p>
           <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
-            {submittedVenueSchedule || '8월 12일 오후 1시'}
+            {submittedVenueSchedule || '8월 예정'}
           </p>
         </div>
         <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed mb-6">
@@ -114,17 +114,17 @@ export function SegymDayApplyContent() {
           <div>
             <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">신청 정보 입력</h2>
             <p className="mt-1 text-xs sm:text-sm text-red-600 font-semibold ko-modal-copy">
-              ⚡ 신청 기간 7월 21일(화) ~ 8월 11일(화)
+              ⚡ 신청 접수 중 · 일정 확정 후 안내
             </p>
           </div>
         </div>
         <form id="segym-day-apply-form" onSubmit={handleSubmit} className="space-y-4 max-w-2xl pb-24">
           <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
             <p className="text-sm font-semibold text-amber-950 ko-modal-copy">
-              {selectedVenue?.title ?? '대전 원퍼센트 피트니스'}
+              {selectedVenue?.title ?? '부산 건담짐'}
             </p>
             <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
-              {selectedVenue?.schedule ?? '8월 12일 오후 1시'}
+              {selectedVenue?.schedule ?? '8월 예정'}
             </p>
           </div>
 

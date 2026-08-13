@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { NegativeWeightDiagram } from '@/components/update/NegativeWeightDiagram'
 import { UPDATE_2026_COPY, UPDATE_2026_PATH } from '@/data/update-2026'
 
 /** 홈 랜딩 — 편의성 섹션과 재활 섹션 사이 업데이트 홍보 띠 */
@@ -37,12 +38,8 @@ export function UpdateHomePromoBand() {
             </div>
           </div>
 
-          <div className="rounded-2xl overflow-hidden border border-white/15 bg-black/40 shadow-2xl shadow-black/30">
-            <img
-              src="/images/scan-score/launch-hero-ko.png"
-              alt="세짐 체성능 측정 기능 출시 — 2026.09"
-              className="w-full h-auto block"
-            />
+          <div>
+            <NegativeWeightDiagram />
           </div>
         </div>
       </div>

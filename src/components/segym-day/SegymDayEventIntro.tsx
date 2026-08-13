@@ -60,7 +60,7 @@
         <p className="font-bold text-gray-900">📅 4차 SEGYM DAY 상세 안내 (부산 건담짐)</p>
         <ul className="space-y-1.5 text-gray-700">
           <li>
-            <span className="font-medium text-gray-900">일시</span> : 8월 예정 (세부 일정 확정 후 안내)
+            <span className="font-medium text-gray-900">일시</span> : 8월 27일(목) 오후 12시
           </li>
           <li>
             <span className="font-medium text-gray-900">장소</span> : 부산 건담짐
@@ -70,7 +70,7 @@
             계시는 대표님 및 관장님
           </li>
           <li>
-            <span className="font-medium text-gray-900">신청</span> : 접수 중 (조기 마감)
+            <span className="font-medium text-gray-900">신청 기간</span> : ~ 8월 26일(수)
           </li>
         </ul>
       </div>

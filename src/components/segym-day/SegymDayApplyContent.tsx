@@ -80,7 +80,7 @@ export function SegymDayApplyContent() {
             {submittedVenueLabel || '부산 건담짐'}
           </p>
           <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
-            {submittedVenueSchedule || '8월 예정'}
+            {submittedVenueSchedule || '8월 27일 오후 12시'}
           </p>
         </div>
         <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed mb-6">
@@ -114,7 +114,7 @@ export function SegymDayApplyContent() {
           <div>
             <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">신청 정보 입력</h2>
             <p className="mt-1 text-xs sm:text-sm text-red-600 font-semibold ko-modal-copy">
-              ⚡ 신청 접수 중 · 일정 확정 후 안내
+              ⚡ 신청 마감 8월 26일(수) · 행사 8월 27일(목) 오후 12시
             </p>
           </div>
         </div>
@@ -124,7 +124,7 @@ export function SegymDayApplyContent() {
               {selectedVenue?.title ?? '부산 건담짐'}
             </p>
             <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
-              {selectedVenue?.schedule ?? '8월 예정'}
+              {selectedVenue?.schedule ?? '8월 27일 오후 12시'}
             </p>
           </div>
 

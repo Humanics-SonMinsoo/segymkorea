@@ -9,14 +9,20 @@
 }
 
 /** 홈 접속 시 SEGYM DAY 팝업 노출 여부 (신청 기간에만 true) */
-export const SEGYM_DAY_HOME_POPUP_ENABLED = false
+export const SEGYM_DAY_HOME_POPUP_ENABLED = true
 
 export const SEGYM_DAY_HERO_IMAGE = '/images/segym-day/segym-day-hero.png'
 /** 카카오 공유·링크 미리보기용 VIP 초대장 이미지 */
 export const SEGYM_DAY_SHARE_IMAGE = '/images/segym-day/segym-day-vip-share.png'
 
+/** 이벤트 안내 상단 이미지 */
+export const SEGYM_DAY_EVENT_IMAGE = '/images/segym-day/segym-day-gundam.png'
+
+/** 홈 팝업·신청 페이지 배너 */
+export const SEGYM_DAY_POPUP_IMAGE = '/images/segym-day/segym-day-gundam.png'
+
 /** @deprecated 단일 이미지로 대체됨 — 기존 참조 호환용 */
-export const SEGYM_DAY_CAROUSEL_IMAGES = [SEGYM_DAY_SHARE_IMAGE] as const
+export const SEGYM_DAY_CAROUSEL_IMAGES = [SEGYM_DAY_EVENT_IMAGE] as const
 
 export const SEGYM_DAY_VENUES: SegymDayVenue[] = [
   {
@@ -58,8 +64,8 @@ export const SEGYM_DAY_COPY = {
   pageDescription: '',
   applyButton: 'SEGYM DAY 신청하기',
   aboutButton: '이벤트 알아보기',
-  popupStorageKey: 'segym-day-popup-dismissed-v5',
-  popupHideTodayKey: 'segym-day-popup-hide-today-v5',
+  popupStorageKey: 'segym-day-popup-dismissed-v6',
+  popupHideTodayKey: 'segym-day-popup-hide-today-v6',
   popupHeadline: '8월 27일 오후 12시, SEGYM DAY in 부산 건담짐',
   popupSubline: '오직 운동시설 대표님들을 위한 이벤트',
   popupHideToday: '오늘 하루 종일 보지 않기',

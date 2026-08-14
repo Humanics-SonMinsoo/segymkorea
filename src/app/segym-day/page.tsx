@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SiteSubPage } from '@/components/layout/SiteSubPage'
 import { SegymDayApplyContent } from '@/components/segym-day/SegymDayApplyContent'
 import { SegymDayEventSection } from '@/components/segym-day/SegymDayEventSection'
-import { SEGYM_DAY_COPY, SEGYM_DAY_SHARE_IMAGE } from '@/data/segym-day'
+import { SEGYM_DAY_COPY, SEGYM_DAY_POPUP_IMAGE, SEGYM_DAY_SHARE_IMAGE } from '@/data/segym-day'
 import { getSiteUrl } from '@/lib/site-url'
 import { SEGYM_DAY_PATH } from '@/lib/segym-day-share'
 
@@ -43,6 +43,13 @@ export default function SegymDayPage() {
       title={SEGYM_DAY_COPY.pageTitle}
       titleClassName="!text-[1.55rem] sm:!text-4xl lg:!text-5xl"
     >
+      <div className="mb-8 -mt-2 rounded-2xl overflow-hidden border border-gray-200 bg-neutral-950 shadow-sm">
+        <img
+          src={SEGYM_DAY_POPUP_IMAGE}
+          alt="부산 건담짐 SEGYM DAY"
+          className="w-full h-auto block"
+        />
+      </div>
       <SegymDayApplyContent />
       <div className="mt-10 pb-28">
         <SegymDayEventSection />

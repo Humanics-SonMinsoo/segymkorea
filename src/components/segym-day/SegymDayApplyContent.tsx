@@ -1,13 +1,100 @@
 ﻿'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { getSegymDayVenueById } from '@/data/segym-day'
+import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 
 const ATTENDEE_OPTIONS = ['1명', '2명', '3명', '4명', '5명', '6명', '7명', '8명', '9명', '10명'] as const
 const FIXED_VENUE_ID = 'busan-gundam'
+
+function SegymDaySuccessModal({
+  venueLabel,
+  venueSchedule,
+  onClose,
+  onApplyAgain,
+}: {
+  venueLabel: string
+  venueSchedule: string
+  onClose: () => void
+  onApplyAgain: () => void
+}) {
+  const entered = useModalEnterAnimation()
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [onClose])
+
+  return (
+    <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="segym-day-success-title">
+      <button
+        type="button"
+        className={`absolute inset-0 bg-black/60 backdrop-blur-[2px] transition-opacity duration-300 ${
+          entered ? 'opacity-100' : 'opacity-0'
+        }`}
+        aria-label="닫기"
+        onClick={onClose}
+      />
+      <div
+        className={`relative z-10 w-full max-w-md rounded-2xl bg-white shadow-2xl border border-gray-100 overflow-hidden transition-[opacity,transform] duration-300 ${
+          entered ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.97] translate-y-3'
+        }`}
+      >
+        <div className="bg-gradient-to-br from-primary to-primary-dark px-5 py-6 text-center text-white">
+          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white/20">
+            <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 id="segym-day-success-title" className="text-xl font-bold ko-modal-copy">
+            신청이 완료되었습니다
+          </h2>
+          <p className="mt-1.5 text-sm text-white/90 ko-modal-copy">SEGYM DAY 참가 신청이 접수되었습니다.</p>
+        </div>
+
+        <div className="p-5 sm:p-6 space-y-4">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-left">
+            <p className="text-sm font-semibold text-amber-950 ko-modal-copy">{venueLabel || '부산 건담짐'}</p>
+            <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
+              {venueSchedule || '8월 27일 오후 12시'}
+            </p>
+          </div>
+          <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed text-center">
+            담당자가 확인 후 연락드리겠습니다.
+            <br />
+            조기 마감 시 예약이 종료될 수 있습니다.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary-dark transition-colors shadow-brand"
+            >
+              확인
+            </button>
+            <button
+              type="button"
+              onClick={onApplyAgain}
+              className="flex-1 py-3 rounded-xl border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              추가 신청하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function SegymDayApplyContent() {
   const [centerName, setCenterName] = useState('')
@@ -18,11 +105,21 @@ export function SegymDayApplyContent() {
   const [privacyAgreed, setPrivacyAgreed] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [successOpen, setSuccessOpen] = useState(false)
   const [submittedVenueLabel, setSubmittedVenueLabel] = useState('')
   const [submittedVenueSchedule, setSubmittedVenueSchedule] = useState('')
 
   const selectedVenue = useMemo(() => getSegymDayVenueById(FIXED_VENUE_ID), [])
+
+  const resetForm = () => {
+    setCenterName('')
+    setName('')
+    setPhone('')
+    setAttendeeCount('')
+    setAdditionalNote('')
+    setPrivacyAgreed(false)
+    setError(null)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -60,10 +157,9 @@ export function SegymDayApplyContent() {
       }
       setSubmittedVenueLabel(selectedVenue.title)
       setSubmittedVenueSchedule(selectedVenue.schedule)
-      setSubmitted(true)
+      setSuccessOpen(true)
       trackGa4GenerateLead({ form_id: 'segym_day', form_name: 'SEGYM DAY 신청' })
       trackMetaStandard('Lead', { content_name: 'SEGYM DAY 신청', content_category: 'segym_day' })
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch {
       setError('네트워크 오류가 발생했습니다.')
     } finally {
@@ -71,44 +167,22 @@ export function SegymDayApplyContent() {
     }
   }
 
-  if (submitted) {
-    return (
-      <div className="rounded-2xl border border-gray-200 bg-white p-8 sm:p-10 text-center">
-        <p className="text-xl font-bold text-gray-900 mb-2">신청이 접수되었습니다</p>
-        <div className="mx-auto mb-4 max-w-md rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-left">
-          <p className="text-sm font-semibold text-amber-950 ko-modal-copy">
-            {submittedVenueLabel || '부산 건담짐'}
-          </p>
-          <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
-            {submittedVenueSchedule || '8월 27일 오후 12시'}
-          </p>
-        </div>
-        <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed mb-6">
-          담당자가 확인 후 연락드리겠습니다. 조기 마감 시 예약이 종료될 수 있습니다.
-        </p>
-        <button
-          type="button"
-          onClick={() => {
-            setSubmitted(false)
-            setCenterName('')
-            setName('')
-            setPhone('')
-            setAttendeeCount('')
-            setAdditionalNote('')
-            setPrivacyAgreed(false)
+  return (
+    <div className="space-y-8 pb-28">
+      {successOpen ? (
+        <SegymDaySuccessModal
+          venueLabel={submittedVenueLabel}
+          venueSchedule={submittedVenueSchedule}
+          onClose={() => setSuccessOpen(false)}
+          onApplyAgain={() => {
+            setSuccessOpen(false)
+            resetForm()
             setSubmittedVenueLabel('')
             setSubmittedVenueSchedule('')
           }}
-          className="px-6 py-3 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:bg-gray-50"
-        >
-          추가 신청하기
-        </button>
-      </div>
-    )
-  }
+        />
+      ) : null}
 
-  return (
-    <div className="space-y-8 pb-28">
       <section className="rounded-2xl border border-gray-200 bg-gray-50/50 p-5 sm:p-8">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
           <div>

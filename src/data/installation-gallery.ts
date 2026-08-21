@@ -6,7 +6,7 @@
  */
 
 /** 최신 도입 센터 — 갤러리 최상단 `NEW 센터` (전체·해당 카테고리 탭) */
-export const INSTALLATION_NEW_IDS = ['29', '30'] as const
+export const INSTALLATION_NEW_IDS = ['31', '32'] as const
 
 /** 최근 행사·전시 — 갤러리 상단 `최근 행사` (전체·행사·전시 탭) */
 export const INSTALLATION_NEW_EVENT_IDS = ['25', '26'] as const
@@ -104,6 +104,33 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
     categoryId: 'event',
     regionKey: '행사',
     gallery: MYPROTEIN_GALLERY_NUMS.map((n) => eventImagePath('myprotein', n)),
+  },
+  {
+    id: '31',
+    src: '/images/installations/install-39.jpg',
+    title: 'JD웰니스',
+    alt: '세짐 설치 사례 — JD웰니스',
+    categoryId: 'health',
+    regionKey: '기타',
+    gallery: [
+      '/images/installations/install-39.jpg',
+      '/images/installations/install-40.jpg',
+    ],
+  },
+  {
+    id: '32',
+    src: '/images/installations/install-41.jpg',
+    title: '서울 동작구 빅브로짐',
+    alt: '세짐 설치 사례 — 서울 동작구 빅브로짐',
+    categoryId: 'health',
+    regionKey: '서울',
+    gallery: [
+      '/images/installations/install-41.jpg',
+      '/images/installations/install-43.jpg',
+      '/images/installations/install-44.jpg',
+      '/images/installations/install-45.jpg',
+      '/images/installations/install-42.jpg',
+    ],
   },
   {
     id: '29',

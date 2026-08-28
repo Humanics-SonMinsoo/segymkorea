@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { addSegymDayRequest, readSegymDayRequests } from '@/lib/segym-day-requests-store'
 import { COOKIE_NAME, verifyAdminSession } from '@/lib/admin-auth'
 import { hasUpstashCredentials, isVercelDeployment } from '@/lib/upstash-env'
-import { getSegymDayVenueById, isSegymDayVenueSelectable } from '@/data/segym-day'
+import { getSegymDayVenueById, isSegymDayVenueSelectable, SEGYM_DAY_APPLY_ENABLED } from '@/data/segym-day'
 
 export const runtime = 'nodejs'
 
@@ -56,6 +56,9 @@ export async function POST(request: Request) {
     }
     if (!venueId.trim() || !name.trim() || !phone.trim()) {
       return NextResponse.json({ error: '필수 항목을 모두 입력해 주세요.' }, { status: 400 })
+    }
+    if (!SEGYM_DAY_APPLY_ENABLED) {
+      return NextResponse.json({ error: '신청 접수가 마감되었습니다.' }, { status: 400 })
     }
     const venue = getSegymDayVenueById(venueId.trim())
     if (!venue || !isSegymDayVenueSelectable(venue)) {

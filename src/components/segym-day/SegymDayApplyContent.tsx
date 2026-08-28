@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { getSegymDayVenueById } from '@/data/segym-day'
+import { getSegymDayVenueById, SEGYM_DAY_APPLY_ENABLED } from '@/data/segym-day'
 import { useModalEnterAnimation } from '@/hooks/useModalEnterAnimation'
 import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
@@ -184,6 +184,25 @@ export function SegymDayApplyContent() {
       ) : null}
 
       <section className="rounded-2xl border border-gray-200 bg-gray-50/50 p-5 sm:p-8">
+        {!SEGYM_DAY_APPLY_ENABLED ? (
+          <div className="max-w-2xl">
+            <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">참가 신청 마감</h2>
+            <p className="mt-3 text-sm sm:text-base text-gray-700 ko-modal-copy leading-relaxed">
+              4차 부산 건담짐 SEGYM DAY는 성황리에 마무리되었습니다.
+              <br />
+              신청 접수는 종료되었으며, 행사 안내는 아래에서 확인하실 수 있습니다.
+            </p>
+            <div className="mt-5 rounded-xl border border-gray-200 bg-white px-4 py-3">
+              <p className="text-sm font-semibold text-gray-900 ko-modal-copy">
+                {selectedVenue?.title ?? '부산 건담짐'}
+              </p>
+              <p className="mt-0.5 text-sm text-gray-600 ko-modal-copy">
+                {selectedVenue?.schedule ?? '8월 27일 오후 12시'}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <>
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
           <div>
             <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">신청 정보 입력</h2>
@@ -303,8 +322,11 @@ export function SegymDayApplyContent() {
             {submitting ? '전송 중…' : '지금 신청하기'}
           </button>
         </form>
+          </>
+        )}
       </section>
 
+      {SEGYM_DAY_APPLY_ENABLED ? (
       <div className="fixed inset-x-0 bottom-0 z-[70] pointer-events-none">
         <div className="pointer-events-auto border-t border-primary/20 bg-white/95 backdrop-blur-md shadow-[0_-8px_30px_rgba(0,0,0,0.12)]">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
@@ -319,6 +341,7 @@ export function SegymDayApplyContent() {
           </div>
         </div>
       </div>
+      ) : null}
     </div>
   )
 }

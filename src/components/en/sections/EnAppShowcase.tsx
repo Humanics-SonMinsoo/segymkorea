@@ -25,7 +25,7 @@ export function EnAppShowcase() {
           <div className="flex flex-col items-center">
             <div className="aspect-[9/16] max-w-xs w-full mx-auto bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-4 shadow-lg">
               <img
-                src="/images/home.png"
+                src="/images/en/humania-app-no1.png"
                 alt="HUMANIA app interface"
                 className="w-full h-full object-cover rounded-2xl"
               />

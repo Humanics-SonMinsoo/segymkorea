@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { OpenInquiryButton } from '@/components/inquiry/OpenInquiryButton'
 import { OpenBrochureButton } from '@/components/brochure/OpenBrochureButton'
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
-import { SEGYM_DAY_COPY } from '@/data/segym-day'
 import { UPDATE_2026_PUBLIC_ENABLED } from '@/data/update-2026'
 import { UpdatePromoBar } from '@/components/update/UpdatePromoBar'
 
@@ -25,7 +24,6 @@ const navItems: NavItem[] = [
   { href: '/pricing', label: '가격안내' },
   { href: '/installations', label: '설치사례' },
   { href: '/blog', label: '블로그' },
-  { href: '/segym-day', label: SEGYM_DAY_COPY.navLabel, isHot: true },
   { href: '/experience', label: DEMO_EXPERIENCE_COPY.navLabel },
 ]
 

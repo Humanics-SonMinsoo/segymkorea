@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { COMPANY_PUBLIC } from '@/data/company-public'
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
-import { SEGYM_DAY_COPY } from '@/data/segym-day'
 import { FooterAdminLinks } from './FooterAdminLinks'
 import { ScrollToTopButton } from './ScrollToTopButton'
 
@@ -46,11 +45,6 @@ export default function Footer() {
               <li>
                 <Link href="/blog" className="hover:text-gray-300 underline-offset-2 hover:underline">
                   블로그
-                </Link>
-              </li>
-              <li>
-                <Link href="/segym-day" className="hover:text-gray-300 underline-offset-2 hover:underline">
-                  {SEGYM_DAY_COPY.navLabel}
                 </Link>
               </li>
               <li>

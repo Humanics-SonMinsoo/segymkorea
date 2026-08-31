@@ -6,7 +6,7 @@
  */
 
 /** 최신 도입 센터 — 갤러리 최상단 `NEW 센터` (전체·해당 카테고리 탭) */
-export const INSTALLATION_NEW_IDS = ['31', '32'] as const
+export const INSTALLATION_NEW_IDS = ['33', '31', '32'] as const
 
 /** 최근 행사·전시 — 갤러리 상단 `최근 행사` (전체·행사·전시 탭) */
 export const INSTALLATION_NEW_EVENT_IDS = ['25', '26'] as const
@@ -86,6 +86,19 @@ function eventImagePath(event: 'spoex' | 'myprotein', num: number): string {
 }
 
 export const INSTALLATION_GALLERY: InstallationPhoto[] = [
+  {
+    id: '33',
+    src: '/images/installations/install-46.jpg',
+    title: '광주 광주여대 스포츠재활학과',
+    alt: '세짐 설치 사례 — 광주 광주여대 스포츠재활학과',
+    categoryId: 'public',
+    regionKey: '광주',
+    gallery: [
+      '/images/installations/install-46.jpg',
+      '/images/installations/install-47.jpg',
+      '/images/installations/install-48.jpg',
+    ],
+  },
   {
     id: '25',
     src: eventImagePath('spoex', 31),

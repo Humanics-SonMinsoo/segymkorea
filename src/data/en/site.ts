@@ -45,3 +45,15 @@ export const EN_META = {
   scanDescription:
     'SEGYM Scan & Score measures body performance through guided tests — force, speed, range of motion, and balance — then shows the result as a clear score with stats.',
 } as const
+
+export const EN_SCAN_SCORE_POPUP = {
+  popupStorageKey: 'segym-en-scan-score-popup-dismissed-v5',
+  popupHideTodayKey: 'segym-en-scan-score-popup-hide-today-v5',
+  popupClose: 'Close',
+  popupHideToday: "Don't show again today",
+  eyebrow: 'Coming soon',
+  headline: 'SEGYM Scan & Score',
+  subline:
+    'Body performance measurement is coming in September 2026 — measure athletic ability, then see it as a clear score.',
+  learnMore: 'Learn more',
+} as const

@@ -108,11 +108,26 @@ export default function Header() {
             <OpenInquiryButton className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all font-semibold">
               도입 문의하기
             </OpenInquiryButton>
+            <Link
+              href="/en"
+              className="text-sm font-bold tracking-wide text-gray-500 hover:text-primary transition-colors"
+              aria-label="English site"
+            >
+              EN
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
+          <div className="flex md:hidden items-center gap-1">
+            <Link
+              href="/en"
+              className="px-2 py-1 text-sm font-bold tracking-wide text-gray-500 hover:text-primary transition-colors"
+              aria-label="English site"
+            >
+              EN
+            </Link>
           <button
-            className="md:hidden p-2"
+            className="p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="메뉴"
           >
@@ -132,6 +147,7 @@ export default function Header() {
               )}
             </svg>
           </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}

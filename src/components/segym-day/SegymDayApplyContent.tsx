@@ -8,7 +8,7 @@ import { trackGa4GenerateLead } from '@/lib/ga4'
 import { trackMetaStandard } from '@/lib/meta-pixel'
 
 const ATTENDEE_OPTIONS = ['1명', '2명', '3명', '4명', '5명', '6명', '7명', '8명', '9명', '10명'] as const
-const FIXED_VENUE_ID = 'busan-gundam'
+const FIXED_VENUE_ID = 'siheung-friend'
 
 function SegymDaySuccessModal({
   venueLabel,
@@ -64,9 +64,9 @@ function SegymDaySuccessModal({
 
         <div className="p-5 sm:p-6 space-y-4">
           <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-left">
-            <p className="text-sm font-semibold text-amber-950 ko-modal-copy">{venueLabel || '부산 건담짐'}</p>
+            <p className="text-sm font-semibold text-amber-950 ko-modal-copy">{venueLabel || '시흥 프렌드짐 1호점'}</p>
             <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
-              {venueSchedule || '8월 27일 오후 12시'}
+              {venueSchedule || '9월 30일 오후 1시'}
             </p>
           </div>
           <p className="text-sm text-gray-600 ko-modal-copy leading-relaxed text-center">
@@ -188,16 +188,14 @@ export function SegymDayApplyContent() {
           <div className="max-w-2xl">
             <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">참가 신청 마감</h2>
             <p className="mt-3 text-sm sm:text-base text-gray-700 ko-modal-copy leading-relaxed">
-              4차 부산 건담짐 SEGYM DAY는 성황리에 마무리되었습니다.
-              <br />
               신청 접수는 종료되었으며, 행사 안내는 아래에서 확인하실 수 있습니다.
             </p>
             <div className="mt-5 rounded-xl border border-gray-200 bg-white px-4 py-3">
               <p className="text-sm font-semibold text-gray-900 ko-modal-copy">
-                {selectedVenue?.title ?? '부산 건담짐'}
+                {selectedVenue?.title ?? '시흥 프렌드짐 1호점'}
               </p>
               <p className="mt-0.5 text-sm text-gray-600 ko-modal-copy">
-                {selectedVenue?.schedule ?? '8월 27일 오후 12시'}
+                {selectedVenue?.schedule ?? '9월 30일 오후 1시'}
               </p>
             </div>
           </div>
@@ -207,17 +205,17 @@ export function SegymDayApplyContent() {
           <div>
             <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">신청 정보 입력</h2>
             <p className="mt-1 text-xs sm:text-sm text-red-600 font-semibold ko-modal-copy">
-              ⚡ 신청 마감 8월 26일(수) · 행사 8월 27일(목) 오후 12시
+              ⚡ 신청 마감 9월 29일(화) · 행사 9월 30일(수) 오후 1시
             </p>
           </div>
         </div>
         <form id="segym-day-apply-form" onSubmit={handleSubmit} className="space-y-4 max-w-2xl pb-24">
           <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
             <p className="text-sm font-semibold text-amber-950 ko-modal-copy">
-              {selectedVenue?.title ?? '부산 건담짐'}
+              {selectedVenue?.title ?? '시흥 프렌드짐 1호점'}
             </p>
             <p className="mt-0.5 text-sm text-amber-800 ko-modal-copy">
-              {selectedVenue?.schedule ?? '8월 27일 오후 12시'}
+              {selectedVenue?.schedule ?? '9월 30일 오후 1시'}
             </p>
           </div>
 

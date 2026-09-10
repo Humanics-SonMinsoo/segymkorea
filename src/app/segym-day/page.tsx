@@ -46,7 +46,7 @@ export default function SegymDayPage() {
       <div className="mb-8 -mt-2 rounded-2xl overflow-hidden border border-gray-200 bg-neutral-950 shadow-sm">
         <img
           src={SEGYM_DAY_POPUP_IMAGE}
-          alt="부산 건담짐 SEGYM DAY"
+          alt="시흥 프렌드짐 1호점 SEGYM DAY"
           className="w-full h-auto block"
         />
       </div>

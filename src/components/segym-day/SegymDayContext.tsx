@@ -82,7 +82,7 @@ function SegymDayHomePopup({
         </button>
 
         <div className="bg-neutral-950">
-          <img src={SEGYM_DAY_POPUP_IMAGE} alt="부산 건담짐 SEGYM DAY" className="w-full h-auto block" />
+          <img src={SEGYM_DAY_POPUP_IMAGE} alt="시흥 프렌드짐 1호점 SEGYM DAY" className="w-full h-auto block" />
         </div>
 
         <div className="p-4 sm:p-5 space-y-3">

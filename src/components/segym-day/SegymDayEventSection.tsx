@@ -11,7 +11,7 @@ export function SegymDayEventSection() {
       <div className="relative w-full bg-black overflow-hidden">
         <img
           src={SEGYM_DAY_EVENT_IMAGE}
-          alt="부산 건담짐 SEGYM DAY"
+          alt="시흥 프렌드짐 1호점 SEGYM DAY"
           className="block w-full h-auto object-contain"
         />
       </div>

@@ -9,7 +9,7 @@ const kakaoChannelUrl = (process.env.NEXT_PUBLIC_KAKAO_CHANNEL_URL ?? '').trim()
 const PHONE_CONSULT = {
   title: '세짐 실시간 전화상담',
   phone: '010-9425-6745',
-  detail: '(세짐 파트너팀 담당자 홍창용)',
+  detail: '(세짐 파트너팀 담당자)',
 } as const
 
 function PhoneConsultModal({ onClose }: { onClose: () => void }) {

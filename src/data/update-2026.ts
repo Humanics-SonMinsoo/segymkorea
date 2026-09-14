@@ -3,8 +3,11 @@
 /** false면 한글 사이트에서 띠배너/네비/푸터 링크를 숨김 (/update 경로는 유지) */
 export const UPDATE_2026_PUBLIC_ENABLED = true
 
+/** 헤더 최상단 업데이트 띠배너 (홈·전역) */
+export const UPDATE_2026_TOP_BANNER_ENABLED = false
+
 /** 띠배너 노출 여부에 따른 고정 헤더 오프셋 */
-export const KO_HEADER_OFFSET_CLASS = UPDATE_2026_PUBLIC_ENABLED
+export const KO_HEADER_OFFSET_CLASS = UPDATE_2026_TOP_BANNER_ENABLED
   ? 'pt-[6.5rem] sm:pt-[6.25rem]'
   : 'pt-16'
 

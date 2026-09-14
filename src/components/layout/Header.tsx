@@ -6,7 +6,7 @@ import { OpenInquiryButton } from '@/components/inquiry/OpenInquiryButton'
 import { OpenBrochureButton } from '@/components/brochure/OpenBrochureButton'
 import { DEMO_EXPERIENCE_COPY } from '@/lib/demo-experience-copy'
 import { SEGYM_DAY_COPY } from '@/data/segym-day'
-import { UPDATE_2026_PUBLIC_ENABLED } from '@/data/update-2026'
+import { UPDATE_2026_TOP_BANNER_ENABLED } from '@/data/update-2026'
 import { UpdatePromoBar } from '@/components/update/UpdatePromoBar'
 
 type NavItem = {
@@ -62,7 +62,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-      {UPDATE_2026_PUBLIC_ENABLED ? <UpdatePromoBar /> : null}
+      {UPDATE_2026_TOP_BANNER_ENABLED ? <UpdatePromoBar /> : null}
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}

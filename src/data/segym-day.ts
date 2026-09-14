@@ -9,7 +9,7 @@
 }
 
 /** 홈 접속 시 SEGYM DAY 팝업 노출 여부 (신청 기간에만 true) */
-export const SEGYM_DAY_HOME_POPUP_ENABLED = true
+export const SEGYM_DAY_HOME_POPUP_ENABLED = false
 
 /** 참가 신청 폼·API 접수 허용 여부 */
 export const SEGYM_DAY_APPLY_ENABLED = true

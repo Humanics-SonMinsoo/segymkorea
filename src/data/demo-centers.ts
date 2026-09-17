@@ -41,13 +41,6 @@ export const DEMO_CENTERS: DemoCenter[] = [
     imageSrc: '/images/installations/install-18.png',
   },
   {
-    id: 'fitness101',
-    name: '피트니스 101',
-    location: '서울 명동',
-    address: '서울특별시 중구 삼일대로 343 대신파이낸스센터 지하2층',
-    imageSrc: '/images/installations/install-16.jpg',
-  },
-  {
     id: 'hawk-eye',
     name: '호크아이짐 2호점',
     location: '강원 원주',

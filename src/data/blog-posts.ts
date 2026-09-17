@@ -55,10 +55,23 @@ export function blogCategoryLabel(id: BlogCategoryId): string {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    id: 'tryfit-pt-review',
+    id: 'puregym-dogok-review',
     categoryId: 'review',
     featured: true,
     isNew: true,
+    title: '[인터뷰] AI 머신 세짐 도입하고 피티 전환율 현재까지 100%입니다',
+    excerpt:
+      '저희 샵에 세짐이 들어오고 나서 신규 OT(체험 수업)를 진행한 회원이 총 12분이었는데요, 12분 전부 PT를 등록하셨습니다...',
+    teaser: '"12분 전부 PT를 등록하셨습니다…" 도곡동 퓨어짐 대표님의 세짐 도입 후기는?',
+    subjectLabel: '도곡동 퓨어짐',
+    thumbnail: '/images/blog/puregym-dogok-review.jpg',
+    dateLabel: '2026년 9월 17일',
+    author: '세짐',
+    href: 'https://blog.naver.com/humanics23/224415003031',
+  },
+  {
+    id: 'tryfit-pt-review',
+    categoryId: 'review',
     title: '"머신 여러 대보다, 세짐 한 대가 확실한 무기였어요." 강남 트라이핏 대표님이 세짐 스미스로봇을 선택한 이유',
     excerpt: '경쟁이 가장 치열한 강남에서 프리미엄 PT샵이 세짐 스미스로봇을 시그니처 장비로 선택한 이유를 인터뷰로 정리했습니다.',
     teaser: '"0.1kg 단위 초정밀 조절부터 양방향 로보틱 트레이닝까지…" 대표님이 꼽은 도입 이유는?',

@@ -188,7 +188,9 @@ export function SegymDayApplyContent() {
           <div className="max-w-2xl">
             <h2 className="text-lg font-bold text-gray-900 ko-modal-copy">참가 신청 마감</h2>
             <p className="mt-3 text-sm sm:text-base text-gray-700 ko-modal-copy leading-relaxed">
-              신청 접수는 종료되었으며, 행사 안내는 아래에서 확인하실 수 있습니다.
+              5차 시흥 프렌드짐 1호점 SEGYM DAY 신청은 종료되었습니다.
+              <br />
+              행사 안내는 아래에서 확인하실 수 있습니다.
             </p>
             <div className="mt-5 rounded-xl border border-gray-200 bg-white px-4 py-3">
               <p className="text-sm font-semibold text-gray-900 ko-modal-copy">

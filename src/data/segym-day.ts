@@ -12,7 +12,7 @@
 export const SEGYM_DAY_HOME_POPUP_ENABLED = false
 
 /** 참가 신청 폼·API 접수 허용 여부 */
-export const SEGYM_DAY_APPLY_ENABLED = true
+export const SEGYM_DAY_APPLY_ENABLED = false
 
 export const SEGYM_DAY_HERO_IMAGE = '/images/segym-day/segym-day-hero.png'
 /** 카카오 공유·링크 미리보기용 VIP 초대장 이미지 */
@@ -56,8 +56,9 @@ export const SEGYM_DAY_VENUES: SegymDayVenue[] = [
     id: 'siheung-friend',
     title: '시흥 프렌드짐 1호점',
     schedule: '9월 30일 오후 1시',
-    selectable: true,
-    appearance: 'active',
+    selectable: false,
+    comingSoonLabel: '모집마감',
+    appearance: 'closed',
   },
 ]
 
@@ -71,7 +72,7 @@ export function isSegymDayVenueSelectable(venue: SegymDayVenue): boolean {
 
 export const SEGYM_DAY_COPY = {
   navLabel: 'SEGYM DAY',
-  pageTitle: '9월 30일 시흥 프렌드짐 1호점 SEGYM DAY 참가신청',
+  pageTitle: '9월 30일 시흥 프렌드짐 1호점 SEGYM DAY',
   pageDescription: '',
   applyButton: 'SEGYM DAY 신청하기',
   aboutButton: '이벤트 알아보기',

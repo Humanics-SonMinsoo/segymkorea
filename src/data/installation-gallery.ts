@@ -6,7 +6,7 @@
  */
 
 /** 최신 도입 센터 — 갤러리 최상단 `NEW 센터` (전체·해당 카테고리 탭) */
-export const INSTALLATION_NEW_IDS = ['33', '31', '32'] as const
+export const INSTALLATION_NEW_IDS = ['34', '35', '36'] as const
 
 /** 최근 행사·전시 — 갤러리 상단 `최근 행사` (전체·행사·전시 탭) */
 export const INSTALLATION_NEW_EVENT_IDS = ['25', '26'] as const
@@ -86,6 +86,40 @@ function eventImagePath(event: 'spoex' | 'myprotein', num: number): string {
 }
 
 export const INSTALLATION_GALLERY: InstallationPhoto[] = [
+  {
+    id: '34',
+    src: '/images/installations/install-49.jpg',
+    title: '수원 영통구 헬스보이짐 판타지움',
+    alt: '세짐 설치 사례 — 수원 영통구 헬스보이짐 판타지움',
+    categoryId: 'health',
+    regionKey: '경기',
+    gallery: [
+      '/images/installations/install-49.jpg',
+      '/images/installations/install-50.jpg',
+      '/images/installations/install-51.jpg',
+    ],
+  },
+  {
+    id: '35',
+    src: '/images/installations/install-52.jpg',
+    title: '경기 고양 일산 엘필라테스',
+    alt: '세짐 설치 사례 — 경기 고양 일산 엘필라테스',
+    categoryId: 'pt',
+    regionKey: '경기',
+  },
+  {
+    id: '36',
+    src: '/images/installations/install-53.jpg',
+    title: '미소짐',
+    alt: '세짐 설치 사례 — 미소짐',
+    categoryId: 'health',
+    regionKey: '기타',
+    gallery: [
+      '/images/installations/install-53.jpg',
+      '/images/installations/install-54.jpg',
+      '/images/installations/install-55.jpg',
+    ],
+  },
   {
     id: '33',
     src: '/images/installations/install-46.jpg',

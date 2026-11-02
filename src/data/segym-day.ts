@@ -14,6 +14,9 @@ export const SEGYM_DAY_HOME_POPUP_ENABLED = false
 /** 참가 신청 폼·API 접수 허용 여부 */
 export const SEGYM_DAY_APPLY_ENABLED = false
 
+/** 헤더·푸터 SEGYM DAY 메뉴 노출 여부 (/segym-day 경로는 유지) */
+export const SEGYM_DAY_NAV_ENABLED = false
+
 export const SEGYM_DAY_HERO_IMAGE = '/images/segym-day/segym-day-hero.png'
 /** 카카오 공유·링크 미리보기용 VIP 초대장 이미지 */
 export const SEGYM_DAY_SHARE_IMAGE = '/images/segym-day/segym-day-vip-share.png'

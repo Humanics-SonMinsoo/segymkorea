@@ -110,10 +110,10 @@ export const INSTALLATION_GALLERY: InstallationPhoto[] = [
   {
     id: '36',
     src: '/images/installations/install-53.jpg',
-    title: '미소짐',
-    alt: '세짐 설치 사례 — 미소짐',
+    title: '인천 구월동 미소짐',
+    alt: '세짐 설치 사례 — 인천 구월동 미소짐',
     categoryId: 'health',
-    regionKey: '기타',
+    regionKey: '인천',
     gallery: [
       '/images/installations/install-53.jpg',
       '/images/installations/install-54.jpg',

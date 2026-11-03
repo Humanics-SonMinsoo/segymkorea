@@ -6,7 +6,7 @@
  */
 
 /** 최신 도입 센터 — 갤러리 최상단 `NEW 센터` (전체·해당 카테고리 탭) */
-export const INSTALLATION_NEW_IDS = ['37', '38', '39', '34', '35', '36'] as const
+export const INSTALLATION_NEW_IDS = ['40', '41', '42', '43', '37', '38', '39', '34', '35', '36'] as const
 
 /** 최근 행사·전시 — 갤러리 상단 `최근 행사` (전체·행사·전시 탭) */
 export const INSTALLATION_NEW_EVENT_IDS = ['25', '26'] as const
@@ -86,6 +86,40 @@ function eventImagePath(event: 'spoex' | 'myprotein', num: number): string {
 }
 
 export const INSTALLATION_GALLERY: InstallationPhoto[] = [
+  {
+    id: '40',
+    src: '/images/installations/install-70.png',
+    title: '대전 서구 온앤원 PT헬스',
+    alt: '세짐 설치 사례 — 대전 서구 온앤원 PT헬스',
+    categoryId: 'pt',
+    regionKey: '대전',
+    gallery: ['/images/installations/install-70.png', '/images/installations/install-71.png'],
+  },
+  {
+    id: '41',
+    src: '/images/installations/install-72.png',
+    title: '경기 남양주 살빼남',
+    alt: '세짐 설치 사례 — 경기 남양주 살빼남',
+    categoryId: 'health',
+    regionKey: '경기',
+  },
+  {
+    id: '42',
+    src: '/images/installations/install-74.jpg',
+    title: '천안 서북구 올핏짐',
+    alt: '세짐 설치 사례 — 천안 서북구 올핏짐',
+    categoryId: 'health',
+    regionKey: '충남',
+    gallery: ['/images/installations/install-74.jpg', '/images/installations/install-75.jpg'],
+  },
+  {
+    id: '43',
+    src: '/images/installations/install-73.jpg',
+    title: '서울 중구 세모3시스템',
+    alt: '세짐 설치 사례 — 서울 중구 세모3시스템',
+    categoryId: 'pt',
+    regionKey: '서울',
+  },
   {
     id: '37',
     src: '/images/installations/install-56.jpg',

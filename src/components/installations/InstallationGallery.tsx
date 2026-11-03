@@ -5,6 +5,7 @@ import {
   INSTALLATION_FEATURED_IDS,
   INSTALLATION_GALLERY,
   INSTALLATION_CATEGORIES,
+  INSTALLATION_EVENT_IDS_WITHOUT_NEW_BADGE,
   INSTALLATION_NEW_EVENT_IDS,
   INSTALLATION_NEW_IDS,
   installationRegionSortIndex,
@@ -320,7 +321,14 @@ export function InstallationGallery() {
               </p>
               <ul className={gridClass}>
                 {newEventRow.map((photo) => (
-                  <PhotoCard key={photo.id} photo={photo} onOpen={setActive} isNew />
+                  <PhotoCard
+                    key={photo.id}
+                    photo={photo}
+                    onOpen={setActive}
+                    isNew={
+                      !(INSTALLATION_EVENT_IDS_WITHOUT_NEW_BADGE as readonly string[]).includes(photo.id)
+                    }
+                  />
                 ))}
               </ul>
             </section>

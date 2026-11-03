@@ -11,6 +11,9 @@ export const INSTALLATION_NEW_IDS = ['40', '41', '42', '43', '37', '38', '39', '
 /** 최근 행사·전시 — 갤러리 상단 `최근 행사` (전체·행사·전시 탭) */
 export const INSTALLATION_NEW_EVENT_IDS = ['25', '26'] as const
 
+/** 최근 행사 섹션에는 두지만 NEW 뱃지는 표시하지 않음 */
+export const INSTALLATION_EVENT_IDS_WITHOUT_NEW_BADGE = ['26'] as const
+
 /** 갤러리 맨 위 고정 노출 순서 (올라잇짐 → 프렌드짐 → 진천 국가대표 선수촌) — `전체` 탭에서만 사용 */
 export const INSTALLATION_FEATURED_IDS = ['18', '10', '19'] as const
 

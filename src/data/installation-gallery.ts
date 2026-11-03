@@ -6,7 +6,7 @@
  */
 
 /** 최신 도입 센터 — 갤러리 최상단 `NEW 센터` (전체·해당 카테고리 탭) */
-export const INSTALLATION_NEW_IDS = ['34', '35', '36'] as const
+export const INSTALLATION_NEW_IDS = ['37', '38', '39', '34', '35', '36'] as const
 
 /** 최근 행사·전시 — 갤러리 상단 `최근 행사` (전체·행사·전시 탭) */
 export const INSTALLATION_NEW_EVENT_IDS = ['25', '26'] as const
@@ -86,6 +86,50 @@ function eventImagePath(event: 'spoex' | 'myprotein', num: number): string {
 }
 
 export const INSTALLATION_GALLERY: InstallationPhoto[] = [
+  {
+    id: '37',
+    src: '/images/installations/install-56.jpg',
+    title: '성남 분당구 헬스보이짐 수내점',
+    alt: '세짐 설치 사례 — 성남 분당구 헬스보이짐 수내점',
+    categoryId: 'health',
+    regionKey: '경기',
+    gallery: [
+      '/images/installations/install-56.jpg',
+      '/images/installations/install-57.jpg',
+      '/images/installations/install-58.jpg',
+      '/images/installations/install-59.jpg',
+    ],
+  },
+  {
+    id: '38',
+    src: '/images/installations/install-60.jpg',
+    title: '수원 영통구 헬스보이짐 광교점',
+    alt: '세짐 설치 사례 — 수원 영통구 헬스보이짐 광교점',
+    categoryId: 'health',
+    regionKey: '경기',
+    gallery: [
+      '/images/installations/install-60.jpg',
+      '/images/installations/install-61.jpg',
+      '/images/installations/install-62.jpg',
+      '/images/installations/install-63.jpg',
+    ],
+  },
+  {
+    id: '39',
+    src: '/images/installations/install-64.jpg',
+    title: '서울 관악구 데일리휘트니스 난곡점',
+    alt: '세짐 설치 사례 — 서울 관악구 데일리휘트니스 난곡점',
+    categoryId: 'health',
+    regionKey: '서울',
+    gallery: [
+      '/images/installations/install-64.jpg',
+      '/images/installations/install-65.jpg',
+      '/images/installations/install-66.jpg',
+      '/images/installations/install-67.jpg',
+      '/images/installations/install-68.jpg',
+      '/images/installations/install-69.jpg',
+    ],
+  },
   {
     id: '34',
     src: '/images/installations/install-49.jpg',

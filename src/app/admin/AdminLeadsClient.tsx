@@ -177,7 +177,10 @@ export default function AdminLeadsClient() {
     }
   }
 
-  const patchBrochure = async (id: string, body: { assignee?: LeadAssignee; delivered?: boolean }) => {
+  const patchBrochure = async (
+    id: string,
+    body: { assignee?: LeadAssignee; quality?: LeadQuality; delivered?: boolean },
+  ) => {
     setSavingId(id)
     try {
       const res = await fetch(`/api/brochure-requests/${id}`, {
@@ -313,7 +316,7 @@ export default function AdminLeadsClient() {
                 {tab === 'leads'
                   ? `도입 문의·${DEMO_EXPERIENCE_COPY.adminLabel} 리드입니다. 담당자와 유효/무효를 기록할 수 있습니다.`
                   : tab === 'brochure'
-                    ? '이메일로 소개서(PDF) 발송 전에 아래 목록을 확인하세요.'
+                    ? '이메일로 소개서(PDF) 발송 전에 아래 목록을 확인하세요. 유효/무효 리드를 기록할 수 있습니다.'
                     : 'SEGYM DAY 이벤트 참여 신청 목록입니다.'}
               </p>
             </div>
@@ -519,13 +522,14 @@ export default function AdminLeadsClient() {
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">센터명</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">연락처</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap">리드 관리자</th>
+                      <th className="px-3 py-3 font-semibold whitespace-nowrap">리드 품질</th>
                       <th className="px-3 py-3 font-semibold whitespace-nowrap text-center">소개서 전달</th>
                     </tr>
                   </thead>
                   <tbody>
                     {brochures.length === 0 ? (
                       <tr>
-                        <td colSpan={6} className="px-4 py-12 text-center text-gray-500">
+                        <td colSpan={7} className="px-4 py-12 text-center text-gray-500">
                           아직 소개서 요청이 없습니다.
                         </td>
                       </tr>
@@ -559,6 +563,24 @@ export default function AdminLeadsClient() {
                               {LEAD_ASSIGNEES.map((a) => (
                                 <option key={a} value={a}>
                                   {a}
+                                </option>
+                              ))}
+                            </select>
+                          </td>
+                          <td className="px-3 py-3">
+                            <select
+                              className="w-full min-w-[120px] rounded-lg border border-gray-300 px-2 py-1.5 text-gray-900 bg-white"
+                              value={row.quality ?? ''}
+                              disabled={savingId === row.id}
+                              onChange={(e) => {
+                                const v = e.target.value as LeadQuality
+                                patchBrochure(row.id, { quality: v })
+                              }}
+                            >
+                              <option value="">미선택</option>
+                              {LEAD_QUALITIES.map((q) => (
+                                <option key={q} value={q}>
+                                  {q}
                                 </option>
                               ))}
                             </select>

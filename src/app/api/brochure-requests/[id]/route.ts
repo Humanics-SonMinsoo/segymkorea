@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { updateBrochureRequest, type BrochureRequestPatch } from '@/lib/brochure-requests-store'
 import { COOKIE_NAME, verifyAdminSession } from '@/lib/admin-auth'
-import { LEAD_ASSIGNEES, type LeadAssignee } from '@/types/lead'
+import { LEAD_ASSIGNEES, LEAD_QUALITIES, type LeadAssignee, type LeadQuality } from '@/types/lead'
 
 export const runtime = 'nodejs'
 
@@ -13,6 +13,10 @@ function isAdmin(): boolean {
 
 function isAssignee(v: unknown): v is LeadAssignee {
   return v === '' || LEAD_ASSIGNEES.includes(v as (typeof LEAD_ASSIGNEES)[number])
+}
+
+function isQuality(v: unknown): v is LeadQuality {
+  return v === '' || LEAD_QUALITIES.includes(v as (typeof LEAD_QUALITIES)[number])
 }
 
 export async function PATCH(
@@ -28,13 +32,19 @@ export async function PATCH(
   }
   try {
     const body = await request.json()
-    const { assignee, delivered } = body as Record<string, unknown>
+    const { assignee, quality, delivered } = body as Record<string, unknown>
     const patch: BrochureRequestPatch = {}
     if (assignee !== undefined) {
       if (!isAssignee(assignee)) {
         return NextResponse.json({ error: '잘못된 담당자 값' }, { status: 400 })
       }
       patch.assignee = assignee
+    }
+    if (quality !== undefined) {
+      if (!isQuality(quality)) {
+        return NextResponse.json({ error: '잘못된 리드 품질 값' }, { status: 400 })
+      }
+      patch.quality = quality
     }
     if (delivered !== undefined) {
       if (typeof delivered !== 'boolean') {

@@ -66,6 +66,7 @@ export async function addBrochureRequest(input: NewBrochureRequestInput): Promis
     centerName: input.centerName.trim(),
     phone: input.phone.trim(),
     assignee: '',
+    quality: '',
     delivered: false,
   }
   rows.unshift(row)
@@ -73,7 +74,7 @@ export async function addBrochureRequest(input: NewBrochureRequestInput): Promis
   return row
 }
 
-export type BrochureRequestPatch = Partial<Pick<BrochureRequest, 'assignee' | 'delivered'>>
+export type BrochureRequestPatch = Partial<Pick<BrochureRequest, 'assignee' | 'quality' | 'delivered'>>
 
 export async function updateBrochureRequest(
   id: string,

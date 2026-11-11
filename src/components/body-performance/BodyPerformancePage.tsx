@@ -63,7 +63,7 @@ export function BodyPerformancePage() {
   return (
     <div className="bg-white text-gray-900">
       <section className="bg-gradient-to-b from-primary-muted to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-16 sm:pb-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-12 sm:pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="min-w-0">
               <p className="text-sm font-semibold text-primary mb-4 ko-modal-copy">세짐 체성능 측정</p>
@@ -90,8 +90,8 @@ export function BodyPerformancePage() {
         </div>
       </section>
 
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-16 sm:pb-24">
+      <section className="border-t border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 sm:pt-20 pb-16 sm:pb-24">
           <h2 className="section-title ko-modal-copy">체성능 측정이란?</h2>
           <div className="mt-6 max-w-3xl space-y-4 text-base sm:text-lg text-gray-600 leading-relaxed ko-modal-copy">
             <p>
@@ -100,7 +100,7 @@ export function BodyPerformancePage() {
               얼마나 힘 있게 미는지, 좌우가 얼마나 밸런스 있게 움직이는지는 수치로 남기기 힘들었어요.
             </p>
             <p>
-              이제 세짐으로 그 수행능력을 데이터로 측정할 수 있어요.
+              이제 세짐 체성능 측정 기능으로 그 수행능력을 데이터로 측정할 수 있어요.
               <br />
               회원이 어떻게 운동하는지를 체성능 측정으로 확인합니다.
             </p>

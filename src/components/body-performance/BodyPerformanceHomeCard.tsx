@@ -11,8 +11,9 @@ export function BodyPerformanceHomeCard() {
             <p className="text-sm font-semibold text-primary mb-3 ko-modal-copy">세짐 소프트웨어 업데이트</p>
             <h2 className="section-title ko-modal-copy">체성능 측정 기능 출시!</h2>
             <p className="mt-5 section-body text-gray-700 ko-modal-copy">
-              운동 수행능력을 세짐 점수로 확인해 보세요. 힘과 속도, 가동범위, 좌우 균형까지 살펴보고 회원의 다음
-              운동 목표를 함께 정할 수 있어요.
+              우리 몸의 운동 수행능력을 측정할 수 있는 기능!
+              <br />
+              세짐에서 새롭게 업데이트된 체성능 측정 기능을 소개합니다.
             </p>
             <div className="mt-8">
               <Link

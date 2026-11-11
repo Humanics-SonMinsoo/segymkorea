@@ -44,6 +44,13 @@ const USES = [
   },
 ] as const
 
+const METRICS = [
+  { emoji: '💪', title: '힘', body: '얼마나 강하게 밀어 올리는지' },
+  { emoji: '⚡', title: '속도', body: '얼마나 빠르게 움직이는지' },
+  { emoji: '🔄', title: '가동범위', body: '동작을 어디까지 사용하는지' },
+  { emoji: '⚖️', title: '밸런스', body: '좌우가 얼마나 고르게 힘을 쓰는지' },
+] as const
+
 function PhoneFrame({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="mx-auto w-full max-w-[280px] overflow-hidden rounded-[1.75rem] border border-gray-200 bg-white shadow-sm">
@@ -65,9 +72,10 @@ export function BodyPerformancePage() {
                 <br />
                 데이터로 관리해 보세요
               </h1>
-              <p className="mt-6 text-base sm:text-lg text-gray-600 leading-relaxed ko-modal-copy">
-                회원마다 측정 결과와 운동 기록을 남겨 보세요. 세짐 점수와 상세 데이터로 현재 상태를 보고, 다음 운동
-                목표까지 함께 관리할 수 있어요.
+              <p className="mt-6 text-base sm:text-lg text-gray-700 leading-relaxed ko-modal-copy">
+                <span className="font-semibold text-gray-900">우리 몸의 운동 수행능력을 측정할 수 있는 기능!</span>
+                <br />
+                세짐에서 새롭게 업데이트된 체성능 측정 기능을 소개합니다.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <a
@@ -95,7 +103,45 @@ export function BodyPerformancePage() {
       </section>
 
       <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-16 sm:pb-24">
+          <h2 className="section-title ko-modal-copy">체성능 측정이란?</h2>
+          <div className="mt-6 max-w-3xl space-y-4 text-base sm:text-lg text-gray-600 leading-relaxed ko-modal-copy">
+            <p>
+              기존에는 체성분으로 근육량과 체지방량은 알 수 있었지만, 운동 수행능력은 알기 어려웠습니다. 얼마나 힘 있게
+              미는지, 얼마나 빠르게 움직이는지는 수치로 남기기 힘들었어요.
+            </p>
+            <p>
+              이제 세짐으로 그 수행능력을 데이터로 측정할 수 있어요. 회원이 어떻게 운동하는지를 체성능 측정으로
+              확인합니다.
+            </p>
+          </div>
+          <h3 className="mt-14 text-xl sm:text-2xl font-bold text-gray-900 ko-modal-copy">주요 데이터</h3>
+          <p className="mt-3 max-w-3xl text-base sm:text-lg text-gray-600 leading-relaxed ko-modal-copy">
+            측정 결과에서는 힘, 속도, 가동범위, 밸런스를 중심으로 운동을 분석해요.
+          </p>
+          <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 list-none p-0 m-0">
+            {METRICS.map((item) => (
+              <li key={item.title} className="rounded-2xl bg-primary-muted px-5 py-6">
+                <p className="text-lg font-bold text-gray-900 ko-modal-copy">
+                  <span
+                    className="mr-1.5"
+                    aria-hidden
+                    style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", emoji, sans-serif' }}
+                  >
+                    {item.emoji}
+                  </span>
+                  {item.title}
+                </p>
+                <p className="mt-2 text-base text-gray-600 leading-relaxed ko-modal-copy">{item.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="bg-white border-t border-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+          <p className="text-sm font-semibold text-primary mb-3 ko-modal-copy">측정 방법</p>
           <h2 className="section-title max-w-3xl ko-modal-copy">측정할 부위를 고르고, 화면 안내를 따라 운동해요</h2>
           <ol className="mt-12 sm:mt-16 grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 list-none p-0 m-0">
             {STEPS.map((item) => (

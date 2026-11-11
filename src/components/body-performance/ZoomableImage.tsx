@@ -6,9 +6,10 @@ type Props = {
   src: string
   alt: string
   caption?: string
+  imageClassName?: string
 }
 
-export function ZoomableImage({ src, alt, caption }: Props) {
+export function ZoomableImage({ src, alt, caption, imageClassName = 'w-full h-auto block' }: Props) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -29,10 +30,10 @@ export function ZoomableImage({ src, alt, caption }: Props) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="group block w-full text-left rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        className="group flex h-full w-full flex-col text-left rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
-        <span className="block overflow-hidden rounded-2xl border border-primary/10 bg-white shadow-sm">
-          <img src={src} alt={alt} className="w-full h-auto block" />
+        <span className="flex flex-1 items-start justify-center overflow-hidden rounded-2xl border border-primary/10 bg-white shadow-sm">
+          <img src={src} alt={alt} className={imageClassName} />
         </span>
         <span className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-500 ko-modal-copy">
           {caption ? <span className="font-medium text-gray-700">{caption}</span> : null}

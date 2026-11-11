@@ -9,7 +9,7 @@ export function BodyPerformanceHomeCard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="min-w-0">
             <p className="text-sm font-semibold text-primary mb-3 ko-modal-copy">세짐 소프트웨어 업데이트</p>
-            <h2 className="section-title ko-modal-copy">내 벤치프레스는 몇 점일까요?</h2>
+            <h2 className="section-title ko-modal-copy">체성능 측정 기능 출시!</h2>
             <p className="mt-5 section-body text-gray-700 ko-modal-copy">
               운동 수행능력을 세짐 점수로 확인해 보세요. 힘과 속도, 가동범위, 좌우 균형까지 살펴보고 회원의 다음
               운동 목표를 함께 정할 수 있어요.
@@ -25,11 +25,11 @@ export function BodyPerformanceHomeCard() {
             </div>
           </div>
 
-          <figure className="min-w-0">
+          <figure className="min-w-0 mx-auto w-full max-w-md">
             <img
-              src={BODY_PERFORMANCE_IMAGES.scoreCard}
-              alt="체성능 점수 예시. 어깨 세짐 점수 742점과 힘, 속도, 가동범위, 좌우균형 막대"
-              className="w-full h-auto rounded-2xl"
+              src={BODY_PERFORMANCE_IMAGES.resultSummary}
+              alt="체성능 측정 결과. 세짐 점수 카드와 힘, 운동 템포, 가동범위, 좌우 균형 총평"
+              className="w-full h-auto rounded-2xl border border-primary/10 bg-white shadow-sm"
             />
           </figure>
         </div>

@@ -28,16 +28,19 @@ const STEPS = [
 
 const USES = [
   {
+    emoji: '👋',
     title: '신규 회원 OT',
-    body: '체성분 측정과 함께 첫 운동 수행능력을 기록하고, 회원과 시작 목표를 정해요.',
+    body: '첫 방문에 체성분과 함께 운동 수행능력을 기록하고, 회원과 시작 목표를 같이 정해요.',
   },
   {
+    emoji: '💬',
     title: 'PT 상담과 회원 관리',
-    body: '운동 중 놓치기 쉬운 좌우 차이와 가동범위를 함께 보고, 다음 수업에서 집중할 동작을 정해요.',
+    body: '운동 중 놓치기 쉬운 좌우 차이와 가동범위를 같이 보고, 다음 수업에서 집중할 동작을 정해요.',
   },
   {
+    emoji: '🏆',
     title: '센터 챌린지',
-    body: '같은 종목에서 친구와 점수를 겨루거나 지난번 내 기록에 도전하는 센터 이벤트를 운영해 보세요.',
+    body: '같은 종목에서 친구와 점수를 겨루거나, 지난번 내 기록에 다시 도전하는 이벤트를 열어 보세요.',
   },
 ] as const
 
@@ -101,15 +104,6 @@ export function BodyPerformancePage() {
                 <div className="mt-8">
                   <PhoneFrame src={item.image} alt={item.alt} />
                 </div>
-                {item.step === '03' ? (
-                  <div className="mt-6">
-                    <PhoneFrame
-                      src={BODY_PERFORMANCE_IMAGES.stepSet2}
-                      alt="벤치프레스 2세트 측정 진행 화면. 있는 힘껏 5번과 바 기울기"
-                    />
-                    <p className="mt-3 text-center text-sm text-gray-500 ko-modal-copy">2세트 화면</p>
-                  </div>
-                ) : null}
               </li>
             ))}
           </ol>
@@ -117,32 +111,34 @@ export function BodyPerformancePage() {
       </section>
 
       <section id="results" className="scroll-mt-28 bg-primary-muted">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
           <h2 className="section-title ko-modal-copy">점수로 한눈에 보고, 데이터로 자세히 살펴봐요</h2>
-          <div className="mt-12 sm:mt-16 space-y-16">
-            <div>
+          <div className="mt-12 sm:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
+            <div className="flex flex-col min-w-0">
               <h3 className="text-xl font-bold text-gray-900 ko-modal-copy">세짐 점수와 운동 총평</h3>
-              <p className="mt-3 text-base text-gray-700 leading-relaxed ko-modal-copy">
+              <p className="mt-3 text-base text-gray-700 leading-relaxed ko-modal-copy lg:min-h-[4.75rem]">
                 부위별 세짐 점수와 운동 총평을 보고 다음 운동에서 보완할 점을 확인해요.
               </p>
-              <div className="mt-8">
+              <div className="mt-6 flex-1">
                 <ZoomableImage
                   src={BODY_PERFORMANCE_IMAGES.resultSummary}
                   alt="정밀 측정 결과. 가슴 세짐 점수 742점과 힘, 운동 템포, 가동범위, 좌우 균형 총평"
                   caption="측정 결과 예시"
+                  imageClassName="max-h-[420px] w-full object-contain object-top"
                 />
               </div>
             </div>
-            <div>
+            <div className="flex flex-col min-w-0">
               <h3 className="text-xl font-bold text-gray-900 ko-modal-copy">운동 상세 분석</h3>
-              <p className="mt-3 text-base text-gray-700 leading-relaxed ko-modal-copy">
+              <p className="mt-3 text-base text-gray-700 leading-relaxed ko-modal-copy lg:min-h-[4.75rem]">
                 좌우 균형, 운동 템포, 회차별 휴식 시간, 바 높이에 따른 힘과 속도를 살펴봐요.
               </p>
-              <div className="mt-8">
+              <div className="mt-6 flex-1">
                 <ZoomableImage
                   src={BODY_PERFORMANCE_IMAGES.resultDetail}
                   alt="운동 상세 분석. 좌우 균형, 운동 템포, 회차별 휴식 시간, 높이별 힘과 속도"
                   caption="측정 결과 예시"
+                  imageClassName="max-h-[420px] w-full object-contain object-top"
                 />
               </div>
             </div>
@@ -156,7 +152,16 @@ export function BodyPerformancePage() {
           <ul className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 list-none p-0 m-0">
             {USES.map((item) => (
               <li key={item.title} className="rounded-2xl bg-primary-muted px-6 py-7">
-                <h3 className="text-lg font-bold text-gray-900 ko-modal-copy">{item.title}</h3>
+                <h3 className="text-lg font-bold text-gray-900 ko-modal-copy">
+                  <span
+                    className="mr-1.5"
+                    aria-hidden
+                    style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", emoji, sans-serif' }}
+                  >
+                    {item.emoji}
+                  </span>
+                  {item.title}
+                </h3>
                 <p className="mt-3 text-base text-gray-600 leading-relaxed ko-modal-copy">{item.body}</p>
               </li>
             ))}

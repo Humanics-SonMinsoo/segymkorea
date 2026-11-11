@@ -60,7 +60,7 @@ export function BodyPerformancePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="min-w-0">
               <p className="text-sm font-semibold text-primary mb-4 ko-modal-copy">세짐 체성능 측정</p>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 ko-modal-copy">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.4] text-gray-900 ko-modal-copy">
                 회원들의 운동 수행능력을
                 <br />
                 데이터로 관리해 보세요

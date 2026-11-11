@@ -77,18 +77,6 @@ export function BodyPerformancePage() {
                 <br />
                 세짐에서 새롭게 업데이트된 체성능 측정 기능을 소개합니다.
               </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <a
-                  href="#results"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-sm font-semibold text-white hover:bg-primary-dark transition-colors"
-                >
-                  측정 결과 예시 보기
-                  <span aria-hidden>→</span>
-                </a>
-                <OpenInquiryButton className="inline-flex items-center justify-center rounded-lg border-2 border-primary px-6 py-3.5 text-sm font-semibold text-primary hover:bg-primary-muted transition-colors">
-                  도입 문의하기
-                </OpenInquiryButton>
-              </div>
             </div>
             <figure className="min-w-0">
               <img

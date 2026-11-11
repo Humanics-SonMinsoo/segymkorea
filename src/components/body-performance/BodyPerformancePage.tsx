@@ -6,9 +6,9 @@ const STEPS = [
   {
     step: '01',
     title: '측정 선택',
-    body: '빠른 측정으로 좌우 균형을 확인하거나, 정밀 측정으로 다리·가슴·등·어깨·팔 중 원하는 부위의 수행능력을 확인해요.',
+    body: '빠른 측정으로 좌우 균형을 확인하거나, 정밀 측정으로 다리, 가슴, 등, 어깨, 팔 중 원하는 부위의 수행능력을 확인해요.',
     image: BODY_PERFORMANCE_IMAGES.stepSelect,
-    alt: '체성능 측정 선택 화면. 빠른 측정과 정밀 측정, 다리·가슴·등·어깨·팔 부위 선택',
+    alt: '체성능 측정 선택 화면. 빠른 측정과 정밀 측정, 다리, 가슴, 등, 어깨, 팔 부위 선택',
   },
   {
     step: '02',
@@ -61,11 +61,13 @@ export function BodyPerformancePage() {
             <div className="min-w-0">
               <p className="text-sm font-semibold text-primary mb-4 ko-modal-copy">세짐 체성능 측정</p>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 ko-modal-copy">
-                내 벤치프레스는 몇 점일까요?
+                회원들의 운동 수행능력을
+                <br />
+                데이터로 관리해 보세요
               </h1>
               <p className="mt-6 text-base sm:text-lg text-gray-600 leading-relaxed ko-modal-copy">
-                측정할 부위를 고르고 화면 안내에 따라 운동해 보세요. 세짐 점수와 상세 분석을 통해 오늘의 운동을
-                돌아보고, 다음에 보완할 점을 확인할 수 있어요.
+                회원마다 측정 결과와 운동 기록을 남겨 보세요. 세짐 점수와 상세 데이터로 현재 상태를 보고, 다음 운동
+                목표까지 함께 관리할 수 있어요.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <a
@@ -116,8 +118,9 @@ export function BodyPerformancePage() {
           <div className="mt-12 sm:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
             <div className="flex flex-col min-w-0">
               <h3 className="text-xl font-bold text-gray-900 ko-modal-copy">세짐 점수와 운동 총평</h3>
-              <p className="mt-3 text-base text-gray-700 leading-relaxed ko-modal-copy lg:min-h-[4.75rem]">
-                부위별 세짐 점수와 운동 총평을 보고 다음 운동에서 보완할 점을 확인해요.
+              <p className="mt-3 text-base text-gray-700 leading-relaxed ko-modal-copy lg:min-h-[7.5rem]">
+                부위별 세짐 점수로 지금 수준을 확인할 수 있어요. 총평에서는 잘한 점과 부족한 점이 함께 보여서, 다음에
+                무엇을 보완할지 바로 알 수 있어요.
               </p>
               <div className="mt-6 flex-1">
                 <ZoomableImage
@@ -130,8 +133,9 @@ export function BodyPerformancePage() {
             </div>
             <div className="flex flex-col min-w-0">
               <h3 className="text-xl font-bold text-gray-900 ko-modal-copy">운동 상세 분석</h3>
-              <p className="mt-3 text-base text-gray-700 leading-relaxed ko-modal-copy lg:min-h-[4.75rem]">
-                좌우 균형, 운동 템포, 회차별 휴식 시간, 바 높이에 따른 힘과 속도를 살펴봐요.
+              <p className="mt-3 text-base text-gray-700 leading-relaxed ko-modal-copy lg:min-h-[7.5rem]">
+                좌우 균형, 운동 템포, 회차별 휴식 시간, 바 높이에 따른 힘과 속도까지 더 자세한 운동 데이터를 볼 수
+                있어요. 회원 운동을 데이터로 관리하는 전문적인 피트니스가 될 수 있어요.
               </p>
               <div className="mt-6 flex-1">
                 <ZoomableImage

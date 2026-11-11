@@ -1,7 +1,7 @@
 export const BODY_PERFORMANCE_PATH = '/body-performance'
 
 export const BODY_PERFORMANCE_IMAGES = {
-  scoreCard: '/images/body-performance/score-card.png',
+  scoreCard: '/images/body-performance/score-card-v2.png',
   stepSelect: '/images/body-performance/step-select.png',
   stepPrep: '/images/body-performance/step-prep.png',
   stepLive: '/images/body-performance/step-live.png',

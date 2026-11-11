@@ -81,7 +81,7 @@ export function BodyPerformancePage() {
             <figure className="min-w-0">
               <img
                 src={BODY_PERFORMANCE_IMAGES.scoreCard}
-                alt="체성능 점수 예시. 어깨 세짐 점수 742점"
+                alt="어깨 체성능 점수 카드. 세짐 점수 742점, 힘 32kgf, 운동 템포, 가동범위 52cm, 좌우균형"
                 className="w-full h-auto rounded-3xl"
               />
               <figcaption className="mt-4 text-sm text-gray-500 text-center ko-modal-copy">체성능 점수 예시</figcaption>

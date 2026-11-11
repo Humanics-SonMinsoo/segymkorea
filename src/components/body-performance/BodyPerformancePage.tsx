@@ -45,10 +45,10 @@ const USES = [
 ] as const
 
 const METRICS = [
-  { emoji: '💪', title: '힘', body: '얼마나 강하게 밀어 올리는지' },
-  { emoji: '⚡', title: '속도', body: '얼마나 빠르게 움직이는지' },
-  { emoji: '🔄', title: '가동범위', body: '동작을 어디까지 사용하는지' },
-  { emoji: '⚖️', title: '밸런스', body: '좌우가 얼마나 고르게 힘을 쓰는지' },
+  { emoji: '💪', title: '힘', body: '얼마나 강하게 밀어 올리는가?' },
+  { emoji: '⚡', title: '속도', body: '얼마나 빠르게 움직이는가?' },
+  { emoji: '🔄', title: '가동범위', body: '동작을 어디까지 사용하는가?' },
+  { emoji: '⚖️', title: '밸런스', body: '좌우가 얼마나 고르게 힘을 쓰는가?' },
 ] as const
 
 function PhoneFrame({ src, alt }: { src: string; alt: string }) {
@@ -107,12 +107,14 @@ export function BodyPerformancePage() {
           <h2 className="section-title ko-modal-copy">체성능 측정이란?</h2>
           <div className="mt-6 max-w-3xl space-y-4 text-base sm:text-lg text-gray-600 leading-relaxed ko-modal-copy">
             <p>
-              기존에는 체성분으로 근육량과 체지방량은 알 수 있었지만, 운동 수행능력은 알기 어려웠습니다. 얼마나 힘 있게
-              미는지, 얼마나 빠르게 움직이는지는 수치로 남기기 힘들었어요.
+              기존에는 체성분으로 근육량과 체지방량은 알 수 있었지만, 운동 수행능력은 알기 어려웠습니다.
+              <br />
+              얼마나 힘 있게 미는지, 얼마나 빠르게 움직이는지는 수치로 남기기 힘들었어요.
             </p>
             <p>
-              이제 세짐으로 그 수행능력을 데이터로 측정할 수 있어요. 회원이 어떻게 운동하는지를 체성능 측정으로
-              확인합니다.
+              이제 세짐으로 그 수행능력을 데이터로 측정할 수 있어요.
+              <br />
+              회원이 어떻게 운동하는지를 체성능 측정으로 확인합니다.
             </p>
           </div>
           <h3 className="mt-14 text-xl sm:text-2xl font-bold text-gray-900 ko-modal-copy">주요 데이터</h3>

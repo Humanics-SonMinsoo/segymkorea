@@ -6,7 +6,6 @@ import ProductLineup from '@/components/sections/ProductLineup'
 import SegymStrengths from '@/components/sections/SegymStrengths'
 import RoboticTraining from '@/components/sections/RoboticTraining'
 import AppShowcase from '@/components/sections/AppShowcase'
-import PTSales from '@/components/sections/PTSales'
 import CustomerStories from '@/components/sections/CustomerStories'
 import AmbassadorReason from '@/components/sections/AmbassadorReason'
 import TrustHighlights from '@/components/sections/TrustHighlights'
@@ -14,8 +13,8 @@ import BenefitsGuide from '@/components/sections/BenefitsGuide'
 import CTA from '@/components/sections/CTA'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { UpdateHomePromoBand } from '@/components/update/UpdateHomePromoBand'
-import { KO_HEADER_OFFSET_CLASS, UPDATE_2026_PUBLIC_ENABLED } from '@/data/update-2026'
+import { BodyPerformanceHomeCard } from '@/components/body-performance/BodyPerformanceHomeCard'
+import { KO_HEADER_OFFSET_CLASS } from '@/data/update-2026'
 
 export default function Home() {
   return (
@@ -25,10 +24,9 @@ export default function Home() {
       <BestFitnessCenters />
       <SegymIntro />
       <SegymStrengths />
-      {UPDATE_2026_PUBLIC_ENABLED ? <UpdateHomePromoBand /> : null}
+      <BodyPerformanceHomeCard />
       <RoboticTraining />
       <AppShowcase />
-      <PTSales />
       <CustomerStories />
       <AmbassadorReason />
       <TrustHighlights />

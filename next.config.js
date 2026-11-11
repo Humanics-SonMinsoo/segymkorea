@@ -21,6 +21,7 @@ const nextConfig = {
       { source: '/specs', destination: '/product#specs', permanent: true },
       { source: '/product/specs', destination: '/product#specs', permanent: true },
       { source: '/pricing/cycle', destination: '/pricing', permanent: false },
+      { source: '/update', destination: '/body-performance', permanent: true },
     ]
   },
 }
